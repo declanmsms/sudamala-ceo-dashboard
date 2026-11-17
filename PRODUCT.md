@@ -32,7 +32,7 @@ Six boutique luxury resorts across Bali (Sanur, Ubud, Amed), Lombok (Senggigi) a
 
 ## Brand Commitments
 
-Black and white only. Black = needs attention; white or light gray = fine. Never colour alone: always an arrow, a status word and the number.
+Lagoon palette (owner decision, November 2026): deep lagoon teal #0e4f54 is the brand field, with the white Sudamala logo. Status colours: red = critical (fix now), orange = serious, amber = watch, green = on track. Never colour alone: always an icon, a status word and the number, so a black-and-white print still reads.
 
 ## Evidence on Hand
 

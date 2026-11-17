@@ -5,20 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CEO dashboard: where to improve, at a glance · Sudamala Resorts (sample data)</title>
 <meta name="description" content="Example CEO dashboard for Sudamala Resorts with illustrative sample data, not Sudamala actuals.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0e4f54">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23111'/%3E%3Crect x='7' y='3.5' width='2' height='6' fill='%23fff'/%3E%3Crect x='7' y='10.8' width='2' height='2' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%230e4f54'/%3E%3Crect x='7' y='3.5' width='2' height='6' fill='%23fff'/%3E%3Crect x='7' y='10.8' width='2' height='2' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/gilda-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>
 </head>
 <body class="explain-on">
 <a class="skip" href="#issues">Skip to what needs fixing</a>
 
-<header class="masthead wrap">
-  <p class="sample-label" role="note"><strong>Example with illustrative sample data, not Sudamala actuals.</strong></p>
-  <h1>CEO dashboard: where to improve, at a glance</h1>
-  <p class="resorts-line"><strong>Sudamala Resorts</strong>, six resorts: Sanur · Ubud · Amed (Bali) · Senggigi (Lombok) · Komodo · Seraya (Flores)</p>
-  <p class="verdict" id="verdict" aria-live="polite"></p>
+<header class="masthead">
+  <div class="wrap">
+    <div class="topline">
+      <img class="logo" src="assets/sudamala-logo-white.png" width="240" height="240" alt="Sudamala Resorts">
+      <p class="sample-label" role="note"><strong>Example with illustrative sample data</strong>, not Sudamala actuals.</p>
+    </div>
+    <div class="intro">
+      <div>
+        <h1>CEO dashboard: where to improve, at a glance.</h1>
+        <p class="resorts-line">Six resorts: Sanur · Ubud · Amed (Bali) · Senggigi (Lombok) · Komodo · Seraya (Flores)</p>
+      </div>
+      <p class="verdict" id="verdict" aria-live="polite"></p>
+    </div>
+  </div>
 </header>
 
 <div class="filterbar" id="filterbar">
@@ -53,7 +64,9 @@
 <main class="wrap" id="main">
   <p class="key" aria-label="How to read this page">
     <span class="key-title">How to read this page:</span>
-    <span class="key-item"><span class="swatch" aria-hidden="true"></span> Black = needs attention</span>
+    <span class="key-item"><span class="swatch sw-crit" aria-hidden="true"></span> Red = fix now</span>
+    <span class="key-item"><span class="swatch sw-watch" aria-hidden="true"></span> Amber = keep an eye on it</span>
+    <span class="key-item"><span class="swatch sw-ok" aria-hidden="true"></span> Green = on track</span>
     <span class="key-item"><span aria-hidden="true">▼</span> below target</span>
     <span class="key-item"><span aria-hidden="true">▲</span> above target</span>
   </p>
@@ -67,7 +80,7 @@
     <div class="section-head">
       <h2 id="kpis-h">How are we doing?</h2>
       <p class="answers" id="kpis-sub"></p>
-      <p class="explain">Each tile shows this period's number, how far it is from the comparison, and a 12-month trend. A black mark means the number needs attention.</p>
+      <p class="explain">Each tile shows this period's number, how far it is from the comparison, and a 12-month trend. A red or orange mark means the number needs attention.</p>
     </div>
     <div class="tiles" id="tiles"></div>
   </section>
@@ -89,8 +102,8 @@
   <section class="section" id="map" aria-labelledby="map-h">
     <div class="section-head">
       <h2 id="map-h">Where are the problems?</h2>
-      <p class="answers">Each resort on a real map. Black pins need attention.</p>
-      <p class="explain">Black pin with “!” = needs attention · white pin with black outline = watch · white pin with gray outline = on track. Bigger pins earn more per room. Tap a pin to focus on it.</p>
+      <p class="answers">Each resort on a real map. Red and orange pins need attention.</p>
+      <p class="explain">Red pin = critical · orange pin = serious · white pin with amber outline = watch · white pin with teal tick = on track. Bigger pins earn more per room. Tap a pin to focus on it.</p>
     </div>
     <div class="maps">
       <figure class="map-panel map-main" id="map-main">
@@ -109,7 +122,7 @@
     <div class="section-head">
       <h2 id="score-h">How does each resort compare?</h2>
       <p class="answers" id="score-sub"></p>
-      <p class="explain">A black row = one resort in trouble. A black column = a problem across the group. Tap a row to focus on that resort.</p>
+      <p class="explain">A red row = one resort in trouble. A red column = a problem across the group. Tap a row to focus on that resort.</p>
     </div>
     <div class="table-scroll" id="score-wrap" tabindex="0" role="region" aria-label="Scorecard, scrolls sideways"></div>
     <p class="table-key">

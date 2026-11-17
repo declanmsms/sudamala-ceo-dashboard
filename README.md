@@ -1,6 +1,6 @@
 # Sudamala Resorts CEO dashboard (sample data)
 
-A single-page, black-and-white CEO dashboard: where the business needs to improve, how much it costs, and who should act.
+A single-page, CEO dashboard in Sudamala lagoon teal: where the business needs to improve, how much it costs, and who should act.
 **Example with illustrative sample data, not Sudamala actuals.**
 
 - Static site: `index.html`, `styles.css`, `app.js`, `data.js`, `map-data.js`. No build step, no backend.

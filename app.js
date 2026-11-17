@@ -1,5 +1,6 @@
 // Sudamala CEO dashboard. Vanilla JS, no dependencies.
-// Rule: black = needs attention. All text goes in via textContent (never innerHTML).
+// Lagoon palette: red = fix now, orange = this month, amber = watch, green = on track; always with icon, word and number.
+//  All text goes in via textContent (never innerHTML).
 import { RESORTS, DAYS, TARGETS, MONTHS, PORTFOLIO, UBUD_RAMP, LANDMARKS } from "./data.js";
 import { MAP_DATA } from "./map-data.js";
 
@@ -10,6 +11,10 @@ const SEV_RANK = { critical: 3, serious: 2, watch: 1, ok: 0 };
 const SEV_WORD = { critical: "Critical", serious: "Serious", watch: "Watch", ok: "On track" };
 const SEV_MEANING = { critical: "fix this week", serious: "fix this month", watch: "keep an eye on it", ok: "no action" };
 const MINUS = "−";
+// Palette (keep in sync with styles.css)
+const C = { brand: "#0e4f54", brandSoft: "#8fbcb8", ink: "#141414", ink3: "#5f6766", ref: "#8b9796",
+  crit: "#b42318", ser: "#c2410c", watch: "#b07800", watchInk: "#7a5600", ok: "#2b6e46", okRing: "#7fae92",
+  ota: "#c2410c", whole: "#b9cac8", direct: "#0e4f54" };
 const byId = Object.fromEntries(RESORTS.map(r => [r.id, r]));
 
 /* ============================== DOM helpers ============================== */
@@ -73,14 +78,14 @@ const arrowFor = d => (round(d, 1) > 0 ? "▲" : round(d, 1) < 0 ? "▼" : "");
 function statusIcon(sev, size = 18) {
   const svg = s("svg", { width: size, height: size, viewBox: "0 0 20 20", "aria-hidden": "true", focusable: "false" });
   if (sev === "critical") {
-    svg.append(s("circle", { cx: 10, cy: 10, r: 9.5, fill: "#111" }), bang("#fff"));
+    svg.append(s("circle", { cx: 10, cy: 10, r: 9.5, fill: C.crit }), bang("#fff"));
   } else if (sev === "serious") {
-    svg.append(s("path", { d: "M10 0.8 L19.6 18.6 H0.4 Z", fill: "#111", "stroke-linejoin": "round" }), bang("#fff", 3.2));
+    svg.append(s("path", { d: "M10 0.8 L19.6 18.6 H0.4 Z", fill: C.ser, "stroke-linejoin": "round" }), bang("#fff", 3.2));
   } else if (sev === "watch") {
-    svg.append(s("circle", { cx: 10, cy: 10, r: 8.6, fill: "#fff", stroke: "#111", "stroke-width": 1.8 }), bang("#111"));
+    svg.append(s("circle", { cx: 10, cy: 10, r: 8.6, fill: "#fff8e6", stroke: C.watch, "stroke-width": 1.9 }), bang(C.watchInk));
   } else {
-    svg.append(s("circle", { cx: 10, cy: 10, r: 8.6, fill: "#fff", stroke: "#8a8a8a", "stroke-width": 1.6 }),
-      s("path", { d: "M6 10.4 L8.8 13.1 L14.2 7.4", fill: "none", stroke: "#5e5e5e", "stroke-width": 1.9, "stroke-linecap": "round", "stroke-linejoin": "round" }));
+    svg.append(s("circle", { cx: 10, cy: 10, r: 8.6, fill: "#eef6f1", stroke: C.okRing, "stroke-width": 1.6 }),
+      s("path", { d: "M6 10.4 L8.8 13.1 L14.2 7.4", fill: "none", stroke: C.ok, "stroke-width": 1.9, "stroke-linecap": "round", "stroke-linejoin": "round" }));
   }
   return svg;
 }
@@ -239,15 +244,19 @@ function showTip(x, y, title, rows) {
     if (typeof row === "string") tip.append(h("div", { text: row }));
     else tip.append(h("div", { class: "tt-row" }, h("span", { text: row[0] }), h("strong", { text: row[1] })));
   }
+  const wasOpen = tip.classList.contains("is-open");
   tip.hidden = false;
+  tip.toggleAttribute("data-instant", wasOpen);
   const tw = tip.offsetWidth, th = tip.offsetHeight, vw = window.innerWidth;
   let left = Math.min(Math.max(8, x - tw / 2), vw - tw - 8);
   let top = y - th - 14;
   if (top < 8) top = y + 18;
   tip.style.left = left + "px";
   tip.style.top = top + "px";
+  tip.style.transformOrigin = top < y ? "50% 100%" : "50% 0%"; // grow from the point it describes
+  requestAnimationFrame(() => tip.classList.add("is-open"));
 }
-const hideTip = () => { tip.hidden = true; };
+const hideTip = () => { tip.classList.remove("is-open"); tip.removeAttribute("data-instant"); tip.hidden = true; };
 window.addEventListener("scroll", hideTip, { passive: true });
 
 /* ============================== Header / verdict ============================== */
@@ -258,7 +267,7 @@ function renderVerdict(ctx) {
     const r = byId[state.focus];
     const mine = ctx.all.filter(i => i.resort === r);
     if (!mine.length) { el.append(h("strong", { text: r.name }), `: no problems found ${PERIOD_LABEL[p]}. On track.`); return; }
-    el.append(h("strong", { text: r.name }), `: ${mine.length} ${mine.length === 1 ? "problem" : "problems"} ${PERIOD_LABEL[p]}. Worst: ${lc(mine[0].head.split(": ")[1])}.`);
+    el.append(statusEl(mine[0].sev), h("br"), h("strong", { text: r.name }), `: ${mine.length} ${mine.length === 1 ? "problem" : "problems"} ${PERIOD_LABEL[p]}. Worst: ${lc(mine[0].head.split(": ")[1])}.`);
     return;
   }
   const worst = ctx.resortOrder[0];
@@ -266,7 +275,7 @@ function renderVerdict(ctx) {
   if (!mine.length) { el.append("All six resorts are on track ", PERIOD_LABEL[p], "."); return; }
   const parts = mine.slice(0, 2).map(i => lc(i.head.split(": ")[1]));
   const next = ctx.resortOrder[1];
-  el.append(h("strong", { text: `${worst.name} needs the most help` }), `: ${parts.join(", and ")}. `);
+  el.append(statusEl(ctx.status[worst.id]), h("br"), h("strong", { text: `${worst.name} needs the most help` }), `: ${parts.join(", and ")}. `);
   if (mine[0].money) el.append(`Biggest gap ${money(mine[0].money).replace("≈ ", "≈ ")}. `);
   if (next && ctx.status[next.id] !== "ok") el.append(`Next: ${next.name} (${SEV_WORD[ctx.status[next.id]]}).`);
 }
@@ -346,10 +355,10 @@ function sparkline(vals, ref) {
   const y = v => H - pad - (v - min) / span * (H - pad * 2);
   const path = arr => { let d = "", pen = false; arr.forEach((v, i) => { if (v == null) { pen = false; return; } d += (pen ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); pen = true; }); return d; };
   const svg = s("svg", { class: "spark", viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: "none", "aria-hidden": "true", focusable: "false" });
-  if (ref) svg.append(s("path", { d: path(ref), fill: "none", stroke: "#8a8a8a", "stroke-width": 1.4, "stroke-dasharray": "4 3", "vector-effect": "non-scaling-stroke" }));
-  svg.append(s("path", { d: path(vals), fill: "none", stroke: "#111", "stroke-width": 1.6, "stroke-linejoin": "round", "vector-effect": "non-scaling-stroke" }));
+  if (ref) svg.append(s("path", { d: path(ref), fill: "none", stroke: C.ref, "stroke-width": 1.4, "stroke-dasharray": "4 3", "vector-effect": "non-scaling-stroke" }));
+  svg.append(s("path", { d: path(vals), fill: "none", stroke: C.brand, "stroke-width": 2, "stroke-linejoin": "round", "vector-effect": "non-scaling-stroke" }));
   const li = vals.length - 1;
-  if (vals[li] != null) svg.append(s("circle", { cx: x(li), cy: y(vals[li]), r: 2.6, fill: "#111" }));
+  if (vals[li] != null) svg.append(s("circle", { cx: x(li), cy: y(vals[li]), r: 2.8, fill: C.brand }));
   return svg;
 }
 
@@ -453,9 +462,9 @@ function buildMaps() {
         items.push({ el, x, y, prio: 2 }); stage.append(el); continue;
       }
       const [x, y] = project(P, L.lat, L.lon);
-      const mark = L.kind === "volcano" ? s("svg", { width: 11, height: 10, viewBox: "0 0 11 10" }, s("path", { d: "M5.5 0.5 L10.5 9.5 H0.5 Z", fill: "#7a7a7a" }))
-        : L.kind === "airport" ? s("svg", { width: 9, height: 9, viewBox: "0 0 9 9" }, s("rect", { x: 0.5, y: 0.5, width: 8, height: 8, fill: "#fff", stroke: "#6a6a6a", "stroke-width": 1.4 }))
-        : s("svg", { width: 8, height: 8, viewBox: "0 0 8 8" }, s("circle", { cx: 4, cy: 4, r: 3, fill: "#6a6a6a" }));
+      const mark = L.kind === "volcano" ? s("svg", { width: 11, height: 10, viewBox: "0 0 11 10" }, s("path", { d: "M5.5 0.5 L10.5 9.5 H0.5 Z", fill: "#7d8c8a" }))
+        : L.kind === "airport" ? s("svg", { width: 9, height: 9, viewBox: "0 0 9 9" }, s("rect", { x: 0.5, y: 0.5, width: 8, height: 8, fill: "#fff", stroke: "#5f6f6d", "stroke-width": 1.4 }))
+        : s("svg", { width: 8, height: 8, viewBox: "0 0 8 8" }, s("circle", { cx: 4, cy: 4, r: 3, fill: "#5f6f6d" }));
       const el = h("span", { class: "ov ov-mark", "aria-hidden": "true" }, mark, h("span", { class: "ov-text halo", text: L.kind === "airport" ? L.name + " airport" : L.name }));
       el.style.transform = "translate(-5px, -50%)"; // marker sits on the point, label runs right
       items.push({ el, x, y, prio: 2 }); stage.append(el);
@@ -469,7 +478,7 @@ function buildMaps() {
     }
     // north arrow + scale bar
     stage.append(h("div", { class: "north", "aria-hidden": "true" },
-      s("svg", { width: 14, height: 18, viewBox: "0 0 14 18" }, s("path", { d: "M7 1 L12.5 16 L7 12.5 L1.5 16 Z", fill: "#6a6a6a" })), h("div", { text: "N" })));
+      s("svg", { width: 14, height: 18, viewBox: "0 0 14 18" }, s("path", { d: "M7 1 L12.5 16 L7 12.5 L1.5 16 Z", fill: "#5f6f6d" })), h("div", { text: "N" })));
     const km = key === "main" ? 20 : 5;
     const bar = h("div", { class: "scalebar", "aria-hidden": "true" }, h("i"), h("span", { text: km + " km" }));
     stage.append(bar);
@@ -517,13 +526,14 @@ function updateMapPins(ctx) {
       const revpar = d.occ[0] / 100 * d.adr[0];
       const size = Math.round(24 + Math.max(0, Math.min(1, (revpar - 900) / 1300)) * 14); // pin height grows with RevPAR
       const attn = sev === "critical" || sev === "serious";
-      const fill = attn ? "#111" : "#fff", stroke = attn ? "#111" : sev === "watch" ? "#111" : "#8a8a8a";
+      const sevC = sev === "critical" ? C.crit : sev === "serious" ? C.ser : sev === "watch" ? C.watch : C.brand;
+      const fill = attn ? sevC : "#fff", stroke = attn ? "#fff" : sevC;
       const w = Math.round(size * 0.74);
       const svg = s("svg", { width: w, height: size, viewBox: "0 0 20 27", "aria-hidden": "true", focusable: "false" },
-        s("path", { d: "M10 26 C10 26 1.2 16.4 1.2 9.8 A8.8 8.8 0 0 1 18.8 9.8 C18.8 16.4 10 26 10 26 Z", fill, stroke, "stroke-width": attn ? 1.2 : 1.8 }));
+        s("path", { d: "M10 26 C10 26 1.2 16.4 1.2 9.8 A8.8 8.8 0 0 1 18.8 9.8 C18.8 16.4 10 26 10 26 Z", fill, stroke, "stroke-width": attn ? 1.6 : 2 }));
       if (attn) svg.append(s("rect", { x: 8.9, y: 4.2, width: 2.2, height: 6.4, rx: 1, fill: "#fff" }), s("rect", { x: 8.9, y: 12, width: 2.2, height: 2.2, rx: 1.1, fill: "#fff" }));
-      else if (sev === "watch") svg.append(s("rect", { x: 8.9, y: 4.6, width: 2.2, height: 6, rx: 1, fill: "#111" }), s("rect", { x: 8.9, y: 12, width: 2.2, height: 2.2, rx: 1.1, fill: "#111" }));
-      else svg.append(s("circle", { cx: 10, cy: 9.8, r: 2.6, fill: "#8a8a8a" }));
+      else if (sev === "watch") svg.append(s("rect", { x: 8.9, y: 4.6, width: 2.2, height: 6, rx: 1, fill: C.watchInk }), s("rect", { x: 8.9, y: 12, width: 2.2, height: 2.2, rx: 1.1, fill: C.watchInk }));
+      else svg.append(s("path", { d: "M6.6 10 L9 12.4 L13.6 7.6", fill: "none", stroke: C.brand, "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round" }));
       clear(el).append(svg);
       el.dataset.w = w; el.dataset.h = size;
       el.classList.toggle("is-focus", state.focus === id);
@@ -641,7 +651,7 @@ function renderScorecard(ctx) {
   const cw = state.cmp === "ly" ? "last year" : "budget";
   $("#score-sub").textContent = `${cap(PERIOD_LABEL[p])}. Occupancy, ADR and GOP are compared with ${cw}; the other columns with fixed targets.` + (state.cmp === "ly" ? " Ubud is new, so it is compared with its ramp-up plan." : "");
   const table = h("table", { class: "score" });
-  table.append(h("caption", { class: "sr", text: `Scorecard: six resorts by seven measures, ${PERIOD_LABEL[p]}. Shading: black far below target, gray below target, white on or above.` }));
+  table.append(h("caption", { class: "sr", text: `Scorecard: six resorts by seven measures, ${PERIOD_LABEL[p]}. Shading: red far below target, amber below target, white on or above.` }));
   const hr = h("tr", {}, h("th", { scope: "col", text: "Resort" }));
   for (const c of COLS) hr.append(h("th", { scope: "col" }, c.label, h("br"), h("span", { class: "helper", text: c.vs === "cmp" ? "vs " + cw : c.vs })));
   table.append(h("thead", {}, hr));
@@ -727,7 +737,7 @@ function niceTicks(min, max, n = 4) {
   return out;
 }
 
-/* Generic line chart: series[0] = actual (solid black), series[1] = reference (dashed gray) */
+/* Generic line chart: series[0] = actual (solid teal), series[1] = reference (dashed gray) */
 function lineChart(def, { labels, series, yFmt, endFmt, aria, tipRows, yMin }) {
   const W = Math.max(280, def.plotWrap.clientWidth || 520), H = W < 420 ? 210 : 240;
   const ml = 44, mr = W < 420 ? 82 : 96, mt = 12, mb = 26;
@@ -849,7 +859,7 @@ function rowInteraction(svg, rows, rowY, rowH, W, H, tipFor, selRect) {
 function renderMixChart(def) {
   const rows = [...RESORTS].sort((a, b) => b.ch[1] - a.ch[1]);
   def.sub.textContent = "Share of room nights by channel, highest agent share first. Agents cost 18–30% commission.";
-  legendItems(def, [["lg-box", "Online travel agents (OTA)", { background: "#111" }], ["lg-box", "Wholesale", { background: "#a3a3a3" }], ["lg-box", "Direct", { background: "#e0e0e0" }]]);
+  legendItems(def, [["lg-box", "Online travel agents (OTA)", { background: C.ota }], ["lg-box", "Wholesale", { background: C.whole }], ["lg-box", "Direct", { background: C.direct }]]);
   const W = Math.max(280, def.plotWrap.clientWidth || 520), lw = 78, rowH = 26, gap = 14, mt = 4;
   const H = mt + rows.length * (rowH + gap);
   const bw = W - lw - 4;
@@ -861,9 +871,9 @@ function renderMixChart(def) {
   rows.forEach((r, i) => {
     const y = rowY(i);
     const isF = state.focus === r.id;
-    svg.append(s("text", { x: 0, y: y + rowH / 2 + 5, "font-size": 14, "font-weight": isF ? 700 : 500, fill: "#111", text: r.name }));
+    svg.append(s("text", { x: 0, y: y + rowH / 2 + 5, "font-size": 14, "font-weight": isF ? 700 : 500, fill: C.ink, text: r.name }));
     let x = lw;
-    for (const [v, cls, txtFill] of [[r.ch[1], "seg-ota", "#fff"], [r.ch[2], "seg-whole", "#111"], [r.ch[0], "seg-direct", "#111"]]) {
+    for (const [v, cls, txtFill] of [[r.ch[1], "seg-ota", "#fff"], [r.ch[2], "seg-whole", C.ink], [r.ch[0], "seg-direct", "#fff"]]) {
       const w = v / 100 * bw;
       svg.append(s("rect", { class: cls, x, y, width: Math.max(0, w - 1.5), height: rowH }));
       if (w >= 34) svg.append(s("text", { x: x + 7, y: y + rowH / 2 + 4.5, "font-size": 12.5, "font-weight": 600, style: `fill:${txtFill}`, text: v + "%" }));
@@ -881,7 +891,7 @@ function renderPaceChart(def) {
   const p = state.period;
   const rows = [...RESORTS].sort((a, b) => (a.p[p].pace ?? 99) - (b.p[p].pace ?? 99));
   def.sub.textContent = `Room nights already booked for the next 90 days vs the same point last year (${PERIOD_LABEL[p]} view).`;
-  legendItems(def, [["lg-box", "Behind last year", { background: "#111" }], ["lg-box", "Ahead of last year", { background: "#cfcfcf" }]]);
+  legendItems(def, [["lg-box", "Behind last year", { background: C.crit }], ["lg-box", "Ahead of last year", { background: C.brandSoft }]]);
   const W = Math.max(280, def.plotWrap.clientWidth || 520), lw = 78, rowH = 24, gap = 16, mt = 4, vr = 44;
   const H = mt + rows.length * (rowH + gap);
   const maxAbs = Math.max(10, ...rows.map(r => Math.abs(r.p[p].pace ?? 0)));
@@ -893,12 +903,12 @@ function renderPaceChart(def) {
   const rowY = i => mt + i * (rowH + gap);
   rows.forEach((r, i) => {
     const y = rowY(i), v = r.p[p].pace;
-    svg.append(s("text", { x: 0, y: y + rowH / 2 + 5, "font-size": 14, "font-weight": state.focus === r.id ? 700 : 500, fill: "#111", text: r.name }));
+    svg.append(s("text", { x: 0, y: y + rowH / 2 + 5, "font-size": 14, "font-weight": state.focus === r.id ? 700 : 500, fill: C.ink, text: r.name }));
     if (v == null) { svg.append(s("text", { x: cx + 8, y: y + rowH / 2 + 5, "font-size": 13, "font-style": "italic", text: "New resort, no last year" })); return; }
     const w = Math.abs(v) / maxAbs * half;
     if (v < 0) {
       svg.append(s("rect", { class: "bar-behind", x: cx - w, y, width: w, height: rowH }));
-      svg.append(s("text", { x: cx - w - 6, y: y + rowH / 2 + 5, "text-anchor": "end", "font-size": 13.5, "font-weight": 700, fill: "#111", style: "fill:#111", text: "▼ " + signed(v) + "%" }));
+      svg.append(s("text", { x: cx - w - 6, y: y + rowH / 2 + 5, "text-anchor": "end", "font-size": 13.5, "font-weight": 700, fill: C.crit, style: `fill:${C.crit}`, text: "▼ " + signed(v) + "%" }));
     } else {
       if (w > 0) svg.append(s("rect", { class: "bar-ahead", x: cx, y, width: w, height: rowH }));
       svg.append(s("text", { x: cx + w + 6, y: y + rowH / 2 + 5, "font-size": 13.5, text: (v > 0 ? "▲ " : "") + signed(v) + "%" }));
@@ -917,7 +927,7 @@ function renderPaceChart(def) {
 /* ============================== Footer ============================== */
 function renderFooter() {
   const f = $("#footer");
-  const thr = h("table", {}, h("thead", {}, h("tr", {}, ["Measure", "Black: far below", "Gray: below"].map(t => h("th", { scope: "col", text: t })))),
+  const thr = h("table", {}, h("thead", {}, h("tr", {}, ["Measure", "Red: far below", "Amber: below"].map(t => h("th", { scope: "col", text: t })))),
     h("tbody", {}, COLS.map(c => h("tr", {}, h("td", { text: `${c.label} (${c.vs === "cmp" ? "vs budget or last year" : c.vs})` }),
       h("td", { text: c.key === "gss" ? `${signed(c.far / 10, 1)} or worse` : `${signed(c.far)}${c.key === "adr" ? "%" : c.key === "rgi" ? "" : " pts"} or worse` }),
       h("td", { text: c.key === "gss" ? `${signed(c.below / 10, 1)} or worse` : `${signed(c.below)}${c.key === "adr" ? "%" : c.key === "rgi" ? "" : " pts"} or worse` })))));
@@ -973,6 +983,7 @@ function setFocus(id, scrollToIssues) {
   $("#focus").value = id;
   hideTip();
   render();
+  softSwap();
   if (scrollToIssues) $("#issues").focus({ preventScroll: true });
   if (scrollToIssues) $("#issues").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
 }
@@ -994,6 +1005,33 @@ function readUrl() {
   if (q.get("explain") === "off") state.explain = false;
 }
 
+/* Segmented controls: one thumb slides to the checked option (transform + width, strong ease-in-out). */
+function placeThumbs(animate = true) {
+  for (const seg of document.querySelectorAll(".seg-options")) {
+    let thumb = seg.querySelector(".seg-thumb");
+    if (!thumb) { thumb = h("span", { class: "seg-thumb", "aria-hidden": "true" }); seg.prepend(thumb); }
+    const on = seg.querySelector("input:checked + span");
+    if (!on) continue;
+    if (!animate) thumb.style.transition = "none";
+    // Measure against the track itself: each label is position:relative, so offsetLeft would read 0.
+    const a = on.getBoundingClientRect(), b = seg.getBoundingClientRect();
+    thumb.style.width = a.width + "px";
+    thumb.style.height = a.height + "px";
+    thumb.style.transform = `translate(${a.left - b.left - seg.clientLeft}px, ${a.top - b.top - seg.clientTop}px)`;
+    if (!animate) { thumb.getBoundingClientRect(); thumb.style.transition = ""; }
+  }
+}
+
+/* Filter changes: a short blur-crossfade masks the content swap (no layout movement). */
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+function softSwap() {
+  const targets = document.querySelectorAll("#verdict, #tiles, #issue-list, #bright-list, #score-wrap, #chart-grid, #resort-list");
+  for (const el of targets) {
+    el.animate(reduceMotion.matches ? [{ opacity: 0.6 }, { opacity: 1 }] : [{ opacity: 0.35, filter: "blur(3px)" }, { opacity: 1, filter: "blur(0)" }],
+      { duration: 220, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+  }
+}
+
 function init() {
   readUrl();
   const sel = $("#focus");
@@ -1010,7 +1048,9 @@ function init() {
     else if (t.name === "cmp") state.cmp = t.value;
     else if (t.id === "focus") { state.focus = t.value; state.showAll = false; }
     else if (t.id === "explain") state.explain = t.checked;
+    if (t.type === "radio") placeThumbs();
     render();
+    if (t.id !== "explain") softSwap();
   });
   $("#clear-focus").addEventListener("click", () => { setFocus("all", false); $("#focus").focus(); });
   $("#show-all").addEventListener("click", () => { state.showAll = !state.showAll; renderIssues(currentCtx); });
@@ -1019,5 +1059,8 @@ function init() {
   buildCharts();
   renderFooter();
   render();
+  placeThumbs(false);
+  document.fonts?.ready.then(() => { placeThumbs(false); layoutMaps(); });
+  new ResizeObserver(() => placeThumbs(false)).observe(form);
 }
 init();

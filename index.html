@@ -20,6 +20,10 @@
   <div class="wrap">
     <div class="topline">
       <img class="logo" src="assets/sudamala-logo-white.png" width="240" height="240" alt="Sudamala Resorts">
+      <nav class="views" aria-label="Dashboards">
+        <a href="./" aria-current="page">Business</a>
+        <a href="reviews/">Guest reviews</a>
+      </nav>
       <p class="sample-label" role="note"><strong>Example with illustrative sample data</strong>, not Sudamala actuals.</p>
     </div>
     <div class="intro">
@@ -77,12 +81,24 @@
   </div>
 
   <section class="section" id="kpis" aria-labelledby="kpis-h">
-    <div class="section-head">
-      <h2 id="kpis-h">How are we doing?</h2>
-      <p class="answers" id="kpis-sub"></p>
-      <p class="explain">Each tile shows this period's number, how far it is from the comparison, and a 12-month trend. A red or orange mark means the number needs attention.</p>
+    <div class="section-head kpi-head">
+      <div>
+        <h2 id="kpis-h">Your KPIs</h2>
+        <p class="answers" id="kpis-sub"></p>
+        <p class="explain">Each tile shows this period's number, the number it is compared with, and a 12-month trend. A red or orange mark means the number needs attention. Use “Choose my KPIs” to pick and arrange the tiles you want.</p>
+      </div>
+      <div class="kpi-actions">
+        <button type="button" class="btn btn-quiet" id="kpi-reset" hidden>Reset to default</button>
+        <button type="button" class="btn" id="kpi-edit" aria-expanded="false" aria-controls="kpi-tray">Choose my KPIs</button>
+      </div>
     </div>
-    <div class="tiles" id="tiles"></div>
+    <p class="kpi-hint" id="kpi-hint" hidden>Drag tiles to reorder them. Drag a tile from “More KPIs” onto your board to add it, or drag it back to remove it. On a phone, drag by the ⠿ handle. The first tile is shown large.</p>
+    <div class="tiles" id="tiles" aria-label="Your KPI board"></div>
+    <div class="kpi-tray" id="kpi-tray" hidden>
+      <h3 class="kpi-tray-h">More KPIs <span>drag onto your board, or press Add</span></h3>
+      <div class="kpi-tray-list" id="kpi-tray-list"></div>
+    </div>
+    <p class="sr" id="kpi-live" aria-live="polite"></p>
   </section>
 
   <section class="section section-issues" id="issues" aria-labelledby="issues-h" tabindex="-1">

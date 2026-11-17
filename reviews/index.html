@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest reviews: what guests are saying · Sudamala Resorts (sample data)</title>
+<meta name="description" content="Prototype guest-review dashboard for Sudamala Resorts with illustrative sample reviews, not real guest reviews.">
+<meta name="theme-color" content="#0e4f54">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%230e4f54'/%3E%3Cpath d='M8 3.6l1.3 2.7 3 .4-2.2 2.1.5 3L8 10.4l-2.6 1.4.5-3-2.2-2.1 3-.4z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preload" href="../fonts/gilda-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="reviews.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#reply-first">Skip to reviews waiting for a reply</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="topline">
+      <img class="logo" src="../assets/sudamala-logo-white.png" width="240" height="240" alt="Sudamala Resorts">
+      <nav class="views" aria-label="Dashboards">
+        <a href="../">Business</a>
+        <a href="./" aria-current="page">Guest reviews</a>
+      </nav>
+      <p class="sample-label" role="note"><strong>Prototype with illustrative sample reviews</strong>, not real guest reviews.</p>
+    </div>
+    <div class="intro">
+      <div>
+        <h1>Guest reviews: what guests are saying.</h1>
+        <p class="resorts-line">Google, Tripadvisor, Booking.com, Agoda and Expedia, checked every hour. Scores are out of 10.</p>
+      </div>
+      <p class="verdict" id="verdict" aria-live="polite"></p>
+    </div>
+  </div>
+</header>
+
+<div class="filterbar" id="filterbar">
+  <form class="wrap filters filters-2" id="filters" aria-label="Filters">
+    <fieldset class="seg">
+      <legend>Period</legend>
+      <div class="seg-options">
+        <label><input type="radio" name="period" value="7"><span>Last 7 days</span></label>
+        <label><input type="radio" name="period" value="30" checked><span>Last 30 days</span></label>
+        <label><input type="radio" name="period" value="90"><span>Last 90 days</span></label>
+      </div>
+    </fieldset>
+    <div class="field">
+      <label for="focus">Resort</label>
+      <select id="focus" name="focus">
+        <option value="all">All six resorts</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<main class="wrap" id="main">
+  <div class="focus-banner" id="focus-banner" hidden>
+    <p id="focus-text"></p>
+    <button type="button" class="btn" id="clear-focus">Back to all resorts</button>
+  </div>
+
+  <section class="section" id="kpis" aria-labelledby="kpis-h">
+    <div class="section-head">
+      <h2 id="kpis-h">How are guests rating us?</h2>
+      <p class="answers" id="kpis-sub"></p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="section" id="reply-first" aria-labelledby="reply-h" tabindex="-1">
+    <div class="section-head">
+      <h2 id="reply-h">Reply to these first</h2>
+      <p class="answers">Low scores and hygiene or safety complaints that nobody has answered yet, oldest first. Each has a suggested reply for a staff member to check before posting.</p>
+    </div>
+    <ol class="rv-list" id="urgent-list"></ol>
+  </section>
+
+  <section class="section" id="topics" aria-labelledby="topics-h">
+    <div class="section-head">
+      <h2 id="topics-h">What guests love, and what they complain about</h2>
+      <p class="answers">How often each topic came up, sorted by mentions.</p>
+    </div>
+    <div class="topic-grid">
+      <figure class="chart topic-card">
+        <h3 id="love-h"></h3>
+        <p class="sub">Topics guests praised most</p>
+        <ol class="bars" id="love-bars" aria-labelledby="love-h"></ol>
+      </figure>
+      <figure class="chart topic-card">
+        <h3 id="hate-h"></h3>
+        <p class="sub">Topics guests complained about most, with the team that owns it. ▲▼ = change from the period before.</p>
+        <ol class="bars" id="hate-bars" aria-labelledby="hate-h"></ol>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="resorts" aria-labelledby="resorts-h">
+    <div class="section-head">
+      <h2 id="resorts-h">How each resort is doing</h2>
+      <p class="answers" id="resorts-sub"></p>
+    </div>
+    <div class="table-scroll" id="resort-table" tabindex="0" role="region" aria-label="Resort table, scrolls sideways"></div>
+    <div class="chart compare" id="compare">
+      <h3 id="compare-h"></h3>
+      <p class="sub">Average score, last 30 days. Competitor scores are illustrative.</p>
+      <ol class="bars" id="compare-bars" aria-labelledby="compare-h"></ol>
+    </div>
+  </section>
+
+  <section class="section" id="feed" aria-labelledby="feed-h">
+    <div class="section-head">
+      <h2 id="feed-h">All reviews</h2>
+      <p class="answers">Newest first, with an AI summary and a suggested reply.</p>
+    </div>
+    <div class="feed-tools" role="group" aria-label="Show">
+      <div class="chips" id="feed-chips"></div>
+      <label class="src-pick"><span>Site</span>
+        <select id="source"><option value="all">All sites</option></select>
+      </label>
+    </div>
+    <ol class="rv-list" id="feed-list"></ol>
+    <div class="issues-more"><button type="button" class="btn" id="more">Show more</button></div>
+  </section>
+</main>
+
+<footer class="wrap footer" id="footer">
+  <p class="sample-label" role="note"><strong>Prototype with illustrative sample reviews</strong>, not real guest reviews or Sudamala results.</p>
+  <div>
+    <h2>How the real version will work</h2>
+    <ul>
+      <li>Every hour it collects new reviews: Google from the official Google Business Profile API, the booking sites from their public review pages, only where their terms allow.</li>
+      <li>Claude reads each review and adds a sentiment score, topics, the team responsible, urgency, a one-line summary and a suggested reply in the guest's language.</li>
+      <li>A low score (1 or 2 stars) or a hygiene or safety complaint alerts the resort GM within 15 minutes.</li>
+      <li>Nothing is ever posted automatically. A staff member checks and posts every reply.</li>
+      <li>Only public display names are kept; no emails or phone numbers (UU PDP No. 27/2022).</li>
+    </ul>
+  </div>
+  <div>
+    <h2>What the numbers mean</h2>
+    <ul>
+      <li>Score: every site converted to a score out of 10 (5 stars = 10).</li>
+      <li>Guest mood: average sentiment from −1 (angry) to +1 (delighted), shown as 0 to 100.</li>
+      <li>Waiting for a reply: reviews in the period with no public reply yet.</li>
+      <li>Targets: reply to 90% or more of reviews, within 24 hours; Ubud score 9.0 or higher.</li>
+      <li>Change is against the period of the same length just before.</li>
+    </ul>
+  </div>
+  <p>Sample “now”: 18 November 2026, 09:00 WITA. “Mark as replied” is stored only in this browser.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p class="wrap">This dashboard needs JavaScript to show the reviews.</p></noscript>
+</body>
+</html>

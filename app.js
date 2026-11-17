@@ -154,8 +154,8 @@ function issuesFor(r, p) {
   const occGap = round(d.occ[idx] - d.occ[0], 1);
   if (occGap >= 5) add({
     key: "occ", sev: occGap >= 10 ? "critical" : "serious",
-    head: `${r.name}: occupancy ${fix(occGap)} points under ${tWord}`,
-    detail: `${d.occ[0]}% vs ${d.occ[idx]}% ${PERIOD_LABEL[p]}${plan}`,
+    head: `${r.name}: occupancy ${d.occ[0]}% vs ${d.occ[idx]}% ${tWord}`,
+    detail: `${cap(PERIOD_LABEL[p])}${plan}: about ${nf0.format(round(occGap / 100 * r.rooms * days))} fewer room nights sold than ${idx === 2 ? "last year" : "budgeted"}`,
     owner: r.isNew ? "CMO + GM" : "GM + Revenue",
     action: r.isNew ? "launch metasearch, honeymoon packages and a creator campaign this week"
                     : "open tactical packages and member rates for the next 30 days",
@@ -171,8 +171,8 @@ function issuesFor(r, p) {
   const gopGap = round(d.gop[idx] - d.gop[0], 1);
   if (gopGap >= 3) add({
     key: "gop", sev: "serious",
-    head: `${r.name}: profit margin ${fix(gopGap)} points under ${tWord}`,
-    detail: `GOP margin ${d.gop[0]}% vs ${d.gop[idx]}% ${PERIOD_LABEL[p]}${plan}`,
+    head: `${r.name}: profit margin ${d.gop[0]}% vs ${d.gop[idx]}% ${tWord}`,
+    detail: `Gross operating profit as a share of revenue, ${PERIOD_LABEL[p]}${plan}`,
     owner: "CFO + GM", action: "review labour scheduling and costs against occupancy",
     money: gopGap / 100 * rev, moneyWhat: "profit gap"
   });
@@ -214,7 +214,7 @@ function brightFor(r, p) {
   const adrPct = (d.adr[0] / d.adr[idx] - 1) * 100;
   if (round(adrPct, 1) >= 3) out.push({ r, score: adrPct, text: `${r.name}: average rate ${fix(adrPct, 1)}% above ${tWord}`, detail: `${idr(d.adr[0])} vs ${idr(d.adr[idx])}` });
   const gopUp = d.gop[0] - d.gop[idx];
-  if (gopUp >= 2) out.push({ r, score: gopUp, text: `${r.name}: profit margin ${fix(gopUp)} points above ${tWord}`, detail: `GOP margin ${d.gop[0]}% vs ${d.gop[idx]}%` });
+  if (gopUp >= 2) out.push({ r, score: gopUp, text: `${r.name}: profit margin ${d.gop[0]}% vs ${d.gop[idx]}% ${tWord}`, detail: `gross operating profit share, ${PERIOD_LABEL[p]}` });
   return out;
 }
 
@@ -281,66 +281,279 @@ function renderVerdict(ctx) {
 }
 const lc = t => t.charAt(0).toLowerCase() + t.slice(1);
 
-/* ============================== KPI tiles ============================== */
-function renderTiles(ctx) {
-  const wrap = clear($("#tiles"));
+/* ============================== KPI board ============================== */
+// Every KPI shows the actual number next to the number it is compared with (no "points").
+const KPI_KEYS = ["revpar", "occ", "adr", "gop", "direct", "gss", "rev", "rgi", "pace", "resp"];
+const KPI_DEFAULT = ["revpar", "occ", "adr", "gop", "direct", "gss"];
+const KPI_STORE = "sudamala.kpis.v1";
+const kpi = { order: loadKpis(), edit: false };
+function loadKpis() {
+  try {
+    const v = JSON.parse(localStorage.getItem(KPI_STORE));
+    if (Array.isArray(v)) return v.filter(k => KPI_KEYS.includes(k));
+  } catch (e) { /* storage blocked: fall back to default */ }
+  return [...KPI_DEFAULT];
+}
+function saveKpis() { try { localStorage.setItem(KPI_STORE, JSON.stringify(kpi.order)); } catch (e) { /* ignore */ } }
+
+function kpiDefs() {
   const p = state.period;
   const sc = tileScope();
   const A = aggregate(sc.list, p, 0), T = aggregate(sc.list, p, sc.idx);
   const M = mixAgg(sc.list, p);
+  const hist = historyFor(state.focus);
+  const live = liveMtd(state.focus);
+  const vsName = sc.word === "budget" ? "Budget" : sc.word === "last year" ? "Last year" : "Plan";
+  const pct = (a, b) => (a / b - 1) * 100;
+  const avail = sc.list.reduce((t, r) => t + r.rooms * daysFor(r, p), 0);
+  const rgi = sc.list.reduce((t, r) => t + r.p[p].rgi * r.rooms * daysFor(r, p), 0) / avail;
+  const paceList = sc.list.filter(r => r.p[p].pace != null);
+  const pace = paceList.length ? paceList.reduce((t, r) => t + r.p[p].pace * r.rooms, 0) / paceList.reduce((t, r) => t + r.rooms, 0) : null;
+  const occA = round(A.occ), occT = round(T.occ), gopA = round(A.gop), gopT = round(T.gop), dirA = round(M.direct), respA = round(M.resp);
+  const gssA = round(M.gss, 1), gssL = round(M.gssLast, 1);
+  const revD = pct(A.revpar, T.revpar), adrD = pct(A.adr, T.adr), rvD = pct(A.rev, T.rev);
+  const band = (d, c, s, w) => (c != null && d <= c ? "critical" : s != null && d <= s ? "serious" : w != null && d <= w ? "watch" : "ok");
+  const ser = arr => arr.slice(0, 11);
+  const defs = {
+    revpar: { label: "RevPAR", helper: "Revenue per available room (occupancy × average rate)", value: idr(A.revpar),
+      vsName, vsValue: idr(T.revpar), dir: round(revD, 1), pct: revD, sev: band(revD, -10, -5, -2), note: true,
+      spark: ser(hist.revpar).concat(live.revpar), sparkRef: ser(hist.revparB).concat(live.revparB) },
+    occ: { label: "Occupancy", helper: "Share of rooms sold", value: occA + "%", vsName, vsValue: occT + "%",
+      dir: occA - occT, sev: band(A.occ - T.occ, -10, -5, -3), note: true, spark: ser(hist.occ).concat(live.occ) },
+    adr: { label: "ADR", helper: "Average daily rate per room sold", value: idr(A.adr), vsName, vsValue: idr(T.adr),
+      dir: round(adrD, 1), pct: adrD, sev: band(adrD, null, -6, -2), note: true,
+      spark: ser(hist.revpar).map((v, i) => v == null || !hist.occ[i] ? null : v / (hist.occ[i] / 100)).concat(live.adr) },
+    gop: { label: "GOP margin", helper: "Gross operating profit as a share of revenue", value: gopA + "%", vsName, vsValue: gopT + "%",
+      dir: gopA - gopT, sev: band(A.gop - T.gop, -5, -3, -2), note: true, spark: ser(hist.gop).concat(live.gop) },
+    direct: { label: "Direct booking share", helper: "Booked on our own website, phone or WhatsApp", value: dirA + "%",
+      vsName: "Target", vsValue: TARGETS.direct + "%", dir: dirA - TARGETS.direct, sev: band(M.direct - TARGETS.direct, null, -12, -4),
+      spark: ser(hist.direct).concat(live.direct) },
+    gss: { label: "Guest score", helper: "Average review score, out of 10", value: gssA.toFixed(1), vsName: "Last period", vsValue: gssL.toFixed(1),
+      dir: round(gssA - gssL, 1), sev: band(round(M.gss - M.gssLast, 1), null, -0.3, -0.2), spark: ser(hist.gss).concat(live.gss) },
+    rev: { label: "Room revenue", helper: `Total room revenue, ${PERIOD_LABEL[p]}`, value: idr(A.rev), vsName, vsValue: idr(T.rev),
+      dir: round(rvD, 1), pct: rvD, sev: band(rvD, -10, -5, -2), note: true },
+    rgi: { label: "RevPAR index", helper: "Our RevPAR vs competitors; 100 = fair share", value: String(round(rgi)), vsName: "Fair share", vsValue: "100",
+      dir: round(rgi) - 100, sev: rgi < 85 ? "critical" : rgi < 95 ? "serious" : round(rgi) < 100 ? "watch" : "ok" },
+    pace: pace == null
+      ? { label: "Next 90 days booked", helper: "Room nights on the books vs last year at this point", value: "n/a", vsName: "Last year", vsValue: "none (new resort)", dir: 0, sev: "ok" }
+      : { label: "Next 90 days booked", helper: "Room nights on the books, as a share of last year at this point", value: round(100 + pace) + "%",
+          vsName: "Last year", vsValue: "100%", dir: round(pace), sev: band(round(pace), null, -5, -1) },
+    resp: { label: "Review replies", helper: "Share of guest reviews answered", value: respA + "%", vsName: "Target", vsValue: TARGETS.reviewReplies + "%",
+      dir: respA - TARGETS.reviewReplies, sev: band(respA - TARGETS.reviewReplies, null, -25, -8) }
+  };
+  for (const [k, d] of Object.entries(defs)) {
+    d.key = k;
+    d.change = `${arrowFor(d.dir) ? arrowFor(d.dir) + " " : ""}${d.vsName} ${d.vsValue}` + (d.pct != null && round(d.pct, 1) !== 0 ? ` (${signed(d.pct, 1)}%)` : "");
+    d.tileNote = d.note && sc.note ? sc.note : null;
+  }
+  return { defs, sc };
+}
+
+function renderTiles() {
+  const p = state.period;
+  const { defs, sc } = kpiDefs();
   const scopeName = state.focus === "all" ? "the group" : byId[state.focus].name;
   $("#kpis-sub").textContent = sc.note && state.focus !== "all" ? `${cap(PERIOD_LABEL[p])} for ${scopeName}. ${sc.note}.`
     : `${cap(PERIOD_LABEL[p])} for ${scopeName}, compared with ${sc.word}.` + (sc.note ? ` ${sc.note}.` : "");
+  const board = clear($("#tiles"));
+  board.classList.toggle("is-editing", kpi.edit);
+  kpi.order.forEach((k, i) => board.append(tileEl(defs[k], { hero: i === 0 && !kpi.edit, pos: i })));
+  if (!kpi.order.length) board.append(h("p", { class: "kpi-empty", text: kpi.edit ? "Your board is empty. Drag KPIs here from “More KPIs” below." : "No KPIs chosen. Press “Choose my KPIs” to add some." }));
+  const tray = clear($("#kpi-tray-list"));
+  const rest = KPI_KEYS.filter(k => !kpi.order.includes(k));
+  for (const k of rest) tray.append(tileEl(defs[k], { tray: true }));
+  if (!rest.length) tray.append(h("p", { class: "kpi-empty", text: "Every KPI is on your board. Drag one here to remove it." }));
+}
 
-  const revDiff = (A.revpar / T.revpar - 1) * 100;
-  const adrDiff = (A.adr / T.adr - 1) * 100;
-  const occDiff = A.occ - T.occ, gopDiff = A.gop - T.gop, dirDiff = M.direct - TARGETS.direct, gssDiff = M.gss - M.gssLast;
-  const hist = historyFor(state.focus);
-  const live = liveMtd(state.focus);
-  const tiles = [
-    { key: "revpar", hero: true, label: "RevPAR", helper: "Revenue per available room (occupancy × average rate)",
-      value: idr(A.revpar), diff: revDiff, unit: "%", dp: 1, vs: sc.word,
-      sev: revDiff <= -10 ? "critical" : revDiff <= -5 ? "serious" : revDiff <= -2 ? "watch" : "ok",
-      spark: hist.revpar.slice(0, 11).concat(live.revpar), sparkRef: hist.revparB.slice(0, 11).concat(live.revparB) },
-    { key: "occ", label: "Occupancy", helper: "Share of rooms sold",
-      value: fix(A.occ) + "%", diff: occDiff, unit: "pts", dp: 1, vs: sc.word,
-      sev: occDiff <= -10 ? "critical" : occDiff <= -5 ? "serious" : occDiff <= -3 ? "watch" : "ok",
-      spark: hist.occ.slice(0, 11).concat(live.occ) },
-    { key: "adr", label: "ADR", helper: "Average daily rate per room sold",
-      value: idr(A.adr), diff: adrDiff, unit: "%", dp: 1, vs: sc.word,
-      sev: adrDiff <= -6 ? "serious" : adrDiff <= -2 ? "watch" : "ok",
-      spark: hist.revpar.slice(0, 11).map((v, i) => v == null || !hist.occ[i] ? null : v / (hist.occ[i] / 100)).concat(live.adr) },
-    { key: "gop", label: "GOP margin", helper: "Gross operating profit as a share of revenue",
-      value: fix(A.gop) + "%", diff: gopDiff, unit: "pts", dp: 1, vs: sc.word,
-      sev: gopDiff <= -5 ? "critical" : gopDiff <= -3 ? "serious" : gopDiff <= -2 ? "watch" : "ok",
-      spark: hist.gop.slice(0, 11).concat(live.gop) },
-    { key: "direct", label: "Direct booking share", helper: "Booked on our own website, phone or WhatsApp",
-      value: fix(M.direct) + "%", diff: dirDiff, unit: "pts", dp: 1, vs: `the ${TARGETS.direct}% target`,
-      sev: dirDiff <= -12 ? "serious" : dirDiff <= -4 ? "watch" : "ok",
-      spark: hist.direct.slice(0, 11).concat(live.direct) },
-    { key: "gss", label: "Guest score", helper: "Average review score, out of 10",
-      value: M.gss.toFixed(1), diff: gssDiff, unit: "", dp: 1, vs: "last period",
-      sev: gssDiff <= -0.3 ? "serious" : round(gssDiff, 1) <= -0.2 ? "watch" : "ok",
-      spark: hist.gss.slice(0, 11).concat(live.gss) }
-  ];
+function tileEl(t, { hero = false, tray = false, pos = 0 } = {}) {
+  const attn = t.sev === "critical" || t.sev === "serious";
+  const level = t.dir > 0 ? "above" : t.dir < 0 ? "below" : "level with";
+  const n = kpi.order.length;
+  const controls = !kpi.edit ? null : tray
+    ? h("div", { class: "kpi-ctl" }, h("button", { type: "button", class: "kpi-btn kpi-add", "data-act": "add", "aria-label": `Add ${t.label} to your board`, text: "+ Add" }))
+    : h("div", { class: "kpi-ctl" },
+        h("span", { class: "kpi-grip", "aria-hidden": "true", title: "Drag to move", text: "⠿" }),
+        h("button", { type: "button", class: "kpi-btn", "data-act": "left", "aria-label": `Move ${t.label} earlier`, disabled: pos === 0, text: "←" }),
+        h("button", { type: "button", class: "kpi-btn", "data-act": "right", "aria-label": `Move ${t.label} later`, disabled: pos === n - 1, text: "→" }),
+        h("button", { type: "button", class: "kpi-btn", "data-act": "remove", "aria-label": `Remove ${t.label} from your board`, text: "×" }));
+  return h("div", { class: "tile" + (hero ? " tile-hero" : "") + (attn ? " tile-attn" : "") + (tray ? " tile-tray" : ""), "data-key": t.key,
+      tabindex: kpi.edit ? null : "0", role: "group",
+      "aria-label": `${t.label}: ${t.value}. ${t.vsName} ${t.vsValue}, ${level}. Status: ${SEV_WORD[t.sev]}.` },
+    controls,
+    h("div", { class: "tile-label", text: t.label }),
+    tray ? null : h("div", { class: "helper", text: t.helper }),
+    h("div", { class: "tile-num", text: t.value }),
+    h("div", { class: "tile-change", text: t.change }),
+    statusEl(t.sev),
+    !tray && t.tileNote ? h("div", { class: "tile-note", text: t.tileNote }) : null,
+    tray || !t.spark ? null : hero
+      ? h("div", { class: "spark-box" }, sparkline(t.spark, t.sparkRef), h("span", { class: "spark-cap", text: `Last 12 months: solid = actual` + (t.sparkRef ? `, dashed = ${state.focus !== "all" && byId[state.focus].isNew ? "ramp-up plan" : "budget"}` : "") }))
+      : sparkline(t.spark, t.sparkRef)
+  );
+}
 
-  for (const t of tiles) {
-    const d = round(t.diff, t.dp);
-    const words = d === 0 ? `On ${t.vs === "last period" ? "par with" : ""} ${t.vs}`.replace("On  ", "On ") :
-      `${arrowFor(d)} ${Math.abs(d).toFixed(t.dp)}${t.unit === "%" ? "%" : t.unit ? " " + t.unit : ""} ${d > 0 ? "above" : "below"} ${t.vs}`;
-    const attn = t.sev === "critical" || t.sev === "serious";
-    const el = h("div", { class: "tile" + (t.hero ? " tile-hero" : "") + (attn ? " tile-attn" : ""), tabindex: "0", role: "group",
-      "aria-label": `${t.label}: ${t.value}. ${words.replace(/[▲▼]\s?/g, "")}. Status: ${SEV_WORD[t.sev]}.` },
-      h("div", { class: "tile-label", text: t.label }),
-      h("div", { class: "helper", text: t.helper }),
-      h("div", { class: "tile-num", text: t.value }),
-      h("div", { class: "tile-change", text: words }),
-      statusEl(t.sev),
-      sc.note && (t.key !== "direct" && t.key !== "gss") ? h("div", { class: "tile-note", text: sc.note }) : null,
-      t.hero ? h("div", { class: "spark-box" }, sparkline(t.spark, t.sparkRef), h("span", { class: "spark-cap", text: `Last 12 months: solid = actual, dashed = ${state.focus !== "all" && byId[state.focus].isNew ? "ramp-up plan" : "budget"}` }))
-             : sparkline(t.spark, t.sparkRef)
-    );
-    wrap.append(el);
+/* Board editing: buttons for keyboard and screen readers, pointer drag for mouse and touch. */
+function setKpis(order, msg, refocus) {
+  const before = tileRects();
+  kpi.order = order;
+  saveKpis();
+  renderTiles();
+  flip(before);
+  if (msg) $("#kpi-live").textContent = msg;
+  if (refocus) {
+    const el = document.querySelector(`.tile[data-key="${refocus[0]}"] [data-act="${refocus[1]}"]:not([disabled])`)
+      || document.querySelector(`.tile[data-key="${refocus[0]}"] .kpi-btn:not([disabled])`) || $("#kpi-edit");
+    el.focus();
+  }
+}
+const kpiLabel = k => ({ revpar: "RevPAR", occ: "Occupancy", adr: "ADR", gop: "GOP margin", direct: "Direct booking share", gss: "Guest score",
+  rev: "Room revenue", rgi: "RevPAR index", pace: "Next 90 days booked", resp: "Review replies" })[k];
+
+function setEdit(on) {
+  kpi.edit = on;
+  const btn = $("#kpi-edit");
+  btn.textContent = on ? "Done" : "Choose my KPIs";
+  btn.setAttribute("aria-expanded", String(on));
+  btn.classList.toggle("btn-solid", on);
+  $("#kpi-tray").hidden = !on;
+  $("#kpi-hint").hidden = !on;
+  $("#kpi-reset").hidden = !on;
+  renderTiles();
+  $("#kpis").classList.toggle("kpi-editing", on);
+}
+
+function tileRects() {
+  const m = new Map();
+  for (const el of document.querySelectorAll("#tiles .tile, #kpi-tray-list .tile")) m.set(el.dataset.key, el.getBoundingClientRect());
+  return m;
+}
+function flip(before, skip) {
+  if (reduceMotion.matches) return;
+  for (const el of document.querySelectorAll("#tiles .tile, #kpi-tray-list .tile")) {
+    const a = before.get(el.dataset.key);
+    if (!a || el === skip) continue;
+    const b = el.getBoundingClientRect();
+    const dx = a.left - b.left, dy = a.top - b.top;
+    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) continue;
+    el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "none" }], { duration: 220, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+  }
+}
+
+function initKpiBoard() {
+  $("#kpi-edit").addEventListener("click", () => setEdit(!kpi.edit));
+  $("#kpi-reset").addEventListener("click", () => setKpis([...KPI_DEFAULT], "Board reset to the default six KPIs."));
+  $("#kpis").addEventListener("click", e => {
+    const b = e.target.closest(".kpi-btn");
+    if (!b || b.disabled) return;
+    const key = b.closest(".tile").dataset.key, o = [...kpi.order], i = o.indexOf(key);
+    const act = b.dataset.act;
+    if (act === "add") { o.push(key); setKpis(o, `${kpiLabel(key)} added, position ${o.length} of ${o.length}.`, [key, "remove"]); }
+    else if (act === "remove") { o.splice(i, 1); setKpis(o, `${kpiLabel(key)} removed.`, [o[Math.min(i, o.length - 1)] || key, "remove"]); }
+    else {
+      const j = act === "left" ? i - 1 : i + 1;
+      [o[i], o[j]] = [o[j], o[i]];
+      setKpis(o, `${kpiLabel(key)} moved to position ${j + 1} of ${o.length}.`, [key, act]);
+    }
+  });
+  $("#kpis").addEventListener("pointerdown", dragStart);
+}
+
+let drag = null;
+function dragStart(e) {
+  if (!kpi.edit || e.button !== 0) return;
+  const tile = e.target.closest(".tile[data-key]");
+  if (!tile || e.target.closest("button")) return;
+  // Touch and pen drag from the handle so the page can still scroll; a mouse can grab the whole tile.
+  if (e.pointerType !== "mouse" && !e.target.closest(".kpi-grip")) return;
+  e.preventDefault();
+  const r = tile.getBoundingClientRect();
+  drag = { tile, key: tile.dataset.key, fromTray: !!tile.closest("#kpi-tray-list"), x0: e.clientX, y0: e.clientY, dx: e.clientX - r.left, dy: e.clientY - r.top, w: r.width, h: r.height, started: false, id: e.pointerId };
+  window.addEventListener("pointermove", dragMove);
+  window.addEventListener("pointerup", dragEnd);
+  window.addEventListener("pointercancel", dragEnd);
+}
+function dragMove(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  if (!drag.started) {
+    if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 5) return;
+    drag.started = true;
+    const g = drag.tile.cloneNode(true);
+    g.classList.add("drag-ghost");
+    g.removeAttribute("tabindex");
+    Object.assign(g.style, { width: drag.w + "px", height: drag.h + "px" });
+    document.body.append(g);
+    drag.ghost = g;
+    drag.tile.classList.add("is-dragging");
+    document.body.classList.add("is-dragging-kpi");
+    hideTip();
+  }
+  drag.ghost.style.transform = `translate(${e.clientX - drag.dx}px, ${e.clientY - drag.dy}px) rotate(-1deg) scale(1.03)`;
+  autoScroll(e.clientY);
+  const board = $("#tiles"), trayBox = $("#kpi-tray");
+  const under = document.elementFromPoint(e.clientX, e.clientY);
+  const overTray = under && trayBox.contains(under);
+  trayBox.classList.toggle("is-drop", overTray && !drag.fromTray);
+  board.classList.toggle("is-drop", !!under && board.contains(under) && drag.fromTray);
+  if (overTray) {
+    if (!drag.fromTray && drag.tile.parentNode === board) { /* leave it; drop removes it */ }
+    return;
+  }
+  if (!under || !board.contains(under)) return;
+  // Move the dragged tile (or a stand-in from the tray) into the slot under the pointer.
+  let slot = drag.tile;
+  if (drag.fromTray) {
+    if (!drag.stand) { drag.stand = h("div", { class: "tile tile-stand", "data-key": "__stand" }); drag.stand.style.minHeight = "120px"; }
+    slot = drag.stand;
+  }
+  const target = under.closest(".tile[data-key]");
+  const before = tileRects();
+  if (target && target !== slot && board.contains(target)) {
+    const tr = target.getBoundingClientRect();
+    const after = e.clientX > tr.left + tr.width / 2;
+    const ref = after ? target.nextElementSibling : target;
+    if (ref === slot) return;
+    if (slot.nextElementSibling === ref && slot.parentNode === board) return;
+    board.insertBefore(slot, ref);
+  } else if (!target && slot.parentNode !== board) {
+    board.append(slot);
+  } else return;
+  board.querySelector(".kpi-empty")?.remove();
+  flip(before, slot);
+}
+function dragEnd(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  window.removeEventListener("pointermove", dragMove);
+  window.removeEventListener("pointerup", dragEnd);
+  window.removeEventListener("pointercancel", dragEnd);
+  const d = drag; drag = null;
+  cancelAnimationFrame(scrollRaf); scrollRaf = 0;
+  document.body.classList.remove("is-dragging-kpi");
+  $("#kpi-tray").classList.remove("is-drop");
+  $("#tiles").classList.remove("is-drop");
+  if (!d.started) return;
+  const under = e.type === "pointerup" ? document.elementFromPoint(e.clientX, e.clientY) : null;
+  const toTray = under && $("#kpi-tray").contains(under);
+  d.ghost.remove();
+  d.tile.classList.remove("is-dragging");
+  const keys = [...$("#tiles").children].map(c => c.dataset.key).filter(Boolean);
+  let order;
+  if (e.type !== "pointerup") order = kpi.order;
+  else if (!d.fromTray && toTray) order = kpi.order.filter(k => k !== d.key);
+  else if (d.fromTray) order = d.stand && d.stand.parentNode ? keys.map(k => k === "__stand" ? d.key : k) : kpi.order;
+  else order = keys;
+  d.stand?.remove();
+  const changed = order.join() !== kpi.order.join();
+  const msg = !changed ? "" : !order.includes(d.key) ? `${kpiLabel(d.key)} removed.`
+    : `${kpiLabel(d.key)} ${d.fromTray ? "added" : "moved"}, position ${order.indexOf(d.key) + 1} of ${order.length}.`;
+  setKpis(order, msg);
+}
+let scrollRaf = 0, scrollV = 0;
+function autoScroll(y) {
+  const edge = 70, vh = window.innerHeight;
+  scrollV = y < edge ? -(edge - y) / 4 : y > vh - edge ? (y - (vh - edge)) / 4 : 0;
+  if (scrollV && !scrollRaf) {
+    const step = () => { if (!scrollV || !drag) { scrollRaf = 0; return; } window.scrollBy(0, scrollV); scrollRaf = requestAnimationFrame(step); };
+    scrollRaf = requestAnimationFrame(step);
   }
 }
 const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
@@ -510,7 +723,7 @@ function pinTip(r, pin) {
   showTip(b.left + b.width / 2, b.top, `${r.name}, ${r.island}`, [
     ["Status", SEV_WORD[ctx.status[r.id]]],
     ["RevPAR", idr(d.occ[0] / 100 * d.adr[0])],
-    ["Occupancy", `${d.occ[0]}% (${signed(d.occ[0] - d.occ[cmpIdxFor(r)])} pts)`],
+    ["Occupancy", `${d.occ[0]}% (${cmpWord(cmpIdxFor(r))} ${d.occ[cmpIdxFor(r)]}%)`],
     ["RevPAR index", String(d.rgi)],
     "Tap to focus the page on " + r.name
   ]);
@@ -629,19 +842,19 @@ function renderResortList(ctx) {
 /* ============================== Scorecard ============================== */
 const COLS = [
   { key: "occ", label: "Occupancy", vs: "cmp", far: -10, below: -3,
-    val: (r, d) => d.occ[0] + "%", diff: (r, d, i) => d.occ[0] - d.occ[i], dtxt: v => signed(v) + " pts" },
+    val: (r, d) => d.occ[0] + "%", diff: (r, d, i) => d.occ[0] - d.occ[i], dtxt: (v, r, d, i) => "vs " + d.occ[i] + "%" },
   { key: "adr", label: "ADR", vs: "cmp", far: -6, below: -2,
     val: (r, d) => idr(d.adr[0]), diff: (r, d, i) => (d.adr[0] / d.adr[i] - 1) * 100, dtxt: v => signed(v, 1) + "%", dp: 1 },
   { key: "rgi", label: "RevPAR index", vs: "vs 100", far: -15, below: -5,
-    val: (r, d) => String(d.rgi), diff: (r, d) => d.rgi - 100, dtxt: v => signed(v) + " vs 100" },
+    val: (r, d) => String(d.rgi), diff: (r, d) => d.rgi - 100, dtxt: () => "vs 100" },
   { key: "gop", label: "GOP margin", vs: "cmp", far: -5, below: -2,
-    val: (r, d) => d.gop[0] + "%", diff: (r, d, i) => d.gop[0] - d.gop[i], dtxt: v => signed(v) + " pts" },
+    val: (r, d) => d.gop[0] + "%", diff: (r, d, i) => d.gop[0] - d.gop[i], dtxt: (v, r, d, i) => "vs " + d.gop[i] + "%" },
   { key: "direct", label: "Direct share", vs: `vs ${TARGETS.direct}%`, far: -12, below: -4,
-    val: r => r.ch[0] + "%", diff: r => r.ch[0] - TARGETS.direct, dtxt: v => signed(v) + " pts" },
+    val: r => r.ch[0] + "%", diff: r => r.ch[0] - TARGETS.direct, dtxt: () => `vs ${TARGETS.direct}%` },
   { key: "gss", label: "Guest score", vs: "vs last period", far: -3, below: -2,
-    val: r => r.gss[0].toFixed(1), diff: r => round((r.gss[0] - r.gss[1]) * 10), dtxt: v => signed(v / 10, 1) },
+    val: r => r.gss[0].toFixed(1), diff: r => round((r.gss[0] - r.gss[1]) * 10), dtxt: (v, r) => "vs " + r.gss[1].toFixed(1) },
   { key: "resp", label: "Review replies", vs: `vs ${TARGETS.reviewReplies}%`, far: -25, below: -8,
-    val: r => r.resp + "%", diff: r => r.resp - TARGETS.reviewReplies, dtxt: v => signed(v) + " pts" }
+    val: r => r.resp + "%", diff: r => r.resp - TARGETS.reviewReplies, dtxt: () => `vs ${TARGETS.reviewReplies}%` }
 ];
 function cellLevel(c, v) { const rv = round(v, c.dp || 0); return rv <= c.far ? "far" : rv <= c.below ? "below" : "ok"; }
 
@@ -672,7 +885,7 @@ function renderScorecard(ctx) {
       const dv = round(v, c.dp || 0);
       tr.append(h("td", { class: "c-" + lvl, title: `${c.label}: ${word}` },
         h("span", { class: "v", text: c.val(r, d) }),
-        h("span", { class: "d" }, h("span", { "aria-hidden": "true", text: arrowFor(dv) ? arrowFor(dv) + " " : "" }), c.dtxt(v)),
+        h("span", { class: "d" }, h("span", { "aria-hidden": "true", text: arrowFor(dv) ? arrowFor(dv) + " " : "" }), c.dtxt(v, r, d, i)),
         h("span", { class: "sr", text: ", " + word })));
     }
     tb.append(tr);
@@ -824,11 +1037,11 @@ function renderRampChart(def) {
   lineChart(def, {
     labels: R.weeks, series: [{ vals: R.actual }, { vals: R.plan, ref: true }], yMin: 0,
     yFmt: v => v + "%", endFmt: sr => sr.ref ? `${sr.vals[n]}% plan` : `${sr.vals[n]}% actual`,
-    aria: `Line chart: Ubud occupancy by week since opening. Week 7: ${R.actual[n]}% actual against ${R.plan[n]}% plan, ${R.plan[n] - R.actual[n]} points behind.`,
-    tipRows: i => [["Actual", R.actual[i] + "%"], ["Plan", R.plan[i] + "%"], `${arrowFor(R.actual[i] - R.plan[i])} ${signed(R.actual[i] - R.plan[i])} pts vs plan`]
+    aria: `Line chart: Ubud occupancy by week since opening. Week 7: ${R.actual[n]}% actual against ${R.plan[n]}% plan.`,
+    tipRows: i => [["Actual", R.actual[i] + "%"], ["Plan", R.plan[i] + "%"], R.actual[i] < R.plan[i] ? `${arrowFor(-1)} behind plan` : R.actual[i] > R.plan[i] ? `${arrowFor(1)} ahead of plan` : "On plan"]
   });
-  def.note.textContent = `Behind plan every week; the gap is ${R.plan[n] - R.actual[n]} points in week 7.`;
-  dataTable(def, ["Week", "Actual", "Plan", "Difference"], R.weeks.map((w, i) => [w, R.actual[i] + "%", R.plan[i] + "%", signed(R.actual[i] - R.plan[i]) + " pts"]));
+  def.note.textContent = `Behind plan every week; week 7 reached ${R.actual[n]}% against a ${R.plan[n]}% plan.`;
+  dataTable(def, ["Week", "Actual", "Plan"], R.weeks.map((w, i) => [w, R.actual[i] + "%", R.plan[i] + "%"]));
 }
 
 /* Horizontal bar charts share row interaction */
@@ -881,7 +1094,7 @@ function renderMixChart(def) {
     }
   });
   rowInteraction(svg, rows, rowY, rowH, W, H, i => [rows[i].name, [["Online agents", rows[i].ch[1] + "%"], ["Wholesale", rows[i].ch[2] + "%"], ["Direct", rows[i].ch[0] + "%"],
-    rows[i].ch[0] < TARGETS.direct ? `${arrowFor(-1)} direct ${TARGETS.direct - rows[i].ch[0]} pts below the ${TARGETS.direct}% target` : `${arrowFor(1)} direct at or above target`]], sel);
+    rows[i].ch[0] < TARGETS.direct ? `${arrowFor(-1)} direct ${rows[i].ch[0]}% vs the ${TARGETS.direct}% target` : `${arrowFor(1)} direct at or above target`]], sel);
   clear(def.plotWrap).append(svg);
   def.note.textContent = `Direct target ${TARGETS.direct}%. Same for every period in this sample.`;
   dataTable(def, ["Resort", "Online agents", "Wholesale", "Direct"], rows.map(r => [r.name, r.ch[1] + "%", r.ch[2] + "%", r.ch[0] + "%"]));
@@ -925,18 +1138,26 @@ function renderPaceChart(def) {
 }
 
 /* ============================== Footer ============================== */
+const THR_BASE = { occ: 70, gop: 30, direct: TARGETS.direct, resp: TARGETS.reviewReplies };
+function thrText(c, v) {
+  if (c.key === "gss") return `down ${Math.abs(v / 10).toFixed(1)} or more`;
+  if (c.key === "adr") return `${Math.abs(v)}% or more under`;
+  if (c.key === "rgi") return `${100 + v} or lower`;
+  const b = THR_BASE[c.key];
+  return `${b + v}% or lower against ${b}%`;
+}
 function renderFooter() {
   const f = $("#footer");
   const thr = h("table", {}, h("thead", {}, h("tr", {}, ["Measure", "Red: far below", "Amber: below"].map(t => h("th", { scope: "col", text: t })))),
     h("tbody", {}, COLS.map(c => h("tr", {}, h("td", { text: `${c.label} (${c.vs === "cmp" ? "vs budget or last year" : c.vs})` }),
-      h("td", { text: c.key === "gss" ? `${signed(c.far / 10, 1)} or worse` : `${signed(c.far)}${c.key === "adr" ? "%" : c.key === "rgi" ? "" : " pts"} or worse` }),
-      h("td", { text: c.key === "gss" ? `${signed(c.below / 10, 1)} or worse` : `${signed(c.below)}${c.key === "adr" ? "%" : c.key === "rgi" ? "" : " pts"} or worse` })))));
+      h("td", { text: c.key === "gss" ? `${signed(c.far / 10, 1)} or worse` : thrText(c, c.far) }),
+      h("td", { text: c.key === "gss" ? `${signed(c.below / 10, 1)} or worse` : thrText(c, c.below) })))));
   f.append(
     h("p", { class: "sample-label" }, h("strong", { text: "Example with illustrative sample data, not Sudamala actuals." })),
     h("div", {}, h("h2", { text: "How problems are found" }), h("ul", {},
-      ["Occupancy 5+ points below target: Serious; 10+ points: Critical. Money = gap ÷ 100 × rooms × days × ADR.",
+      ["Occupancy 5 or more below target (for example 65% against 70%): Serious; 10 or more below (60% against 70%): Critical. Money = rooms × days × the occupancy gap × ADR.",
        "RevPAR index under 95: Serious; under 85: Critical. Money = (100 − index) ÷ 100 × room revenue.",
-       "GOP margin 3+ points below target: Serious. Money = gap ÷ 100 × room revenue.",
+       "GOP margin 3 or more below target (for example 27% against 30%): Serious. Money = room revenue × the margin gap.",
        "Next-90-day pace 5% or more behind last year: Serious. Money = pace × room revenue × (90 ÷ days).",
        "Direct share under 20%: Watch. Money = room revenue × agent share × 20% commission.",
        "Guest score down 0.2 or more: Watch. Review replies under 65%: Watch.",
@@ -947,7 +1168,7 @@ function renderFooter() {
     h("div", {}, h("h2", { text: "Group maths and sources" }), h("ul", {},
       ["Occupancy = room nights sold ÷ rooms available, weighted by room count. ADR = room revenue ÷ room nights. RevPAR = occupancy × ADR. GOP margin weighted by room revenue.",
        "Compared with last year, the group figures are like-for-like and exclude Ubud (opened October 2026).",
-       "KPI tile status: RevPAR −2% Watch, −5% Serious, −10% Critical. Occupancy −3 pts Watch, −5 Serious, −10 Critical. ADR −2% Watch, −6% Serious. GOP −2 pts Watch, −3 Serious, −5 Critical. Direct share −4 pts vs 25% Watch, −12 Serious. Guest score −0.2 Watch, −0.3 Serious.",
+       "KPI tile status: RevPAR and room revenue 2% under Watch, 5% Serious, 10% Critical. Occupancy (against 70%) 67% Watch, 65% Serious, 60% Critical. ADR 2% under Watch, 6% Serious. GOP margin (against 30%) 28% Watch, 27% Serious, 25% Critical. Direct share (target 25%) 21% Watch, 13% Serious. Guest score down 0.2 Watch, 0.3 Serious. RevPAR index under 100 Watch, 95 Serious, 85 Critical. Next 90 days booked 99% of last year Watch, 95% Serious. Review replies (target 90%) 82% Watch, 65% Serious.",
        "Data: illustrative sample (data.js). Boundaries: geoBoundaries gbOpen, Indonesia ADM2 (regency level), CC BY 4.0. Resort pins from street addresses, accurate to about 1 km.",
        "Prepared for Sudamala Resorts marketing, November 2026."
       ].map(t => h("li", { text: t }))))
@@ -1055,6 +1276,7 @@ function init() {
   $("#clear-focus").addEventListener("click", () => { setFocus("all", false); $("#focus").focus(); });
   $("#show-all").addEventListener("click", () => { state.showAll = !state.showAll; renderIssues(currentCtx); });
   document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
+  initKpiBoard();
   buildMaps();
   buildCharts();
   renderFooter();

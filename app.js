@@ -179,7 +179,7 @@ function issuesFor(r, p) {
   if (d.pace != null && d.pace <= -5) add({
     key: "pace", sev: "serious",
     head: `${r.name}: next 90 days are ${Math.abs(d.pace)}% behind last year`,
-    detail: "Room nights already booked for the next 90 days, vs the same point last year",
+    detail: "Room nights already booked for the next 90 days, vs the same time last year",
     owner: "CMO", action: "retargeting and an early-booking offer in top markets",
     money: Math.abs(d.pace) / 100 * rev * (90 / days), moneyWhat: "revenue at risk, next 90 days"
   });
@@ -335,8 +335,8 @@ function kpiDefs() {
     rgi: { label: "RevPAR index", helper: "Our RevPAR vs competitors; 100 = fair share", value: String(round(rgi)), vsName: "Fair share", vsValue: "100",
       dir: round(rgi) - 100, sev: rgi < 85 ? "critical" : rgi < 95 ? "serious" : round(rgi) < 100 ? "watch" : "ok" },
     pace: pace == null
-      ? { label: "Next 90 days booked", helper: "Room nights on the books vs last year at this point", value: "n/a", vsName: "Last year", vsValue: "none (new resort)", dir: 0, sev: "ok" }
-      : { label: "Next 90 days booked", helper: "Room nights on the books, as a share of last year at this point", value: round(100 + pace) + "%",
+      ? { label: "Next 90 days booked", helper: "Room nights on the books vs last year at this time", value: "n/a", vsName: "Last year", vsValue: "none (new resort)", dir: 0, sev: "ok" }
+      : { label: "Next 90 days booked", helper: "Room nights on the books, as a share of last year at this time", value: round(100 + pace) + "%",
           vsName: "Last year", vsValue: "100%", dir: round(pace), sev: band(round(pace), null, -5, -1) },
     resp: { label: "Review replies", helper: "Share of guest reviews answered", value: respA + "%", vsName: "Target", vsValue: TARGETS.reviewReplies + "%",
       dir: respA - TARGETS.reviewReplies, sev: band(respA - TARGETS.reviewReplies, null, -25, -8) }
@@ -1103,7 +1103,7 @@ function renderMixChart(def) {
 function renderPaceChart(def) {
   const p = state.period;
   const rows = [...RESORTS].sort((a, b) => (a.p[p].pace ?? 99) - (b.p[p].pace ?? 99));
-  def.sub.textContent = `Room nights already booked for the next 90 days vs the same point last year (${PERIOD_LABEL[p]} view).`;
+  def.sub.textContent = `Room nights already booked for the next 90 days vs the same time last year (${PERIOD_LABEL[p]} view).`;
   legendItems(def, [["lg-box", "Behind last year", { background: C.crit }], ["lg-box", "Ahead of last year", { background: C.brandSoft }]]);
   const W = Math.max(280, def.plotWrap.clientWidth || 520), lw = 78, rowH = 24, gap = 16, mt = 4, vr = 44;
   const H = mt + rows.length * (rowH + gap);

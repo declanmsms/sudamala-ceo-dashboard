@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CEO dashboard: where to improve, at a glance · Sudamala Resorts (sample data)</title>
+<meta name="description" content="Example CEO dashboard for Sudamala Resorts with illustrative sample data, not Sudamala actuals.">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23111'/%3E%3Crect x='7' y='3.5' width='2' height='6' fill='%23fff'/%3E%3Crect x='7' y='10.8' width='2' height='2' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
+</head>
+<body class="explain-on">
+<a class="skip" href="#issues">Skip to what needs fixing</a>
+
+<header class="masthead wrap">
+  <p class="sample-label" role="note"><strong>Example with illustrative sample data, not Sudamala actuals.</strong></p>
+  <h1>CEO dashboard: where to improve, at a glance</h1>
+  <p class="resorts-line"><strong>Sudamala Resorts</strong>, six resorts: Sanur · Ubud · Amed (Bali) · Senggigi (Lombok) · Komodo · Seraya (Flores)</p>
+  <p class="verdict" id="verdict" aria-live="polite"></p>
+</header>
+
+<div class="filterbar" id="filterbar">
+  <form class="wrap filters" id="filters" aria-label="Filters">
+    <fieldset class="seg">
+      <legend>Period</legend>
+      <div class="seg-options">
+        <label><input type="radio" name="period" value="mtd" checked><span>Month to date</span></label>
+        <label><input type="radio" name="period" value="qtd"><span>Quarter to date</span></label>
+        <label><input type="radio" name="period" value="ytd"><span>Year to date</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="seg">
+      <legend>Compare with</legend>
+      <div class="seg-options">
+        <label><input type="radio" name="cmp" value="budget" checked><span>Budget</span></label>
+        <label><input type="radio" name="cmp" value="ly"><span>Last year</span></label>
+      </div>
+    </fieldset>
+    <div class="field">
+      <label for="focus">Focus</label>
+      <select id="focus" name="focus">
+        <option value="all">All resorts</option>
+      </select>
+    </div>
+    <div class="field field-toggle">
+      <label class="toggle"><input type="checkbox" id="explain" checked><span>Explain this page</span></label>
+    </div>
+  </form>
+</div>
+
+<main class="wrap" id="main">
+  <p class="key" aria-label="How to read this page">
+    <span class="key-title">How to read this page:</span>
+    <span class="key-item"><span class="swatch" aria-hidden="true"></span> Black = needs attention</span>
+    <span class="key-item"><span aria-hidden="true">▼</span> below target</span>
+    <span class="key-item"><span aria-hidden="true">▲</span> above target</span>
+  </p>
+
+  <div class="focus-banner" id="focus-banner" hidden>
+    <p><span id="focus-text"></span></p>
+    <button type="button" class="btn" id="clear-focus">Back to all resorts</button>
+  </div>
+
+  <section class="section" id="kpis" aria-labelledby="kpis-h">
+    <div class="section-head">
+      <h2 id="kpis-h">How are we doing?</h2>
+      <p class="answers" id="kpis-sub"></p>
+      <p class="explain">Each tile shows this period's number, how far it is from the comparison, and a 12-month trend. A black mark means the number needs attention.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="section section-issues" id="issues" aria-labelledby="issues-h" tabindex="-1">
+    <div class="section-head">
+      <h2 id="issues-h">What needs fixing this week?</h2>
+      <p class="answers">Problems found automatically, worst first, with the money at stake and who should act.</p>
+      <p class="explain">Ranked by severity, then by money at stake. Tap a problem to focus the whole page on that resort.</p>
+    </div>
+    <ol class="issues" id="issue-list"></ol>
+    <div class="issues-more">
+      <button type="button" class="btn" id="show-all" aria-expanded="false"></button>
+    </div>
+    <h3 class="bright-h">Bright spots to copy</h3>
+    <ul class="bright" id="bright-list"></ul>
+  </section>
+
+  <section class="section" id="map" aria-labelledby="map-h">
+    <div class="section-head">
+      <h2 id="map-h">Where are the problems?</h2>
+      <p class="answers">Each resort on a real map. Black pins need attention.</p>
+      <p class="explain">Black pin with “!” = needs attention · white pin with black outline = watch · white pin with gray outline = on track. Bigger pins earn more per room. Tap a pin to focus on it.</p>
+    </div>
+    <div class="maps">
+      <figure class="map-panel map-main" id="map-main">
+        <figcaption class="map-cap"><strong>Bali and Lombok</strong></figcaption>
+      </figure>
+      <figure class="map-panel map-close" id="map-close">
+        <figcaption class="map-cap"><strong>Labuan Bajo, Flores</strong> <span>about 330 km east of Lombok</span></figcaption>
+      </figure>
+    </div>
+    <p class="credit">Boundaries: geoBoundaries (regency level)</p>
+    <h3 class="sub-h">All six resorts, worst first</h3>
+    <ol class="resort-list" id="resort-list"></ol>
+  </section>
+
+  <section class="section" id="scorecard" aria-labelledby="score-h">
+    <div class="section-head">
+      <h2 id="score-h">How does each resort compare?</h2>
+      <p class="answers" id="score-sub"></p>
+      <p class="explain">A black row = one resort in trouble. A black column = a problem across the group. Tap a row to focus on that resort.</p>
+    </div>
+    <div class="table-scroll" id="score-wrap" tabindex="0" role="region" aria-label="Scorecard, scrolls sideways"></div>
+    <p class="table-key">
+      <span class="cell-key cell-key-far" aria-hidden="true"></span> Far below target
+      <span class="cell-key cell-key-below" aria-hidden="true"></span> Below target
+      <span class="cell-key cell-key-ok" aria-hidden="true"></span> On or above target
+    </p>
+  </section>
+
+  <section class="section" id="charts" aria-labelledby="charts-h">
+    <div class="section-head">
+      <h2 id="charts-h">Why did the numbers move?</h2>
+      <p class="answers">Four simple charts behind the numbers above.</p>
+      <p class="explain">Hover or tap a chart for exact values, or use “View as table”. Use the arrow keys on a focused chart to step through it.</p>
+    </div>
+    <div class="charts" id="chart-grid"></div>
+  </section>
+</main>
+
+<footer class="wrap footer" id="footer"></footer>
+
+<div class="tooltip" id="tooltip" role="status" hidden></div>
+<noscript><p class="wrap">This dashboard needs JavaScript to draw its numbers and charts.</p></noscript>
+</body>
+</html>

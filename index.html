@@ -81,24 +81,12 @@
   </div>
 
   <section class="section" id="kpis" aria-labelledby="kpis-h">
-    <div class="section-head kpi-head">
-      <div>
-        <h2 id="kpis-h">Your KPIs</h2>
-        <p class="answers" id="kpis-sub"></p>
-        <p class="explain">Each tile shows this period's number, the number it is compared with, and a 12-month trend. A red or orange mark means the number needs attention. Use “Choose my KPIs” to pick and arrange the tiles you want.</p>
-      </div>
-      <div class="kpi-actions">
-        <button type="button" class="btn btn-quiet" id="kpi-reset" hidden>Reset to default</button>
-        <button type="button" class="btn" id="kpi-edit" aria-expanded="false" aria-controls="kpi-tray">Choose my KPIs</button>
-      </div>
+    <div class="section-head">
+      <h2 id="kpis-h">How are we doing?</h2>
+      <p class="answers" id="kpis-sub"></p>
+      <p class="explain">Each tile shows this period's number, how far it is from the comparison, and a 12-month trend. A red or orange mark means the number needs attention.</p>
     </div>
-    <p class="kpi-hint" id="kpi-hint" hidden>Drag tiles to reorder them. Drag a tile from “More KPIs” onto your board to add it, or drag it back to remove it. On a phone, drag by the ⠿ handle. The first tile is shown large.</p>
-    <div class="tiles" id="tiles" aria-label="Your KPI board"></div>
-    <div class="kpi-tray" id="kpi-tray" hidden>
-      <h3 class="kpi-tray-h">More KPIs <span>drag onto your board, or press Add</span></h3>
-      <div class="kpi-tray-list" id="kpi-tray-list"></div>
-    </div>
-    <p class="sr" id="kpi-live" aria-live="polite"></p>
+    <div class="tiles" id="tiles"></div>
   </section>
 
   <section class="section section-issues" id="issues" aria-labelledby="issues-h" tabindex="-1">

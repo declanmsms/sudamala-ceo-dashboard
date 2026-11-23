@@ -49,7 +49,7 @@ def topics_in(text): return [k for k, rx in TOPIC_RE.items() if text and rx.sear
 # ---------- Google ----------
 listings = load("google-listings.json")["properties"]
 by_feature = {p["feature_id"]: p for p in listings}
-gdata = load("google-1.json")["data"]["alexandria"]
+gdata = load("google-1.json")["data"]["alexandria"] + load("google-2.json")["data"]["alexandria"]
 google_reviews, google_sample = [], {}
 for block in gdata:
     d = block["data"]; p = by_feature[d["feature_id"]]
@@ -89,7 +89,39 @@ for rid, h in bk.items():
                                 "title": excerpt(f[5], 90), "praise": topics_in(liked), "complaints": topics_in(disliked),
                                 "country": f[2], "traveller": f[3]})
 
-reviews = sorted(google_reviews + booking_reviews, key=lambda r: r["date"], reverse=True)
+# ---------- Agoda ----------
+AG_ID = {"Ubud": "ubud", "Komodo": "komodo", "Sanur": "sanur", "Amed": "amed", "Senggigi": "senggigi", "Seraya": "seraya"}
+agoda_reviews, agoda_summary = [], {}
+for prop in load("agoda.json")["properties"]:
+    rid = next(v for k, v in AG_ID.items() if k in prop["name"])
+    rs = prop["reviews"]
+    agoda_summary[rid] = {"score": prop["score"], "reviews": prop["count"],
+                          "reply": {"n": len(rs), "replied": sum(1 for r in rs if r.get("resp"))} if rs else None}
+    for r in rs:
+        body = " ".join(x for x in [r.get("x"), r.get("p"), r.get("n")] if x)
+        body = re.sub(r"manager, Martin", "manager", body)  # keep staff names out of an accusation
+        agoda_reviews.append({"resort": rid, "site": "Agoda", "date": r["d"][:10], "score": float(r["r"]), "raw": f"{r['r']}/10",
+                              "replied": bool(r.get("resp")), "text": excerpt(body, 220), "title": excerpt(r.get("t") or "", 90),
+                              "praise": topics_in(body) if r["r"] >= 8 else [], "complaints": topics_in(body) if r["r"] < 7 else [],
+                              "country": r.get("c") or "", "traveller": r.get("g") or ""})
+
+# ---------- tiket.com (mostly Indonesian guests; reply flag not readable) ----------
+tk = load("tiket.json")["resorts"]
+tiket_reviews, tiket_summary = [], {}
+TK_TRIP = {"Couple Trip": "Couple", "Family Trip": "Family", "Trip with Friends": "Group", "Solo Trip": "Solo traveller", "Business Trip": "Business"}
+for rid, v in tk.items():
+    hd = v["head"]
+    tiket_summary[rid] = {"rating5": float(hd["rating"]), "reviews": int(hd["count"]), "subs": hd.get("subs", {}), "topics": hd.get("topics", [])}
+    for r in v["rows"]:
+        tiket_reviews.append({"resort": rid, "site": "tiket.com", "date": dt.datetime.strptime(r["date"], "%d %b %Y").date().isoformat(),
+                              "score": round(r["score"] * 2, 1), "raw": f"{r['score']}/5", "replied": None,
+                              "text": excerpt(r["text"], 220), "praise": [], "complaints": [], "country": "", "traveller": TK_TRIP.get(r.get("trip"), "")})
+
+# ---------- Traveloka (scores only) and forum threads ----------
+tv = load("traveloka.json")["resorts"]
+community = load("community.json")["threads"]
+
+reviews = sorted(google_reviews + booking_reviews + agoda_reviews + tiket_reviews, key=lambda r: r["date"], reverse=True)
 
 # ---------- Tripadvisor / Agoda ----------
 ta = load("tripadvisor-agoda.json")
@@ -103,12 +135,17 @@ for rid, short, island in RESORTS:
     t = trip.get(rid)
     parts = [(g["rating"] * 2, g["review_count"]), (b.get("score"), b.get("reviews"))]
     if t: parts.append((t["rating5"] * 2, t["reviews"]))
+    a, k, v = agoda_summary.get(rid), tiket_summary.get(rid), tv.get(rid)
+    if a: parts.append((a["score"], a["reviews"]))
+    if k: parts.append((k["rating5"] * 2, k["reviews"]))
+    if v: parts.append((v["rating10"], v["reviews"]))
     tot = sum(n for s, n in parts if s and n)
     blended = round(sum(s * n for s, n in parts if s and n) / tot, 2) if tot else None
     ratings.append({"id": rid, "name": short, "island": island,
                     "google": {"rating": g["rating"], "reviews": g["review_count"]},
                     "booking": {"score": b.get("score"), "reviews": b.get("reviews")},
                     "tripadvisor": {"rating": t["rating5"], "reviews": t["reviews"]} if t else None,
+                    "agoda": a, "tiket": k, "traveloka": {"score": v["rating10"], "reviews": v["reviews"]} if v else None,
                     "blended10": blended, "total_reviews": tot,
                     "subscores": b.get("subscores", {}),
                     "google_reply": google_sample.get(rid),
@@ -137,8 +174,9 @@ complaints = Counter(t for r in recent for t in r["complaints"])
 compl_by_resort = defaultdict(Counter)
 for r in recent:
     for t in r["complaints"]: compl_by_resort[t][r["resort"]] += 1
-countries = Counter(r["country"] for r in booking_reviews if r["country"] and r["country"] not in ("Vaaraki",))
-travellers = Counter(r["traveller"] for r in booking_reviews if r["traveller"])
+countries = Counter(r["country"] for r in booking_reviews + agoda_reviews if r["country"] and r["country"] not in ("Vaaraki",))
+TRAV = {"Couple": "Couple", "Family with young children": "Family", "Family with teens": "Family", "Family": "Family", "Solo traveler": "Solo traveller", "Business traveler": "Business"}
+travellers = Counter(TRAV.get(r["traveller"], r["traveller"]) for r in booking_reviews + agoda_reviews if r["traveller"])
 
 # ---------- Instagram ----------
 ig = load("instagram.json")
@@ -182,15 +220,17 @@ data = {
     "topics": {"praise": praise.most_common(8), "complaints": complaints.most_common(8),
                "complaints_where": {k: v.most_common(3) for k, v in compl_by_resort.items()},
                "window_reviews": len(recent)},
-    "origin": {"countries": countries.most_common(10), "indonesia": countries.get("Indonesia", 0), "travellers": travellers.most_common(6), "n": len(booking_reviews)},
+    "origin": {"countries": countries.most_common(10), "indonesia": countries.get("Indonesia", 0), "travellers": travellers.most_common(6), "n": len(booking_reviews) + len(agoda_reviews)},
+    "community": community,
     "instagram": {"accounts": ig_accounts, "top_posts": top_posts, "posts_sampled": len(posts),
                   "biggest_gap": {"from": biggest_gap[0], "to": biggest_gap[1], "days": biggest_gap[2]}},
     "tiktok": {"account": tt["accounts"][0], "videos": tt_videos},
     "facebook": fb,
     "gaps": [
-        "Tripadvisor review text: its review pages refuse automated visits (HTTP 403); only overall ratings are included.",
-        "Agoda: only Komodo's overall score was read; Agoda largely repeats Booking.com reviews.",
-        "Google reviews: newest 20–25 for Ubud, Sanur and Amed only; Senggigi, Komodo and Seraya wait for Firecrawl credits.",
+        "Tripadvisor review text: its review pages refuse automated visits (HTTP 403); only overall ratings and forum thread titles are included.",
+        "Traveloka: scores for Sanur and Komodo only; the other four pages were not found before Firecrawl credits ran out.",
+        "tiket.com: the page does not show whether the hotel replied, so reply rates are not counted there.",
+        "Expedia and Hotels.com: not collected yet.",
         "Reddit: not reachable with the current tools.",
         "TikTok guest videos: TikTok search asked for a CAPTCHA, so only Sudamala's own account is included.",
         "Instagram and Facebook reach, saves and video views need access to Sudamala's own Meta Business Suite.",

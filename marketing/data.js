@@ -15,8 +15,20 @@ export const DATA = {
     "reviews": 3
    },
    "tripadvisor": null,
-   "blended10": 9.23,
-   "total_reviews": 81,
+   "agoda": {
+    "score": 8.5,
+    "reviews": 3,
+    "reply": null
+   },
+   "tiket": {
+    "rating5": 5.0,
+    "reviews": 1,
+    "subs": {},
+    "topics": []
+   },
+   "traveloka": null,
+   "blended10": 9.21,
+   "total_reviews": 85,
    "subscores": {
     "Cleanliness": 10.0,
     "Comfort": 10.0,
@@ -58,8 +70,30 @@ export const DATA = {
     "rating": 4.6,
     "reviews": 1673
    },
-   "blended10": 9.22,
-   "total_reviews": 3401,
+   "agoda": {
+    "score": 8.8,
+    "reviews": 553,
+    "reply": {
+     "n": 20,
+     "replied": 11
+    }
+   },
+   "tiket": {
+    "rating5": 4.6,
+    "reviews": 258,
+    "subs": {
+     "Facilities": 4.6,
+     "Location": 4.7,
+     "Service": 4.6
+    },
+    "topics": []
+   },
+   "traveloka": {
+    "score": 9.4,
+    "reviews": 434
+   },
+   "blended10": 9.19,
+   "total_reviews": 4646,
    "subscores": {
     "Cleanliness": 9.5,
     "Comfort": 9.3,
@@ -99,8 +133,23 @@ export const DATA = {
     "reviews": 271
    },
    "tripadvisor": null,
-   "blended10": 8.67,
-   "total_reviews": 417,
+   "agoda": {
+    "score": 8.9,
+    "reviews": 22,
+    "reply": {
+     "n": 6,
+     "replied": 2
+    }
+   },
+   "tiket": {
+    "rating5": 4.8,
+    "reviews": 186,
+    "subs": {},
+    "topics": []
+   },
+   "traveloka": null,
+   "blended10": 8.95,
+   "total_reviews": 625,
    "subscores": {
     "Cleanliness": 8.8,
     "Comfort": 8.8,
@@ -143,8 +192,27 @@ export const DATA = {
     "rating": 4.8,
     "reviews": 1722
    },
-   "blended10": 9.57,
-   "total_reviews": 3396,
+   "agoda": {
+    "score": 9,
+    "reviews": 577,
+    "reply": {
+     "n": 20,
+     "replied": 18
+    }
+   },
+   "tiket": {
+    "rating5": 4.7,
+    "reviews": 161,
+    "subs": {
+     "Cleanliness": 4.7,
+     "Facilities": 4.7,
+     "Value": 4.7
+    },
+    "topics": []
+   },
+   "traveloka": null,
+   "blended10": 9.48,
+   "total_reviews": 4134,
    "subscores": {
     "Cleanliness": 9.5,
     "Comfort": 9.5,
@@ -154,7 +222,11 @@ export const DATA = {
     "Value for money": 9.2,
     "Wi-Fi": 9.5
    },
-   "google_reply": null,
+   "google_reply": {
+    "n": 30,
+    "replied": 19,
+    "avg5": 4.97
+   },
    "booking_reply": {
     "n": 30,
     "replied": 20
@@ -183,8 +255,55 @@ export const DATA = {
     "rating": 4.8,
     "reviews": 971
    },
-   "blended10": 9.37,
-   "total_reviews": 3718,
+   "agoda": {
+    "score": 8.3,
+    "reviews": 175,
+    "reply": {
+     "n": 20,
+     "replied": 0
+    }
+   },
+   "tiket": {
+    "rating5": 4.7,
+    "reviews": 267,
+    "subs": {
+     "Cleanliness": 4.7,
+     "Location": 4.6,
+     "Service": 4.7
+    },
+    "topics": [
+     [
+      "Staff",
+      108
+     ],
+     [
+      "Food",
+      74
+     ],
+     [
+      "Scenery",
+      54
+     ],
+     [
+      "Room cleanliness",
+      50
+     ],
+     [
+      "Pool",
+      38
+     ],
+     [
+      "Room size",
+      30
+     ]
+    ]
+   },
+   "traveloka": {
+    "score": 9.4,
+    "reviews": 183
+   },
+   "blended10": 9.33,
+   "total_reviews": 4343,
    "subscores": {
     "Cleanliness": 9.6,
     "Comfort": 9.7,
@@ -194,7 +313,11 @@ export const DATA = {
     "Value for money": 8.9,
     "Wi-Fi": 9.5
    },
-   "google_reply": null,
+   "google_reply": {
+    "n": 30,
+    "replied": 17,
+    "avg5": 4.6
+   },
    "booking_reply": {
     "n": 29,
     "replied": 0
@@ -223,8 +346,27 @@ export const DATA = {
     "rating": 4.6,
     "reviews": 730
    },
-   "blended10": 9.18,
-   "total_reviews": 1621,
+   "agoda": {
+    "score": 8.9,
+    "reviews": 290,
+    "reply": {
+     "n": 20,
+     "replied": 0
+    }
+   },
+   "tiket": {
+    "rating5": 4.7,
+    "reviews": 144,
+    "subs": {
+     "Facilities": 4.7,
+     "Location": 4.7,
+     "Value": 4.7
+    },
+    "topics": []
+   },
+   "traveloka": null,
+   "blended10": 9.16,
+   "total_reviews": 2055,
    "subscores": {
     "Cleanliness": 9.3,
     "Comfort": 9.5,
@@ -234,7 +376,11 @@ export const DATA = {
     "Value for money": 8.3,
     "Wi-Fi": 7.9
    },
-   "google_reply": null,
+   "google_reply": {
+    "n": 30,
+    "replied": 26,
+    "avg5": 4.57
+   },
    "booking_reply": {
     "n": 29,
     "replied": 10
@@ -476,6 +622,44 @@ export const DATA = {
  },
  "reviews": [
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-22",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "A beautiful garden resort right on the beach. The perfect place to start your journey before a boat trip among the Komodo Islands. While the beach isn't pure white and…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-22",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "One of the most beautiful resorts I've ever visited! A wonderful house reef for snorkeling. First-class served breakfast, not a buffet. A lovely sundowner bar on the…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Location and beach",
+    "Wi-Fi"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-11-22",
@@ -611,6 +795,38 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-19",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Everything was so nice ,beautiful,peaceful and relaxing. Had a wonderful time",
+   "praise": [
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-19",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "A wonderful hotel with five-star service! We thoroughly enjoyed our stay at this peaceful and beautiful place. Martin and his team, including Delcy, the apprentice, were…",
+   "praise": [
+    "Staff and service",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "senggigi",
    "site": "Booking.com",
    "date": "2026-11-19",
@@ -642,6 +858,19 @@ export const DATA = {
    "complaints": [],
    "country": "Spain",
    "traveller": "Solo traveller"
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-18",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "sanur",
@@ -776,6 +1005,19 @@ export const DATA = {
    "traveller": "Family"
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-16",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-11-16",
@@ -875,6 +1117,115 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-11-16",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "We had a beautiful 2 days relaxing at the resort enjoying the beautiful pool, lovely sunsets and wonderful food. Highly recommend this beautiful resort set amongst lush gardens. It was peaceful and the staff were…",
+   "title": "Beautiful peaceful resort with stunning pool",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Pool",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-15",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "A Beautiful Stay with Exceptional Hospitality! We had an absolutely wonderful stay at Sudamala Resort Senggigi. From the moment we arrived, we were impressed by the…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Value",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-15",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Excellent! 👌",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-15",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "A special place for pure rest and relaxation. Have stayed in many top spa resorts and this is a hidden little gem that delivers a massive dose of hospitality and…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Quiet and calm",
+    "Value",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-15",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "We travel all around the world, before come to Indonesia my favourite place was Japan but now is Indonesia 🇮🇩 ♥️ because people,this hotel is my number one ... I work 30…",
+   "praise": [
+    "Staff and service",
+    "Cleanliness"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-15",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "An absolute paradise. A truly exceptional and peaceful retreat. This hotel has been one of the most wonderful surprises of our trip. A place of absolute tranquillity…",
+   "praise": [
+    "Staff and service",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Insects",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "senggigi",
    "site": "Booking.com",
    "date": "2026-11-15",
@@ -893,6 +1244,79 @@ export const DATA = {
    "complaints": [],
    "country": "Australia",
    "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-11-15",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Totally swept away by Sudamala's hospitality! Room is spacious and the bed was super comfy. The landscaping, beach side and food quality was great.",
+   "title": "Best Resort in Labuan Bajo!",
+   "praise": [
+    "Food and restaurant",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-11-15",
+   "score": 9.2,
+   "raw": "9.2/10",
+   "replied": false,
+   "text": "Thank you for all; the care from the staff. I really enjoyed live music at breakfast and tastefully furnished and decorated rooms.",
+   "title": "Relaxing stay",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-14",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Superb hotel, where the staff are very courteous and professional. With a beautiful, well-maintained garden. Our room was large and comfortable. We ate there every day…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-14",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "The reason I came here was to see the manta rays and to snorkel. I accomplished both of those with the help of Valen who works for the dive company. I had messaged the…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Cleanliness",
+    "Location and beach",
+    "Value",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "komodo",
@@ -957,6 +1381,78 @@ export const DATA = {
    "traveller": "Solo traveller"
   },
   {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-11-14",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "The reason I came here was to see the manta rays and to snorkel. I accomplished both of those with the help of Valen who works for the dive company. I had messaged the hotel saying I wanted to go snorkeling and see the…",
+   "title": "I saw Manta Rays",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Cleanliness",
+    "Location and beach",
+    "Value",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "United States",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-13",
+   "score": 8,
+   "raw": "4/5",
+   "replied": true,
+   "text": "We stayed 2x2 nights in this hotel (dive boat 7 days in between). First two nights: would have been a 2 star rating : we had a beach from room and the main issue was…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Value",
+    "Spa",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I had so much fun staying here. Great place to snorkeling. Friendly staff. I will come back:)",
+   "praise": [
+    "Staff and service",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-11-13",
@@ -1010,6 +1506,40 @@ export const DATA = {
    "complaints": [],
    "country": "Lea",
    "traveller": "Family"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-11-13",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "This is such a beautiful and serene hotel. Other then the fact that there really wasn’t any hot water, I enjoyed every aspect of my stay here. Would I stay here again? Absolutely!",
+   "title": "Wonderful!",
+   "praise": [],
+   "complaints": [],
+   "country": "United States",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-11-13",
+   "score": 8.0,
+   "raw": "8/10",
+   "replied": false,
+   "text": "Lombok was our second Sudamala experience and we were not disappointed. The staff are extremely helpful and attentive, accomodation sensational and food is great. Spa is not to be missed. Sengiggi in Lombok is perfect…",
+   "title": "Lovely Lombok",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach",
+    "Quiet and calm",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
   },
   {
    "resort": "senggigi",
@@ -1113,6 +1643,29 @@ export const DATA = {
    "traveller": "Family"
   },
   {
+   "resort": "amed",
+   "site": "Agoda",
+   "date": "2026-11-11",
+   "score": 9.2,
+   "raw": "9.2/10",
+   "replied": false,
+   "text": "Great spot, you can snorkle straight off the beach and see turtle not too far from shore...good location, quiet, but not to far to walk to Restaurants and they have food as well...it was lovely having breakfast over…",
+   "title": "Perfect Getaway",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Insects",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Solo traveler"
+  },
+  {
    "resort": "ubud",
    "site": "Google",
    "date": "2026-11-10",
@@ -1168,6 +1721,66 @@ export const DATA = {
    "traveller": "Family"
   },
   {
+   "resort": "amed",
+   "site": "Agoda",
+   "date": "2026-11-10",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "So good that we tried to extend our stay, unfortunately it was fully booked so we had to stay elsewhere but came back for an additional few nights as we enjoyed it so much.",
+   "title": "We went back..",
+   "praise": [],
+   "complaints": [],
+   "country": "Vietnam",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "amed",
+   "site": "Agoda",
+   "date": "2026-11-10",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Super quirky and funky design, breakfast with a view, snorkeling straight from the beach (turtles, starfish!) and such welcoming and lovely staff- shout out to Wayan! Will deffos be coming back.",
+   "title": "One of our best stays in Bali",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Vietnam",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-09",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-11-09",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Nearby activities: Superbe snorkeling à partir du ponton",
+   "praise": [
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "senggigi",
    "site": "Booking.com",
    "date": "2026-11-09",
@@ -1198,6 +1811,25 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-11-09",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Beautiful beachfront resort with great gardens, spacious and very clean rooms, all exceptionally well maintained. The staff were genuinely fantastic and made the stay even better. Great location and an excellent place…",
+   "title": "Excellent Stay at Sudamala Resort",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Cleanliness",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Solo traveler"
+  },
+  {
    "resort": "ubud",
    "site": "Google",
    "date": "2026-11-08",
@@ -1212,6 +1844,19 @@ export const DATA = {
     "Quiet and calm",
     "Upkeep and age"
    ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-08",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
    "complaints": [],
    "country": "",
    "traveller": ""
@@ -1319,6 +1964,60 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-07",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I stayed one night in the Suranadi Panoramic Room at Sudamala Resort, Senggigi, and really enjoyed it. The room was comfortable, the service was excellent, and the lush…",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-06",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Close to Senggigi. Quiet hotel with great service and beautiful rooms. Breakfast was delicious whole overlooking the pool",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Pool",
+    "Room",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-06",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "At low tide, the remaining sea isn't so great; you have to walk quite far out. The hotel itself is a Georgian establishment, and all the staff are incredibly attentive…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Quiet and calm",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "komodo",
    "site": "Booking.com",
    "date": "2026-11-06",
@@ -1378,11 +2077,86 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-05",
+   "score": 8,
+   "raw": "4/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-05",
+   "score": 8,
+   "raw": "4/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-05",
+   "score": 6,
+   "raw": "3/5",
+   "replied": true,
+   "text": "nice beds but the outside toilet location is cute but stupid and inconvenient. breakfast had loads of food tht was overcooked and most likely from the day before…",
+   "praise": [],
+   "complaints": [
+    "Breakfast",
+    "Food and restaurant",
+    "Location and beach",
+    "Insects"
+   ],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "ubud",
    "site": "Google",
    "date": "2026-11-04",
    "score": 8,
    "raw": "4/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-04",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Perfect hotel. Spacious, beautiful, and clean rooms. Excellent common areas. Everything decorated with great taste. Very friendly and attentive staff. The beach isn't…",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Cleanliness",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-04",
+   "score": 10,
+   "raw": "5/5",
    "replied": false,
    "text": "",
    "praise": [],
@@ -1434,6 +2208,38 @@ export const DATA = {
    "complaints": [],
    "country": "United Kingdom",
    "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-11-03",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "Very tranquil and peaceful hotel. The staff couldn’t do enough for you. We were fortunate to get an upgrade which was luxurious. Breakfast was tasty and fulfilling. Perfect position for walking to the beach or local…",
+   "title": "Short stay over in sanur",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-11-02",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "amed",
@@ -1492,6 +2298,22 @@ export const DATA = {
    "complaints": [],
    "country": "Russia",
    "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-11-01",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Excellent hotel through and through. Rooms are beautiful and comfortable, and food was consistently delicious. Boutique hotel feel with personable hospitality. If you’re…",
+   "praise": [
+    "Food and restaurant",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "sanur",
@@ -1604,6 +2426,48 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-31",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Incredible location for part of our honeymoon, it was our first time in Labuan bajo and wow what a beautiful start to our trip! We had the private villa with our own…",
+   "praise": [
+    "Staff and service",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-31",
+   "score": 8,
+   "raw": "4/5",
+   "replied": true,
+   "text": "A Pleasant Stay with a Few Areas for Improvement We stayed here for one night on october 2026 before heading back to Jakarta. I have always been drawn to the bungalow…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Noise",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-31",
@@ -1672,6 +2536,50 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-30",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "We were absolutely satisfied, a huge thank you to Mr. Gio.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-30",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-30",
+   "score": 6,
+   "raw": "3/5",
+   "replied": true,
+   "text": "Everything is perfect in terms of the welcome, the rooms, the pool, but there is still some disappointment regarding the fact that we cannot swim in the sea (because of…",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Pool",
+    "Room",
+    "Value"
+   ],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-30",
@@ -1728,6 +2636,19 @@ export const DATA = {
     "Room",
     "Insects"
    ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-29",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I really like it,",
+   "praise": [],
    "complaints": [],
    "country": "",
    "traveller": ""
@@ -1829,6 +2750,51 @@ export const DATA = {
     "Room",
     "Location and beach"
    ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-28",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Fantastic, with service just as you'd hope. Excellent communication even before arrival, a warm welcome, and deluxe room service. Little touches that make a holiday…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-28",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "Nearby activities: Tauchen 🤿",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-10-28",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "",
+   "praise": [],
    "complaints": [],
    "country": "",
    "traveller": ""
@@ -1959,6 +2925,28 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-26",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "An excellent stay at the Sudamala Resort in Labuan Bajo! The hotel is very pleasant, impeccably clean, and we received a warm welcome. A special thank you to the driver…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Pool",
+    "Cleanliness",
+    "Location and beach",
+    "Insects",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-26",
@@ -1985,6 +2973,19 @@ export const DATA = {
    "complaints": [],
    "country": "Singapore",
    "traveller": "Solo traveller"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "senggigi",
@@ -2057,6 +3058,19 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-24",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "senggigi",
    "site": "Booking.com",
    "date": "2026-10-24",
@@ -2075,6 +3089,37 @@ export const DATA = {
    "complaints": [],
    "country": "New Zealand",
    "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-23",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "A truly beautiful hotel, the grounds are magnificent and the service is fantastic. The food is excellent; I highly recommend this place.",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-23",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Couldn't have had a better time at Sudamala! The hotel is beautiful and the service is amazing. We'll be back!",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "sanur",
@@ -2225,6 +3270,47 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-10-23",
+   "score": 7.2,
+   "raw": "3.6/5",
+   "replied": null,
+   "text": "Hotelnya bagus dan nyaman, tidak berkompromi dengan keadaan tamu, duty managernya ngeyel dan ngawal seperti pencuri aja sampai di kamar",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-22",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-22",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "The most amazing accomodation in Labuan Bajo ❤️❤️ we missed it so much after we left. The staff were wonderful and made us feel so welcome while celebrating our…",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "senggigi",
    "site": "Booking.com",
    "date": "2026-10-22",
@@ -2294,6 +3380,19 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-21",
+   "score": 6,
+   "raw": "3/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-21",
@@ -2337,6 +3436,47 @@ export const DATA = {
     "Spa",
     "Wi-Fi",
     "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-20",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "We absolutely loved our stay here! The rooms are super spacious and the bed was really comfy. All the staff were so lovely and went out of their way to help us with…",
+   "praise": [
+    "Staff and service",
+    "Pool",
+    "Room",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-20",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Lovely resort with even more lovely staff! We had a garden view room but because of the compact size of the resort, the beach was just steps away. The beach featured…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Spa",
+    "Insects",
+    "Transfers and access"
    ],
    "complaints": [],
    "country": "",
@@ -2405,6 +3545,38 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-18",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-18",
+   "score": 6,
+   "raw": "3/5",
+   "replied": true,
+   "text": "We enjoyed our stay overall, thanks to the very friendly staff. However, for a five-star hotel, there is room for improvement. Our room wasn’t ready at 4 PM, no bellman…",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Breakfast",
+    "Pool",
+    "Room",
+    "Cleanliness"
+   ],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-18",
@@ -2457,6 +3629,38 @@ export const DATA = {
    "traveller": "Family"
   },
   {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-17",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Google",
+   "date": "2026-10-17",
+   "score": 8,
+   "raw": "4/5",
+   "replied": true,
+   "text": "Nice resort, but expensive restaurant. Very nice rooms and friendly staff. Beatiful garden",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Value",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-17",
@@ -2496,6 +3700,24 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-10-17",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": true,
+   "text": "Truly happy with the level of service given by the staffers of Sudamala Resort. They are like one big family; the reception, housekeeping, f&b, their in-house spa. All in all, everyone is so welcoming, friendly and…",
+   "title": "Excellent service",
+   "praise": [
+    "Staff and service",
+    "Spa",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Couple"
+  },
+  {
    "resort": "sanur",
    "site": "Google",
    "date": "2026-10-16",
@@ -2509,6 +3731,41 @@ export const DATA = {
    "complaints": [],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-10-16",
+   "score": 2,
+   "raw": "1/5",
+   "replied": false,
+   "text": "Let's start with the negatives. When we reached the pier, they made us climb onto it, holding on to some old tires. We climbed onto it and headed towards the resort. We…",
+   "praise": [],
+   "complaints": [
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Upkeep and age",
+    "Insects"
+   ],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "amed",
+   "site": "Agoda",
+   "date": "2026-10-16",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": false,
+   "text": "Der Service war super. Wurden einmal vor der Frühstückszeit geholt und ich konnte abends für 6.30 Uhr Frühstück bestellen. WLAN war bis zum Strand. Großes Zimmer. Süßes authentisches Bad. Guter Wasserdruck!",
+   "title": "Toller Service!",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "Germany",
+   "traveller": "Couple"
   },
   {
    "resort": "ubud",
@@ -2661,6 +3918,28 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-10-14",
+   "score": 5.2,
+   "raw": "5.2/10",
+   "replied": false,
+   "text": "Our stay was extremely disappointing and certainly did not meet the standards expected of a five-star hotel. We arrived at approximately 1:50 PM and were informed that our room was not ready. We understood that the…",
+   "title": "Disappointing Experience - Far below 5 star standard",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Upkeep and age",
+    "Value",
+    "Insects"
+   ],
+   "country": "China",
+   "traveller": "Couple"
+  },
+  {
    "resort": "sanur",
    "site": "Google",
    "date": "2026-10-13",
@@ -2669,6 +3948,56 @@ export const DATA = {
    "replied": true,
    "text": "",
    "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I recommand Sudamala resort lombok at 100% We had a very nice holidays, the sudamala team is very kind and take care of us a lot ! We booked a room with a private…",
+   "praise": [
+    "Staff and service",
+    "Pool",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Hotel located in a great area for exploring northern Lombok and Mount Rinjani. A short distance from Gili Air. Spacious and comfortable rooms facing the sea, perfect for…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Insects"
+   ],
    "complaints": [],
    "country": "",
    "traveller": ""
@@ -2724,6 +4053,22 @@ export const DATA = {
    "complaints": [],
    "country": "Malta",
    "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-12",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Very nice hotel, good breakfast. Dinner has an extensive menu. Atmospheric",
+   "praise": [
+    "Breakfast",
+    "Food and restaurant"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "ubud",
@@ -2880,6 +4225,55 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-10",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-10",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-10-10",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Outstanding hotel on a small island right adjacent to Komodo National Park. Not a huge resort. A nice boutique hotel with EXCELLENT service. Each bungalow is right on…",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Quiet and calm",
+    "Noise",
+    "Upkeep and age",
+    "Insects",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "sanur",
    "site": "Booking.com",
    "date": "2026-10-10",
@@ -2913,6 +4307,22 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-10-09",
+   "score": 6.8,
+   "raw": "6.8/10",
+   "replied": false,
+   "text": "Whilst the staff were nice they were not very accomodating or as friendly as other places I have stayed with my children.",
+   "title": "A little disappointing",
+   "praise": [],
+   "complaints": [
+    "Staff and service"
+   ],
+   "country": "Australia",
+   "traveller": "Family with teens"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-10-08",
@@ -2925,6 +4335,22 @@ export const DATA = {
    "complaints": [],
    "country": "Ducept",
    "traveller": "Solo traveller"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-10-08",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "They have a huge pool. And sunsets is just stunning.",
+   "title": "excellent hotel",
+   "praise": [
+    "Pool"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Solo traveler"
   },
   {
    "resort": "sanur",
@@ -2996,6 +4422,22 @@ export const DATA = {
   },
   {
    "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-10-05",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Highly recommend this beautiful hotel with wonderful staff.",
+   "title": "Great relaxing stay",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "sanur",
    "site": "Google",
    "date": "2026-10-04",
    "score": 10,
@@ -3055,6 +4497,130 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-10-03",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "A little paradise! We had a bungalow on stilts at the end of the beach and enjoyed complete privacy. A privacy screen could be lowered to separate us from the…",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Cleanliness",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-10-03",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Had a wonderful stay at Sudamala Resort Sanur. The staff were absolutely amazing — so warm, friendly, and attentive throughout our stay. We were also pleasantly surprised with a complimentary upgrade to a Deluxe Garden…",
+   "title": "Very quite and Relaxing",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-02",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I had a wonderful week at the Sudamala Senggigi! The staff there are top notch - very kind, remember all the guests names, very helpful, and go out of their way to…",
+   "praise": [
+    "Staff and service",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-10-02",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Amazing room and facilities and the staff was exceptionally kind and took care of my needs. They remembered me individually and made sure I had a great experience",
+   "praise": [
+    "Staff and service",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-10-02",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": false,
+   "text": "This is my third stay this time. I can feel a gentle breeze that is not experienced in large hotels. I think it is a mix of the overall atmosphere of the building and the warm response of the staff that creates this…",
+   "title": "Gentle breeze",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "Japan",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-09-30",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "Well designed building - restaurant, rooms and pool. Reasonably close to the beach walkway.",
+   "title": "Wonderful architecture",
+   "praise": [
+    "Food and restaurant",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "New Zealand",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-09-29",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "Lovely rooms and resort, staff fantastic, breakfasts wonderful, only minor criticism was the swimming pool temperature was far too warm, not refreshing at all, as a result we did not use the pool as much as we would…",
+   "title": "Family holiday",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Pool",
+    "Room",
+    "Upkeep and age"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Family with teens"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-09-28",
@@ -3091,6 +4657,60 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-27",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "We had such a wonderful stay at Sudamala Resort Lombok! The resort is absolutely beautiful, very quiet, and offers a peaceful atmosphere. It is undoubtedly the best spot…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-27",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "Food & drinks: Food is excellent!!!",
+   "praise": [
+    "Food and restaurant"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-27",
+   "score": 8,
+   "raw": "4/5",
+   "replied": true,
+   "text": "Very beautiful hotel in a stunning location. The hotel has its own house reef, where you can snorkel and even spot turtles. You can book excursions to Komodo National…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Upkeep and age",
+    "Value",
+    "Insects",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-09-27",
@@ -3117,6 +4737,19 @@ export const DATA = {
    "complaints": [],
    "country": "France",
    "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "Perfect!",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "amed",
@@ -3161,6 +4794,39 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-09-24",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "Highly recommend. Plastic free resort :). Beautiful beach sunsets, smiling staff, excellent food at the restaurant, superb quality Spa, and exceptional diving with Aquara Dive Shop (the resorts in house dive operation).",
+   "title": "Book your stay!",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach",
+    "Spa",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "United States",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-09-24",
+   "score": 2,
+   "raw": "1/5",
+   "replied": null,
+   "text": "Saya dapetin kamar very bad, minta cottage tapi dapatnha lantai 2 semi hotel. VERY BAD",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
    "resort": "seraya",
    "site": "Booking.com",
    "date": "2026-09-23",
@@ -3173,6 +4839,95 @@ export const DATA = {
    "complaints": [],
    "country": "Italy",
    "traveller": "Solo traveller"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-22",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "A peaceful place where you can relax and immerse yourself in nature, forgetting the stress of daily life. ✔️Welcoming and friendly staff ✔️Coral reef with a wide variety…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-22",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Sensational. The whole place makes you feel whole and happy. The location is fabulous, the staff are amazing, but the main event is the snorkelling. This is next level…",
+   "praise": [
+    "Staff and service",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-20",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I have been to thousands hotels. For private reasons, as ghost shopper, as quality coach.....but I havn t been to a place like Sudamala for a long lobg time. I thought…",
+   "praise": [
+    "Staff and service",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-20",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Rooms: Exzellenter Doppelbungalow für Familie. Nearby activities: Schnorcheln am Hausriff. …",
+   "praise": [
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-09-19",
+   "score": 2.4,
+   "raw": "2.4/10",
+   "replied": false,
+   "text": "✅ Pros: Snorkeling was the highlight. The coral reefs and underwater scenery were beautiful and well worth seeing. ❌ Cons: 1. The room was not very clean, and the sheets had not been cleaned properly. 2. The hotel was…",
+   "title": "Acceptable",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Upkeep and age",
+    "Insects",
+    "Transfers and access"
+   ],
+   "country": "China",
+   "traveller": "Family with teens"
   },
   {
    "resort": "seraya",
@@ -3192,6 +4947,60 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-09-18",
+   "score": 9.2,
+   "raw": "9.2/10",
+   "replied": false,
+   "text": "We loved the beautiful gardens with the graceful statues. The staff was warm and helpful. Unfortunately , the breakfast and dinner quality and flavor wasn’t up to the high standard of the rest of the stay experience.",
+   "title": "Exceptional",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant"
+   ],
+   "complaints": [],
+   "country": "United States",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-09-18",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Great hotel - nice service, very good food, quality room. Super cool location. Idéal for diving / boat trips as 10min from town",
+   "title": "Exceptional",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "France",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-09-18",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Services 5 star recommended.",
+   "title": "Exceptional",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Family with young children"
+  },
+  {
    "resort": "seraya",
    "site": "Booking.com",
    "date": "2026-09-17",
@@ -3204,6 +5013,35 @@ export const DATA = {
    "complaints": [],
    "country": "Mexico",
    "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-09-17",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "One of the Best Place for retreat and relax in Komodo",
+   "title": "One of the Best Place for retreat and relax in Komodo",
+   "praise": [
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-09-17",
+   "score": 8,
+   "raw": "4/5",
+   "replied": null,
+   "text": "Berhubung tinggal hanya sekedar transit, jadi tidak menikmati semua fasilitas hotelnya.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
   },
   {
    "resort": "amed",
@@ -3220,6 +5058,129 @@ export const DATA = {
    "complaints": [],
    "country": "Belgium",
    "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-09-16",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": false,
+   "text": "We stayed for 3 nights in September and it was absolutely lovely. We had one of the private pool villas which was huge and the pool was surprisingly big. That said, the main pool is also fantastic and looks straight out…",
+   "title": "Beautiful hotel right on the beach",
+   "praise": [
+    "Food and restaurant",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "United Kingdom",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-09-16",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Cocok untuk menghabiskan waktu. Kamar sangat luas.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-09-15",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Lovely stay with a bit of luxury before our cruise. A little out of town but still easy enough to get a bolt.",
+   "title": "Pre cruise stay",
+   "praise": [],
+   "complaints": [],
+   "country": "United Kingdom",
+   "traveller": "Family with teens"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-14",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "How can you describe an unforgettable stay in just a few lines?! Leaving the Sudamala left us with a void… Of all the hotels we've stayed in, this one is the best. It's…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Spa",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-14",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Paradise - The most beautiful resort and place we have stayed at! Staff (especially Marrin) were all helpful and amazing! Amazing beach and the best snorkelling at the…",
+   "praise": [
+    "Staff and service",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-09-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Love this resort! Parkir luas, rapi, banyak pepohonan, rindang, sejuk, ada kolam ikan, lobby nyaman, semua staff ramah dari security, FO, CS dan semuanya. 5 star yang punya taman yg luas dengan beach,...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-12",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "seraya",
@@ -3253,6 +5214,58 @@ export const DATA = {
    "traveller": "Family"
   },
   {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-09-11",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "Pool villas are beautiful rooms surrounded by frangapanni trees. A great size pool although a bit cold at the end of August. The water fountains could be turned down as they are quite noisy and have too much pressure…",
+   "title": "Fabulous resort",
+   "praise": [
+    "Staff and service",
+    "Pool",
+    "Room",
+    "Location and beach",
+    "Noise",
+    "Upkeep and age",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Google",
+   "date": "2026-09-10",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Spent five days at this resort the rooms, food and service was absolutely amazing! So much so that we didn’t leave. We couldn’t fault it! Juandi the head chef was very…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-09",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "seraya",
    "site": "Booking.com",
    "date": "2026-09-09",
@@ -3265,6 +5278,80 @@ export const DATA = {
    "complaints": [],
    "country": "France",
    "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-09-07",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "I don't know what the negative reviews are about, but it's a true paradise. At night, all you hear is the sound of the waves, and during the day, right outside your…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-09-07",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "Hotel was amazing. Beachfront was amazing. Food was amazing. Staff were amazing. Overall epic with the caveat of mosquitos in room. If you are a mosquito magnet. Come in the day time not evening and pre-spray the room…",
+   "title": "Great with caveat",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Japan",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-09-05",
+   "score": 4.8,
+   "raw": "4.8/10",
+   "replied": true,
+   "text": "We were allocated a studio suite which was meant to be an upgrade. Extremely poorly maintained room. balcony door would not close due to misalignment , bathroom taps leaked , leaving unbearable stench , lamp in the room…",
+   "title": "Poorly maintained - not a 5 star resort",
+   "praise": [],
+   "complaints": [
+    "Room",
+    "Location and beach",
+    "Upkeep and age",
+    "Insects"
+   ],
+   "country": "Singapore",
+   "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-09-05",
+   "score": 9.2,
+   "raw": "9.2/10",
+   "replied": true,
+   "text": "Excellent hospitality, incredible grounds and architecture, great sunset view (Mt Agung literally in front). The landscape is very cleverly designed that you feel the privacy. Breakfast was a la carte but lovely. It’s…",
+   "title": "Private and relaxing, with everything u need still within within distance",
+   "praise": [
+    "Breakfast",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Group"
   },
   {
    "resort": "seraya",
@@ -3353,6 +5440,78 @@ export const DATA = {
    "traveller": "Group"
   },
   {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-08-29",
+   "score": 2,
+   "raw": "1/5",
+   "replied": false,
+   "text": "Worst place I've ever stayed. Swimming was impossible from 11:30 am because of low tide and the sea was black with seaweed. Even earlier, the staff forbade swimmers from…",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Food and restaurant",
+    "Pool",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Noise",
+    "Upkeep and age",
+    "Value",
+    "Insects",
+    "Transfers and access"
+   ],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "amed",
+   "site": "Agoda",
+   "date": "2026-08-29",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "I have stayed here several times. If you appreciate character and style and professionalism in your accommodation then you will love it.",
+   "title": "Unique accommodation",
+   "praise": [],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-08-28",
+   "score": 8,
+   "raw": "4/5",
+   "replied": true,
+   "text": "",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-08-28",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "The grounds and room have been terrific. The staff is very helpful, friendly and welcoming. Location is just a short walk from the beach where the hotel has a designated section just for their guests' exclusive use…",
+   "title": "Wonderful Resort",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "United States",
+   "traveller": "Solo traveler"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-08-27",
@@ -3367,6 +5526,24 @@ export const DATA = {
    ],
    "country": "France",
    "traveller": "Solo traveller"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-08-26",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "We had a wonderful time! The resort is fabulous, with its beach huts. The loungers in the rooms are right on the beach. There's a gym and spa, but most importantly, a…",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Location and beach",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "seraya",
@@ -3411,6 +5588,26 @@ export const DATA = {
    "complaints": [],
    "country": "Italy",
    "traveller": "Family"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-08-20",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "A wonderful resort for unforgettable moments of relaxation. A very intimate resort (24 rooms), all very beautiful and well-maintained. The manager, Micael (French), is…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
   },
   {
    "resort": "amed",
@@ -3535,6 +5732,37 @@ export const DATA = {
    "traveller": "Solo traveller"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-08-14",
+   "score": 7.6,
+   "raw": "7.6/10",
+   "replied": false,
+   "text": "A beautiful hotel with well managed garden, beautiful surroundings and direct access to the beach. Bear in mind that free airport shuttle only available from 6.00AM to 12.00PM. The room is artistically designed and…",
+   "title": "A Beautiful Hotel But not the Best",
+   "praise": [],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-08-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": false,
+   "text": "Spectacular sea views. At this resort, you can watch the sunrise and sunset from behind. Everything is well-kept, and the staff is always smiling and friendly. The food…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-08-12",
@@ -3555,6 +5783,45 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-08-03",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "We had such a relaxing and comfortable stay at Sudamala Sanur. Although the resort is a short taxi ride from the busy town center, the beachfront is directly connected by a beautiful walking path, so you can easily…",
+   "title": "Comforting stay",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Quiet and calm",
+    "Spa",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "South Korea",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-08-03",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "The staff are all friendly and food is good.",
+   "title": "everything is perfect",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Family with young children"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-08-01",
@@ -3569,6 +5836,27 @@ export const DATA = {
    "complaints": [],
    "country": "Giuseppe",
    "traveller": "Solo traveller"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-07-29",
+   "score": 6.4,
+   "raw": "6.4/10",
+   "replied": false,
+   "text": "Sudamala Labuan Bajo is by far not a five star resort, the lobby , the number of restaurants (1), breakfast, swimming pool is by far not up to 5 star standard. The only thing 5 star are the room prices. I wonder how…",
+   "title": "Overrated",
+   "praise": [],
+   "complaints": [
+    "Breakfast",
+    "Food and restaurant",
+    "Pool",
+    "Room",
+    "Value",
+    "Insects"
+   ],
+   "country": "Vietnam",
+   "traveller": "Family with young children"
   },
   {
    "resort": "amed",
@@ -3603,6 +5891,23 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-07-19",
+   "score": 8.0,
+   "raw": "8/10",
+   "replied": false,
+   "text": "Staff at the beach was exceptional but staff at the coffee house needs more training and more smiles",
+   "title": "Love the vibe",
+   "praise": [
+    "Staff and service",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Couple"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-07-15",
@@ -3618,6 +5923,43 @@ export const DATA = {
    ],
    "complaints": [],
    "country": "United States",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-07-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Although we didn’t stay overnight, our experience at the resort was so wonderful that we’ll definitely be booking a stay on our next visit to Labuan Bajo. From the…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-07-13",
+   "score": 8.4,
+   "raw": "8.4/10",
+   "replied": true,
+   "text": "The place is truly a paradise. Unfortunately, we visited at the wrong time because it rained almost nonstop during our stay. Even so, it's a wonderful destination if you and your partner are looking for a peaceful and…",
+   "title": "Fun Experience",
+   "praise": [
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Philippines",
    "traveller": "Couple"
   },
   {
@@ -3637,6 +5979,38 @@ export const DATA = {
    "traveller": "Solo traveller"
   },
   {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-07-12",
+   "score": 2.0,
+   "raw": "2/10",
+   "replied": false,
+   "text": "I tried to cancel my booking but I couldn't",
+   "title": "Couldn't cancel",
+   "praise": [],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-07-10",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "If you’re seeking Flores Islands paradise with absolute beachfront accommodation, a reef you can swim to and breathtaking sunsets, Sudamala Seraya is a wonderful choice…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2026-07-09",
@@ -3651,6 +6025,29 @@ export const DATA = {
     "Insects"
    ],
    "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-07-09",
+   "score": 4,
+   "raw": "2/5",
+   "replied": true,
+   "text": "⭐⭐☆☆☆ The marine life around Seraya is absolutely incredible. The snorkeling is among the best we experienced in Indonesia: beautiful coral, crystal-clear water, and an…",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Quiet and calm",
+    "Value",
+    "Insects"
+   ],
    "country": "",
    "traveller": ""
   },
@@ -3683,6 +6080,90 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-07-05",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Fantastic place with wonderful rooms just steps from the sea... excellent food and excellent service... we were served by Nardi, a really good and helpful member of…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-07-05",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Such a lovely hotel! The grounds are wonderful, located on a lovely beach. Our room was very comfortable and the staff were super friendly and helpful. Would definitely recommend!",
+   "title": "Beautiful location",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Thailand",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-07-04",
+   "score": 8.4,
+   "raw": "8.4/10",
+   "replied": false,
+   "text": "It's been a while that we just chill & relax...not rushing here and there. Spent a day trip to Komodo island... the rest of our holidays was in this resort... morning dance exercise, canoeing....breakfast…",
+   "title": "Chillax",
+   "praise": [
+    "Breakfast",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Group"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-07-03",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Beautiful resort, nice staff…",
+   "praise": [
+    "Staff and service"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-07-02",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Good view, good experience and good staff",
+   "title": "Wonderful hotel",
+   "praise": [
+    "Staff and service",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Family with young children"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2026-06-28",
@@ -3695,6 +6176,81 @@ export const DATA = {
     "Food and restaurant",
     "Room",
     "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-06-27",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Sudamala Resort Seraya is the perfect definition of a dream retreat. Located on a stunning private island just a short boat ride from Labuan Bajo, it offers a rare peace…",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach",
+    "Quiet and calm",
+    "Insects",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "",
+   "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-06-27",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": false,
+   "text": "We booked the One Bedroom Suite with Pool and absolutely loved it. The boys had a wonderful time enjoying the private pool, which made our stay even more memorable. The hotel’s ambience is beautiful, peaceful, and truly…",
+   "title": "Excellent",
+   "praise": [
+    "Breakfast",
+    "Food and restaurant",
+    "Pool",
+    "Room",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-06-26",
+   "score": 8.4,
+   "raw": "8.4/10",
+   "replied": true,
+   "text": "This property is truly exceptional, boasting beautiful rooms right on the turquoise blue sea with stunning balcony views. Executive Chef [Name] and the entire staff were incredibly kind, helpful, and treated us to…",
+   "title": "Great location and food",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "India",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Google",
+   "date": "2026-06-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": true,
+   "text": "Nearby activities: Ideal für Schnorcheln. Food & drinks: Sehr gutes Restaurant, allerdings ohne lokale Alternative.",
+   "praise": [
+    "Food and restaurant",
     "Insects"
    ],
    "complaints": [],
@@ -3716,6 +6272,28 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-06-23",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "The best time to snorkel is between 7 and 10 a.m. from the jetty—the water is clearest and there are the most fish. After 10, you can go paddleboarding, which is really chill. Amazingly, there weren’t any mosquitoes…",
+   "title": "Tranquil ease",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Couple"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-06-22",
@@ -3732,6 +6310,93 @@ export const DATA = {
    "traveller": "Couple"
   },
   {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-06-21",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Because it is calm, cool, and comfortable. The spa is also value for money. The staff is friendly. The breakfast is delicious and accompanied by Balinese gamelan. The children enjoyed it and got a new experience. There…",
+   "title": "Feeling like you're in Ubud even in Sanur.",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Quiet and calm",
+    "Value",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-06-19",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Very nice hotel, with tropical garden atmosphere. The best tropical hotel in Labuan Bajo😍❤️👍",
+   "title": "Sudamala Resort Komodo",
+   "praise": [],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-06-18",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "We had three nights stay, following 3 nights at the sister resort - Sudamala Komodo. Both resorts are fantastic and highly recommended but this was our favourite. A tropical island with a reef full w...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-06-17",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "The room has a beachfront view that is beautiful. The bed is comfortable and is really a relaxing place to be.",
+   "title": "A beachfront view",
+   "praise": [
+    "Room",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-06-17",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Communication before the trip was prompt, and check-in went very smoothly. There were no obvious issues with the service during our stay. We stayed in Room 20, which sits a little higher than most of the beach bungalows…",
+   "title": "A quality hotel for a laid-back seaside getaway—truly facing the sea, with spring warmth…",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Value"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Group"
+  },
+  {
    "resort": "amed",
    "site": "Booking.com",
    "date": "2026-06-16",
@@ -3744,6 +6409,170 @@ export const DATA = {
    "complaints": [],
    "country": "France",
    "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-06-16",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "I had a comfortable stay with Sudamala. The rooms were amazing and they were all helpful and friendly and would go all out to make me feel special. Special shoutout to Chef Juandi for cooking a special dish for me …",
+   "title": "Comfortable atay with friendly staff",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-06-14",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "My husband and I just spent 5 nights at Sudamala in one of the beachfront suites and we absolutely loved it! The resort setting was fantastic, the staff were very kind, and amenities were great. The beach itself is a…",
+   "title": "Excellent stay",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Value",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-06-12",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": true,
+   "text": "After the hustle and bustle of Ubud, our stay at Sudamala Resort Sanur was exactly what we needed. The moment we arrived, we were greeted by a peaceful atmosphere that felt worlds away from the crowds. The resort is…",
+   "title": "Exactly What We Needed After Ubud",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Quiet and calm",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-06-12",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Nice stay, loved the gardens and fish ponds. Calm and relaxing atmosphere. Not so wheelchair friendly as many rooms has at least few steps up or stairs, quite dificcult to move around inside the room ...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-06-12",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Friendly and helpful staff, delicious meals, comfortable room, and beach view. Not much beach at high tide, but still very relaxing time.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "Agoda",
+   "date": "2026-06-10",
+   "score": 9.2,
+   "raw": "9.2/10",
+   "replied": false,
+   "text": "Spacious and comfortable rooms, friendly staff, beautiful beachfront setting, and excellent service. The resort offers a peaceful atmosphere with great facilities and stunning sunset views. Slightly away from the town…",
+   "title": "Highly Recommended",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-06-08",
+   "score": 8.4,
+   "raw": "8.4/10",
+   "replied": true,
+   "text": "We stayed 2 nights at Lingsar Garden Suite. The room is spacious and the bed is comfortable. Their turn down service with sweet treats of cookies and bedtime folk story adds a nice touch to the overall experience. There…",
+   "title": "Traditional Sasak and Stunning Sunset Views",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-06-07",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "Beautiful hotel in Sanur, staff were friendly and helpful, peaceful and relaxing stay. The location was quiet, not beachside but walking distance. breakfast excellent.",
+   "title": "Beautiful hotel",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-06-06",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Excellent place to stay. Balinese boutique style resort. Good location near restaurants and 10-15 minute walk to beach.",
+   "title": "Exceptional",
+   "praise": [
+    "Food and restaurant",
+    "Location and beach",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
   },
   {
    "resort": "amed",
@@ -3764,6 +6593,24 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-06-03",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "Clean and cozy resort. We enjoyed amazing breakfast at Oleh-oleh Resto. Very nice staffs will help you with their politeness. This was our 2nd visit to Sudamala, and I can’t wait for the 3rd one☺️",
+   "title": "Exceptional",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Cleanliness"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Family with teens"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2026-06-02",
@@ -3781,6 +6628,60 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-06-01",
+   "score": 6.8,
+   "raw": "6.8/10",
+   "replied": false,
+   "text": "The scene arriving in to Seraya Island and seeing the gorgeous resort and clear water reef and beach was a beautiful experience. Staff were helpful and welcoming. Good room but caution booking the Beach Bungalow if you…",
+   "title": "A slice of paradise",
+   "praise": [],
+   "complaints": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Noise",
+    "Insects"
+   ],
+   "country": "Malaysia",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-31",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "Best memory stay here with family. Good room, food, and view.",
+   "title": "Best sunset resort in Senggigi Lombok",
+   "praise": [
+    "Food and restaurant",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-27",
+   "score": 9.2,
+   "raw": "9.2/10",
+   "replied": true,
+   "text": "Would visit again",
+   "title": "Exceptional",
+   "praise": [],
+   "complaints": [],
+   "country": "New Zealand",
+   "traveller": "Couple"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2026-05-25",
@@ -3794,6 +6695,19 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-05-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Special place on Sereya. The staff here were superb. Puk Alfonso at the bar was excellent and made great cocktails and always served with a smile. Grace in the restaurant was also great. An injury was...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2026-05-22",
@@ -3805,6 +6719,38 @@ export const DATA = {
    "complaints": [],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-22",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Excellent",
+   "title": "Exceptional",
+   "praise": [],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-21",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "Stunning resort awesome staff amazing food right on the beach can’t fault it.",
+   "title": "Gorgeous place amazing",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
   },
   {
    "resort": "amed",
@@ -3824,6 +6770,64 @@ export const DATA = {
    ],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-18",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": true,
+   "text": "What a splendid resort!! Loved our stay there that we actually miss it now that we are back home. Staff was lovely, they provided us with breakfast boxes because our flight got rescheduled & we had to leave at 3am…",
+   "title": "Highly recommended.",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Food and restaurant",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-17",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "The best and most comfortable resort at Senggigi Beach, Lombok. Calm. Comfortable. The rooms are also clean.",
+   "title": "Best",
+   "praise": [
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "Agoda",
+   "date": "2026-05-15",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Room, Service and Views are good The only thing is booking of spa is limited.",
+   "title": "Very Good",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Location and beach",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "Singapore",
+   "traveller": "Family with young children"
   },
   {
    "resort": "amed",
@@ -3892,6 +6896,202 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-04-28",
+   "score": 8.8,
+   "raw": "8.8/10",
+   "replied": true,
+   "text": "Happy, helpful staff Comfortable rooms Premium feel.",
+   "title": "Comfortable small hotel",
+   "praise": [
+    "Staff and service",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "amed",
+   "site": "Agoda",
+   "date": "2026-04-27",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Really nice place, very good restaurant, great staff. Will come again !",
+   "title": "Great time =)",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "United States",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-04-26",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Perfect stay with stunning beach and views",
+   "title": "Exceptional",
+   "praise": [
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "India",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-04-18",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "This hotel has been the highlight of my time in Lombok. The staff were incredibility helpful and nothing was too much trouble at all. The pool facilities are nice and clean and lounging by the pool wa...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-04-08",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Amazing reef straight from the beach or from the pier at low tide. would highly recommend could not fault anything!",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-04-06",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Small pool but ok. Perfect small resort for small group.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-03-31",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "semua grup sudamala udah dicoba , the best !",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-03-28",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "The Sudamala was truly a beautiful Balinese inspired resort in a great location with terrific amenities. I would recommend to anyone wishing wanting something special.",
+   "title": "Balinese inspired resort",
+   "praise": [
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Group"
+  },
+  {
+   "resort": "sanur",
+   "site": "Agoda",
+   "date": "2026-03-27",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": true,
+   "text": "Such a beautiful place to stay, lovely staff, great breakfast and beautiful room. Fantastic location.",
+   "title": "Amazing",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-03-21",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Sudamala mantap lokasi dan keramahannya",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-03-03",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "The staff were extremely friendly and helpful, and they took good care of all my needs. They even prepared a lovely birthday surprise for me without being reminded, and I’m very thankful for that. It’s a quiet and…",
+   "title": "Wonderful Stay with Heartwarming Service",
+   "praise": [
+    "Staff and service",
+    "Location and beach",
+    "Quiet and calm",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-02-28",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Vi havde egen pool, hvilket var dejligt. Hotellet havde en god beliggenhed. Rigtig komfortable senge og et skønt hus, med alt det vi havde brug for. Rigtig sødt personale. Da vi holdt min kærestes fød...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-02-27",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Amazing experience! I treasure the smiles and the genuine love the staff shows towards guests. This was my second trip to Sudamala Seraya.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2026-02-18",
@@ -3903,6 +7103,32 @@ export const DATA = {
    "complaints": [],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-02-18",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Everything was perfect",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-02-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Staff ramah, makanan enak, sunset view bagus, kamar bagus dan nyaman",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
   },
   {
    "resort": "amed",
@@ -3926,6 +7152,423 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-01-27",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Beautiful resort on a tranquil, clean beachfront. The house reef is exceptional for snorkeling right off the pier, and hosts a large diversity of fish and turtles. The resort provided an extra night of free…",
+   "title": "Excellent",
+   "praise": [
+    "Cleanliness",
+    "Location and beach",
+    "Quiet and calm",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "Australia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-01-26",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "hotel sangat bagus kebersihan terjaga staff sangat ramah, sarapan bervariasi hotel yang enak next mau cobain sudamala lombok 💙 Impeccably maintained pool.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-01-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Amazing stay, staff we very helpful and the reef was beautiful!",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-01-21",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "This resort give an extraordinary experience for my honeymoon. They docarate the room very nice and creative. Our welcome cake is also nice. They got very nice and friendly staff. Surely will recommend to others",
+   "title": "Fantastic",
+   "praise": [
+    "Staff and service",
+    "Room"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-01-21",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "I was beyond thrilled to stay at this gorgeous resort. The house reef was fantastic, the best coral I have ever seen. Please people be careful about treading on the coral and swim horizontally!! The rooms were gorgeous…",
+   "title": "Heaven",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Insects"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Solo traveler"
+  },
+  {
+   "resort": "amed",
+   "site": "tiket.com",
+   "date": "2026-01-20",
+   "score": 5.2,
+   "raw": "2.6/5",
+   "replied": null,
+   "text": "Regret booking two nights, left after one. Can't believe Sudamala signs it with their name, of course didn't expect 5* standard for this price, but it's nowhere close to 3* they claim. There was a str...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-01-20",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Walaupun ada tokek, I LOOOOVE the resort vibes. Abis nonton the white lotus jadi berasa beneran di resort kaya white lotus lol",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2026-01-18",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "I had an amazing 4 days 3 nights stay at Crowne Plaza Labuan Bajo, and it exceeded all our expectations. We felt utterly satisfied with the dreamy beach bungalow, surrounded by lush greeneries and beautiful flowers…",
+   "title": "most intimate getaway",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Cleanliness",
+    "Location and beach",
+    "Quiet and calm",
+    "Spa"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-01-18",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Serene poolside escape. Cleanliness is very maintained.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2026-01-16",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Mycket bra överlag",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-01-13",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Thus is such a beautiful property, the service and attention to detail is perfect. The hotel is ideally located about a 5 minute drive if Sengiggi centre, easy to get to by taxi. The rooms are excelle...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-01-08",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Enticing children's menu. Parking is always available. The pool is suitable for relaxing. Quick room service.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-01-07",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Terima kasih anniversary nya berjalan lancar sangat berkesan.. makanan enak dan pelayanan sangat memuaskan ya👌🥰❤️ tanpa diminta kue langsung di kasikan krn honeymoon😊🙏 thankyou sudalama resort 🙏",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-01-07",
+   "score": 8,
+   "raw": "4/5",
+   "replied": null,
+   "text": "Staff and room",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-01-05",
+   "score": 8.8,
+   "raw": "4.4/5",
+   "replied": null,
+   "text": "Great resort with quite affordable price compared to other resorts in the same township. The toilet has bidet but not jetshower.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2026-01-05",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Resort nya nyaman bgt, fasilitas kamar lengkap dan bersih",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-01-04",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Makanan enak, akses pantai langsung, dan pelayanan sangat baik.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2026-01-04",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Pelayanan sangat baik, akses langsung ke pantai. Dan fasilitas ok.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-12-31",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "Highly recommended for those seeking peace and quality time. The sea is breathtaking, and we found ourselves snorkeling again and again, amazed by the beautiful corals and colorful fish all around. We also can do…",
+   "title": "Highly recommended",
+   "praise": [
+    "Staff and service",
+    "Breakfast",
+    "Location and beach",
+    "Quiet and calm"
+   ],
+   "complaints": [],
+   "country": "Indonesia",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-12-30",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "We stayed for two nights with our children. There are two scheduled transfers a day from the pier on Flores Island, at 11 a.m. and around 3:30 p.m., I think. If you contact them on WhatsApp, they reply by email. We went…",
+   "title": "A beach where you can see coral reefs.",
+   "praise": [
+    "Breakfast",
+    "Location and beach",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "Malaysia",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2025-12-30",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Kamarnya luas dan bersih, selebihnya datang sendri",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2025-12-29",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Fantastisk rum",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2025-12-27",
+   "score": 9.6,
+   "raw": "4.8/5",
+   "replied": null,
+   "text": "Selalu memuaskan menginap di sudamala senggigi, resort dengan akses langsung ke pantai, makanan ala carte dengan rasa yang sangat lezat, lingkungan resort sangat tenang",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2025-12-27",
+   "score": 9.6,
+   "raw": "4.8/5",
+   "replied": null,
+   "text": "Ini trip kedua kalinya di sudamala senggigi, tidak pernah mengecewakan. Mulai staf yang ramah, kamar bersih, akses langsung ke pantai. Overall is good",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-12-25",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Spectacular island and facilities. Super friendly and helpful staff. Great food. 10/10.",
+   "title": "Absolutely amazing",
+   "praise": [
+    "Staff and service",
+    "Food and restaurant"
+   ],
+   "complaints": [],
+   "country": "Hong Kong SAR, China",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-12-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Best sanitation. Enjoy exclusive flavors. Cleanliness and comfort. Invigorating pool ambiance. Family-friendly parking. Invigorating pool ambiance.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-12-20",
+   "score": 4,
+   "raw": "2/5",
+   "replied": null,
+   "text": "Kamar baru dibersihkan pada saat ka. I tiba dan checkin jam 11 malam. Bahkan kami Menunggu dpn kamar menunggu petugas bersihkan.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-12-20",
+   "score": 6,
+   "raw": "3/5",
+   "replied": null,
+   "text": "Biasa sajsaaaaaaaaaaaaaaaaaaaaaaa. Petugas tdk sigap",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-12-20",
+   "score": 6,
+   "raw": "3/5",
+   "replied": null,
+   "text": "Engsel pintu lepas. Kami minta sandal tp petugas perempuan kstaksn sdh ada meski tdk ada",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2025-12-08",
@@ -3939,6 +7582,84 @@ export const DATA = {
    "traveller": ""
   },
   {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2025-12-06",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Tout",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-12-03",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Kamarnya luas, kasur besar, AC dingin, ada hairdryer & senter juga buat jalan klo malam, kamar mandi type outdoor jadi suka kedengeran klo ada org lewat dari luar walau masih oke sih vibes alam, keber...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-12-01",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Seru banget staff nya baik2 semua",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "senggigi",
+   "site": "tiket.com",
+   "date": "2025-11-30",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Nice room",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-11-28",
+   "score": 9.6,
+   "raw": "4.8/5",
+   "replied": null,
+   "text": "Suka dengan lokasinya yang dekat dengan pusat kuliner Sanur tapi tidak persis di tengah keramaian jalan macet",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2025-11-17",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "This is a wonderful place. The staff are amazing, the view gorgeous and snorkelling on the reef is a fantastic experience. Comfortable, immaculate rooms just meters from the sea. Good food. And again...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
    "resort": "amed",
    "site": "Google",
    "date": "2025-11-15",
@@ -3950,6 +7671,37 @@ export const DATA = {
    "complaints": [],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-11-04",
+   "score": 8.8,
+   "raw": "4.4/5",
+   "replied": null,
+   "text": "Pelayanan top, staff ramah & cepat membantu. No komplain. Breakfast bervariasi, rasa ok lah. Croissantnya enak, coffee enak. Tidak ada playground untuk anak.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-11-03",
+   "score": 10.0,
+   "raw": "10/10",
+   "replied": false,
+   "text": "Loved it! Amazing snorkeling, so beautiful. Fantastic staff and perfectly layed out room: highly recommend.",
+   "title": "Highly Recommend!",
+   "praise": [
+    "Staff and service",
+    "Room",
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "United Kingdom",
+   "traveller": "Couple"
   },
   {
    "resort": "amed",
@@ -3972,6 +7724,19 @@ export const DATA = {
   },
   {
    "resort": "amed",
+   "site": "tiket.com",
+   "date": "2025-10-02",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Best hotel.. will come back again",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "amed",
    "site": "Google",
    "date": "2025-09-29",
    "score": 10,
@@ -3988,6 +7753,55 @@ export const DATA = {
    "complaints": [],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-09-26",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "After Sudamala Lombok & Sanur, finally managed to stay in this awesome Sudamala Komodo, the hidden gem beachfront of P*** Beach. With reasonable 5 stars rate with cozy homey vibes, comfortable Inerie ...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-09-19",
+   "score": 9.6,
+   "raw": "9.6/10",
+   "replied": false,
+   "text": "beautiful hotel，nice beach，cool diving",
+   "title": "very nice",
+   "praise": [
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-09-14",
+   "score": 8.0,
+   "raw": "8/10",
+   "replied": false,
+   "text": "The island resort is in a pretty good location, not too far from Komodo. The island it’s on is quite small and long and narrow, and you can walk from one end to the other in about ten minutes. The food selection is…",
+   "title": "Outlying island hotel",
+   "praise": [
+    "Food and restaurant",
+    "Room",
+    "Cleanliness",
+    "Location and beach",
+    "Transfers and access"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Family with teens"
   },
   {
    "resort": "amed",
@@ -4024,6 +7838,250 @@ export const DATA = {
    "complaints": [],
    "country": "",
    "traveller": ""
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-09-08",
+   "score": 4.0,
+   "raw": "4/10",
+   "replied": false,
+   "text": "I suspect discrimination against Chinese guests, and I want to call out the manager. Here are the facts: First, when we arrived, two other foreign couples were checking in at the same time, but we were the last to be…",
+   "title": "They have no sense of customer service and may be discriminatory. No matter how good it…",
+   "praise": [],
+   "complaints": [
+    "Room",
+    "Cleanliness",
+    "Noise",
+    "Upkeep and age",
+    "Insects"
+   ],
+   "country": "China",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "seraya",
+   "site": "Agoda",
+   "date": "2025-08-30",
+   "score": 8.4,
+   "raw": "8.4/10",
+   "replied": false,
+   "text": "Excellent view.",
+   "title": "Mr",
+   "praise": [
+    "Location and beach"
+   ],
+   "complaints": [],
+   "country": "China",
+   "traveller": "Family with young children"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-08-21",
+   "score": 9.6,
+   "raw": "4.8/5",
+   "replied": null,
+   "text": "Very, very nice property, green, clean. Beach is nice, but not really for swimming. Transfer to the city is expensive (they wanted 150k IDR , real price is max 50k IDR Stylish room interiors. Stylish ...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "komodo",
+   "site": "tiket.com",
+   "date": "2025-07-15",
+   "score": 8,
+   "raw": "4/5",
+   "replied": null,
+   "text": "Nice resort to slow down",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-07-10",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Cuma kuramg dari 16 jam dsini, tp pelayanan ramah, lokasi sangat strategis. Tidak ambil makanan, krn saya eks warlok, jadi cari di makanan pinggiran yg banyak pilihan. Semua bagus dan bangunannya tern...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "amed",
+   "site": "tiket.com",
+   "date": "2025-07-07",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "bisa langsung upgrade kamar on the spot (when available) and it was worth the money!",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-04-07",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Very clean rooms. Heavenly pool escape. Friendly prices, luxurious feel.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "seraya",
+   "site": "tiket.com",
+   "date": "2025-04-02",
+   "score": 2,
+   "raw": "1/5",
+   "replied": null,
+   "text": "There was almost no internet in my room",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-03-30",
+   "score": 8,
+   "raw": "4/5",
+   "replied": null,
+   "text": "Clean and tidy room.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-03-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "The beauty of local art. Friendly atmosphere. Dishes with a touch of class.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-03-25",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Complete family facilities. Parking is easily accessible. Warm and child-friendly staff.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "amed",
+   "site": "tiket.com",
+   "date": "2025-02-22",
+   "score": 6,
+   "raw": "3/5",
+   "replied": null,
+   "text": "The staff were excellent. Beds were firm. Showers had lots of hot water. Things that I didn’t like were no sun loungers/ bean bag chairs to relax on. If you wanted to sit by the ocean then you had t...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2025-02-19",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Baik dan murah karena selalu dapat promo.keren",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Family"
+  },
+  {
+   "resort": "amed",
+   "site": "tiket.com",
+   "date": "2025-02-03",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Fantastis, kami mendapatkan free room upgrade. Kamar nyaman, suasana tenang, akses langsung ke pantai. Suasana sejuk. Pelayan yang responsif.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "amed",
+   "site": "tiket.com",
+   "date": "2025-01-22",
+   "score": 9.6,
+   "raw": "4.8/5",
+   "replied": null,
+   "text": "A neat, clean and well-maintained place to stay. This is my go-to spot, and I’ve stayed here multiple times. The restaurant faces the ocean, offering beautiful views. The service is friendly, and the ...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2024-11-24",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Bagus bgt . Pokoknya suka n mau stay lg disini . Pelayanan staff nya smua bagus n ramah2 . Breakfast nya juga ok banget .",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Group"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2024-08-19",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "We liked everything about Sudamala Sanur.",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Couple"
+  },
+  {
+   "resort": "sanur",
+   "site": "tiket.com",
+   "date": "2024-08-04",
+   "score": 10,
+   "raw": "5/5",
+   "replied": null,
+   "text": "Salah satu resort terbaik di area Sanur dengan ketenangan yang sempurna, kamar yang luas dan nyaman, menu makanan yang lezat di Ares Restaurant dan excellent customer service from all staffs. Sudajiva...",
+   "praise": [],
+   "complaints": [],
+   "country": "",
+   "traveller": "Solo traveller"
   }
  ],
  "topics": {
@@ -4239,66 +8297,104 @@ export const DATA = {
   "countries": [
    [
     "Australia",
-    26
-   ],
-   [
-    "France",
-    17
+    47
    ],
    [
     "United Kingdom",
-    16
+    19
+   ],
+   [
+    "France",
+    18
+   ],
+   [
+    "Indonesia",
+    13
+   ],
+   [
+    "Malaysia",
+    13
+   ],
+   [
+    "China",
+    13
+   ],
+   [
+    "Singapore",
+    12
    ],
    [
     "Italy",
     12
    ],
    [
-    "Germany",
-    10
-   ],
-   [
-    "Netherlands",
-    8
-   ],
-   [
-    "Spain",
-    8
-   ],
-   [
     "United States",
-    5
+    11
    ],
    [
-    "Singapore",
-    4
-   ],
-   [
-    "Indonesia",
-    3
+    "Germany",
+    11
    ]
   ],
-  "indonesia": 3,
+  "indonesia": 13,
   "travellers": [
    [
     "Couple",
-    80
+    124
    ],
    [
     "Solo traveller",
-    34
+    51
    ],
    [
     "Family",
-    29
+    49
    ],
    [
     "Group",
-    8
+    13
    ]
   ],
-  "n": 151
+  "n": 237
  },
+ "community": [
+  {
+   "title": "Seraya or Sudamala Resort",
+   "forum": "Flores",
+   "date": "2026-02-11",
+   "gist": "Traveller choosing between Seraya island options"
+  },
+  {
+   "title": "Getting to 'town' and back",
+   "forum": "Flores",
+   "date": "2025-05-16",
+   "gist": "Question about transport from Sudamala Komodo into Labuan Bajo"
+  },
+  {
+   "title": "Best surf camps in Lombok for progressing beyond beginner level",
+   "forum": "Lombok",
+   "date": "2025-08-23",
+   "gist": "Sudamala mentioned in passing"
+  },
+  {
+   "title": "Pleasantly Surprised - Lombok is Beautiful",
+   "forum": "Lombok",
+   "date": "2025-07-20",
+   "gist": "Traveller looking forward to a Sudamala stay"
+  },
+  {
+   "title": "Komodo vs. Sudamala Resort for Snorkelers?",
+   "forum": "Flores",
+   "date": "2024-07-30",
+   "gist": "Comparing Komodo Resort & Diving Club with Sudamala Seraya"
+  },
+  {
+   "title": "Nice place to stay",
+   "forum": "Sanur",
+   "date": "2024-09-28",
+   "gist": "Recommends Sudamala Sanur's location"
+  }
+ ],
  "instagram": {
   "accounts": [
    {
@@ -4586,9 +8682,10 @@ export const DATA = {
   }
  ],
  "gaps": [
-  "Tripadvisor review text: its review pages refuse automated visits (HTTP 403); only overall ratings are included.",
-  "Agoda: only Komodo's overall score was read; Agoda largely repeats Booking.com reviews.",
-  "Google reviews: newest 20–25 for Ubud, Sanur and Amed only; Senggigi, Komodo and Seraya wait for Firecrawl credits.",
+  "Tripadvisor review text: its review pages refuse automated visits (HTTP 403); only overall ratings and forum thread titles are included.",
+  "Traveloka: scores for Sanur and Komodo only; the other four pages were not found before Firecrawl credits ran out.",
+  "tiket.com: the page does not show whether the hotel replied, so reply rates are not counted there.",
+  "Expedia and Hotels.com: not collected yet.",
   "Reddit: not reachable with the current tools.",
   "TikTok guest videos: TikTok search asked for a CAPTCHA, so only Sudamala's own account is included.",
   "Instagram and Facebook reach, saves and video views need access to Sudamala's own Meta Business Suite."

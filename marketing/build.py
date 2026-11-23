@@ -116,6 +116,20 @@ for rid, short, island in RESORTS:
 competitors = [{"name": p["name"].replace(", Bali", ""), "rating": p["rating"], "reviews": p["review_count"], "us": not p["competitor"]}
                for p in listings if p["competitor"] or p["id"] == "ubud"]
 
+# ---------- Volume-adjusted score: Google stars x (our reviews / area competitors' average reviews), ratio capped at 1 ----------
+cm = load("competitors-maps.json")["areas"]
+cm["ubud"] = {"label": "Ubud", "competitors": [[c["name"], c["rating"], c["reviews"]] for c in competitors if not c["us"]]}
+def vol_adj(stars, n, avg_n): return round(stars * 2 * min(1, n / avg_n), 2)
+areas = {}
+for r in ratings:
+    comp = cm[r["id"]]["competitors"]
+    avg_n = sum(c[2] for c in comp) / len(comp)
+    avg_r = sum(c[1] for c in comp) / len(comp)
+    g = r["google"]
+    r["volume"] = {"area": cm[r["id"]]["label"], "avg_reviews": round(avg_n), "avg_rating": round(avg_r, 2),
+                   "ratio": round(g["reviews"] / avg_n, 3), "score10": vol_adj(g["rating"], g["reviews"], avg_n)}
+    areas[r["id"]] = [{"name": c[0], "rating": c[1], "reviews": c[2], "score10": vol_adj(c[1], c[2], avg_n)} for c in comp]
+
 # ---------- Topics and guest origin (Booking, last 90 days) ----------
 recent = [r for r in booking_reviews if (TODAY - dt.date.fromisoformat(r["date"])).days <= 90]
 praise = Counter(t for r in recent for t in r["praise"])
@@ -163,7 +177,7 @@ fb = tf["facebook"]["pages"]
 
 data = {
     "collected": "2026-11-23",
-    "ratings": ratings, "competitors": competitors,
+    "ratings": ratings, "competitors": competitors, "areas": areas,
     "reviews": reviews,
     "topics": {"praise": praise.most_common(8), "complaints": complaints.most_common(8),
                "complaints_where": {k: v.most_common(3) for k, v in compl_by_resort.items()},
@@ -188,5 +202,6 @@ print("reviews", len(reviews), "| booking 90d", len(recent), "| praise", praise.
 print("countries", countries.most_common(6)); print("travellers", travellers.most_common(4))
 print("gap", biggest_gap, [(a["handle"], a["gap_days"], a["gap_from"], a["gap_to"]) for a in ig_accounts]); print("indonesia", countries.get("Indonesia",0), "booking reply", [(r["id"], r["booking_reply"]) for r in ratings]); print("top", [(p["handle"], p["likes"]) for p in top_posts])
 print("ig", [(a["handle"], a["engagement_rate"], a["last_post"]) for a in ig_accounts])
+print("volume", [(r["id"], r["volume"]["score10"], r["volume"]["avg_reviews"]) for r in ratings])
 print("tiktok last", tt_videos[0]["date"], "| blended", [(r["id"], r["blended10"], r["total_reviews"]) for r in ratings])
 print("booking replied flags", Counter(row.split(' | ')[-1] for h in bk.values() for row in h['rows']))

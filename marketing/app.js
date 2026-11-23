@@ -66,6 +66,14 @@ function stats(list) {
 }
 const replySev = st => (!st.known ? null : st.replied / st.known < 0.5 ? "critical" : st.replied / st.known < 0.9 ? "watch" : "ok");
 
+// Volume-adjusted score (/10) = Google stars x 2 x min(1, our Google reviews / area competitors' average reviews).
+function volScore(list) {
+  const v = list.reduce((a, r) => a + r.google.reviews, 0), m = list.reduce((a, r) => a + r.volume.avg_reviews, 0);
+  const stars = list.reduce((a, r) => a + r.google.rating * r.google.reviews, 0) / v;
+  return { score: stars * 2 * Math.min(1, v / m), stars, v, m, ratio: v / m };
+}
+const volSev = x => (x < 5 ? "critical" : x < 8 ? "watch" : "ok");
+
 /* ---------- bars ---------- */
 function bars(listEl, rows, max, empty = "Nothing in this selection.") {
   clear(listEl);
@@ -96,14 +104,15 @@ function verdict(list, st) {
 function tiles(list, st) {
   const scope = scopeResorts();
   const w = weighted(scope.map(r => listing(r)));
+  const vs = volScore(scope);
   const accts = state.resort === "all" ? IG : IG.filter(a => a.handle === IG_OF[state.resort]);
   const fol = accts.reduce((a, x) => a + x.followers, 0);
   const posts = accts.reduce((a, x) => a + x.sample, 0);
   const eng = posts ? accts.reduce((a, x) => a + x.avg_engagement * x.sample, 0) / posts : 0;
   const rs = replySev(st);
   const t = [
-    { hero: true, label: "Overall score", helper: `${SITES[state.site]}, every review ever posted`, value: w ? fix(w.v, 1) : "–", unit: w ? "/10" : "",
-      change: w ? `${nf.format(w.n)} reviews, ${scopeText()}` : "Not listed on this site", sev: w ? (w.v >= 9 ? "ok" : "watch") : null },
+    { hero: true, label: "Volume-adjusted score", helper: "Google stars × our number of reviews ÷ the average of competitors in the same area", value: fix(vs.score, 1), unit: "/10",
+      change: `${fix(vs.stars, 1)} stars from ${nf.format(vs.v)} Google reviews; nearby competitors average ${nf.format(Math.round(vs.m / scope.length))} reviews each (we have ${pct(vs.v, vs.m)}% of that). Stars alone: ${w ? fix(w.v, 1) : "–"}/10 across all sites.`, sev: volSev(vs.score) },
     { label: "Reviews in this period", helper: "Newest public reviews we read", value: String(st.n),
       change: st.n ? `Average ${fix(st.avg, 1)}/10` : "None in this period", sev: null },
     { label: "Reply rate", helper: "Reviews with a reply from us", value: st.known ? pct(st.replied, st.known) + "%" : "–", bad: rs === "critical",
@@ -125,10 +134,10 @@ function tiles(list, st) {
   }
 }
 function ratingStrip() {
-  const rows = R.map(r => ({ r, l: listing(r) })).filter(x => x.l).sort((a, b) => b.l.v - a.l.v);
-  const list = h("ol", { class: "bars", "aria-label": `Overall score by resort, ${SITES[state.site]}` });
-  bars(list, rows.map(({ r, l }) => ({ label: r.name, v: l.v - 7, text: fix(l.v, 1),
-    cls: [state.resort === r.id ? "is-us" : "", l.v < 9 ? "is-behind" : ""].filter(Boolean).join(" ") })), 3, "Not listed on this site.");
+  const rows = [...R].sort((a, b) => b.volume.score10 - a.volume.score10);
+  const list = h("ol", { class: "bars", "aria-label": "Volume-adjusted score by resort" });
+  bars(list, rows.map(r => ({ label: r.name, v: r.volume.score10, text: fix(r.volume.score10, 1),
+    cls: [state.resort === r.id ? "is-us" : "", r.volume.score10 < 5 ? "is-behind" : ""].filter(Boolean).join(" ") })), 10);
   return list;
 }
 
@@ -195,7 +204,8 @@ function scoreTable(list) {
   if (site === "all" || site === "Google") cols.push({ label: "Google", sub: "out of 5", v: r => fix(r.google.rating, 1), d: r => nf.format(r.google.reviews) + " reviews" });
   if (site === "all" || site === "Booking.com") cols.push({ label: "Booking.com", sub: "out of 10", v: r => r.booking.score != null ? fix(r.booking.score, 1) : "–", d: r => r.booking.reviews != null ? nf.format(r.booking.reviews) + " reviews" : "" });
   if (site === "all" || site === "Tripadvisor") cols.push({ label: "Tripadvisor", sub: "out of 5", v: r => r.tripadvisor ? fix(r.tripadvisor.rating, 1) : "Not listed", d: r => r.tripadvisor ? nf.format(r.tripadvisor.reviews) + " reviews" : "", na: r => !r.tripadvisor });
-  if (site === "all") cols.push({ label: "Average", sub: "out of 10", v: r => fix(r.blended10, 1), d: r => nf.format(r.total_reviews) + " reviews", bad: r => r.blended10 < 9 });
+  if (site === "all") cols.push({ label: "Average stars", sub: "all sites, out of 10", v: r => fix(r.blended10, 1), d: r => nf.format(r.total_reviews) + " reviews", bad: r => r.blended10 < 9 });
+  cols.push({ label: "Volume-adjusted", sub: "out of 10", v: r => fix(r.volume.score10, 1), d: r => `${pct(r.google.reviews, r.volume.avg_reviews)}% of area volume`, bad: r => r.volume.score10 < 8 });
   if (site !== "Tripadvisor") {
     cols.push({ label: "In this period", sub: "average, out of 10", v: r => { const st = replyOf(r); return st.n ? fix(st.avg, 1) : "–"; }, d: r => { const n = replyOf(r).n; return n ? `${n} review${n === 1 ? "" : "s"}` : "no reviews"; }, bad: r => { const st = replyOf(r); return st.n && st.avg < 8.5; } });
     cols.push({ label: "Replied", sub: "in this period", v: r => { const st = replyOf(r); return st.known ? pct(st.replied, st.known) + "%" : "–"; },
@@ -215,13 +225,23 @@ function scoreTable(list) {
 
 /* ---------- competitors, topics, guests ---------- */
 function compare() {
-  const show = (state.resort === "all" || state.resort === "ubud") && (state.site === "all" || state.site === "Google");
-  $("#compare").hidden = !show;
-  if (!show) return;
-  const set = [...DATA.competitors].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
-  const rank = set.findIndex(x => x.us) + 1;
-  $("#compare-h").textContent = rank === set.length ? "Ubud is last of five nearby resorts on Google, with the fewest reviews" : `Ubud ranks ${rank} of ${set.length} nearby resorts on Google`;
-  bars($("#compare-bars"), set.map(x => ({ label: x.us ? "Sudamala Resort Ubud" : x.name, sub: nf.format(x.reviews) + " reviews", v: x.rating - 4, text: fix(x.rating, 1), cls: x.us ? "is-us is-behind" : "" })), 1);
+  const box = $("#compare");
+  if (state.resort === "all") {
+    const rows = [...R].sort((a, b) => b.volume.score10 - a.volume.score10);
+    $("#compare-h").textContent = `Against nearby competitors, ${rows[0].name} comes closest; ${rows.at(-1).name} is furthest behind`;
+    $("#compare-sub").textContent = "Volume-adjusted score out of 10: Google stars, scaled down when we have fewer Google reviews than the average competitor in the same area. Choose a resort to see its competitors.";
+    bars($("#compare-bars"), rows.map(r => ({ label: r.name, sub: `${nf.format(r.google.reviews)} reviews vs ${nf.format(r.volume.avg_reviews)} average in ${r.volume.area}`, v: r.volume.score10, text: fix(r.volume.score10, 1), cls: r.volume.score10 < 5 ? "is-us is-behind" : "is-us" })), 10);
+  } else {
+    const me = byId[state.resort];
+    const set = [...DATA.areas[me.id], { name: "Sudamala " + me.name, rating: me.google.rating, reviews: me.google.reviews, score10: me.volume.score10, us: true }]
+      .sort((a, b) => b.score10 - a.score10 || b.reviews - a.reviews);
+    const rank = set.findIndex(x => x.us) + 1;
+    $("#compare-h").textContent = rank === set.length ? `Sudamala ${me.name} is last of ${set.length} in ${me.volume.area} once review volume counts`
+      : `Sudamala ${me.name} ranks ${rank} of ${set.length} in ${me.volume.area} once review volume counts`;
+    $("#compare-sub").textContent = `Volume-adjusted score out of 10. Competitors here average ${nf.format(me.volume.avg_reviews)} Google reviews and ${fix(me.volume.avg_rating, 1)} stars; anyone with at least that many reviews keeps their full star score.`;
+    bars($("#compare-bars"), set.map(x => ({ label: x.name, sub: `${fix(x.rating, 1)} stars · ${nf.format(x.reviews)} reviews`, v: x.score10, text: fix(x.score10, 1), cls: x.us ? "is-us" + (x.score10 < 5 ? " is-behind" : "") : "" })), 10);
+  }
+  box.hidden = false;
 }
 function count(list, key) {
   const c = {}, where = {};

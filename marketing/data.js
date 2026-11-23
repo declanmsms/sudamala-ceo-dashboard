@@ -33,6 +33,13 @@ export const DATA = {
    "booking_reply": {
     "n": 3,
     "replied": 0
+   },
+   "volume": {
+    "area": "Ubud",
+    "avg_reviews": 2010,
+    "avg_rating": 4.78,
+    "ratio": 0.039,
+    "score10": 0.36
    }
   },
   {
@@ -70,6 +77,13 @@ export const DATA = {
    "booking_reply": {
     "n": 30,
     "replied": 0
+   },
+   "volume": {
+    "area": "Sanur",
+    "avg_reviews": 2602,
+    "avg_rating": 4.66,
+    "ratio": 0.401,
+    "score10": 3.77
    }
   },
   {
@@ -104,6 +118,13 @@ export const DATA = {
    "booking_reply": {
     "n": 30,
     "replied": 15
+   },
+   "volume": {
+    "area": "Amed",
+    "avg_reviews": 437,
+    "avg_rating": 4.26,
+    "ratio": 0.334,
+    "score10": 2.94
    }
   },
   {
@@ -137,6 +158,13 @@ export const DATA = {
    "booking_reply": {
     "n": 30,
     "replied": 20
+   },
+   "volume": {
+    "area": "Senggigi, Lombok",
+    "avg_reviews": 2589,
+    "avg_rating": 4.62,
+    "ratio": 0.426,
+    "score10": 4.09
    }
   },
   {
@@ -170,6 +198,13 @@ export const DATA = {
    "booking_reply": {
     "n": 29,
     "replied": 0
+   },
+   "volume": {
+    "area": "Labuan Bajo",
+    "avg_reviews": 2026,
+    "avg_rating": 4.52,
+    "ratio": 0.583,
+    "score10": 5.48
    }
   },
   {
@@ -203,6 +238,13 @@ export const DATA = {
    "booking_reply": {
     "n": 29,
     "replied": 10
+   },
+   "volume": {
+    "area": "Island resorts near Labuan Bajo",
+    "avg_reviews": 1258,
+    "avg_rating": 4.58,
+    "ratio": 0.438,
+    "score10": 4.03
    }
   }
  ],
@@ -238,6 +280,200 @@ export const DATA = {
    "us": false
   }
  ],
+ "areas": {
+  "ubud": [
+   {
+    "name": "The Westin Resort & Spa Ubud",
+    "rating": 4.7,
+    "reviews": 1918,
+    "score10": 8.97
+   },
+   {
+    "name": "Kappa Senses Ubud",
+    "rating": 4.9,
+    "reviews": 946,
+    "score10": 4.61
+   },
+   {
+    "name": "Alaya Resort Ubud",
+    "rating": 4.7,
+    "reviews": 4200,
+    "score10": 9.4
+   },
+   {
+    "name": "Arkamara Dijiwa Ubud",
+    "rating": 4.8,
+    "reviews": 977,
+    "score10": 4.67
+   }
+  ],
+  "sanur": [
+   {
+    "name": "Maya Sanur Resort & Spa",
+    "rating": 4.8,
+    "reviews": 7290,
+    "score10": 9.6
+   },
+   {
+    "name": "Hyatt Regency Bali",
+    "rating": 4.7,
+    "reviews": 3684,
+    "score10": 9.4
+   },
+   {
+    "name": "Seascape Resort Sanur",
+    "rating": 4.9,
+    "reviews": 881,
+    "score10": 3.32
+   },
+   {
+    "name": "InterContinental Bali Sanur Resort",
+    "rating": 4.1,
+    "reviews": 711,
+    "score10": 2.24
+   },
+   {
+    "name": "Sumitra Luxury Villas & Resort",
+    "rating": 4.8,
+    "reviews": 446,
+    "score10": 1.65
+   }
+  ],
+  "amed": [
+   {
+    "name": "Hotel Uyah Amed & Spa Resort",
+    "rating": 4.2,
+    "reviews": 588,
+    "score10": 8.4
+   },
+   {
+    "name": "Salt Resort & Spa",
+    "rating": 4.5,
+    "reviews": 497,
+    "score10": 9.0
+   },
+   {
+    "name": "Bali Dive Resort Amed",
+    "rating": 4.7,
+    "reviews": 420,
+    "score10": 9.03
+   },
+   {
+    "name": "Ocean Resort Amed",
+    "rating": 3.7,
+    "reviews": 406,
+    "score10": 6.88
+   },
+   {
+    "name": "Palm Garden Amed Beach & Spa Resort",
+    "rating": 4.2,
+    "reviews": 274,
+    "score10": 5.27
+   }
+  ],
+  "senggigi": [
+   {
+    "name": "Merumatta Senggigi Lombok",
+    "rating": 4.6,
+    "reviews": 5615,
+    "score10": 9.2
+   },
+   {
+    "name": "Katamaran Hotel & Resort",
+    "rating": 4.6,
+    "reviews": 3732,
+    "score10": 9.2
+   },
+   {
+    "name": "Svarga Resort Lombok",
+    "rating": 4.4,
+    "reviews": 2381,
+    "score10": 8.09
+   },
+   {
+    "name": "Qunci Villas Resort",
+    "rating": 4.7,
+    "reviews": 2282,
+    "score10": 8.29
+   },
+   {
+    "name": "The Chandi Boutique Resort & Spa",
+    "rating": 4.7,
+    "reviews": 765,
+    "score10": 2.78
+   },
+   {
+    "name": "Kalandara Resort Lombok",
+    "rating": 4.7,
+    "reviews": 758,
+    "score10": 2.75
+   }
+  ],
+  "komodo": [
+   {
+    "name": "AYANA Komodo Waecicu Beach",
+    "rating": 4.7,
+    "reviews": 4106,
+    "score10": 9.4
+   },
+   {
+    "name": "Bintang Flores Hotel",
+    "rating": 4.4,
+    "reviews": 2055,
+    "score10": 8.8
+   },
+   {
+    "name": "Meruorah Komodo Labuan Bajo",
+    "rating": 4.5,
+    "reviews": 1882,
+    "score10": 8.36
+   },
+   {
+    "name": "Luwansa Beach Resort",
+    "rating": 4.3,
+    "reviews": 1327,
+    "score10": 5.63
+   },
+   {
+    "name": "Plataran Komodo Resort & Spa",
+    "rating": 4.7,
+    "reviews": 759,
+    "score10": 3.52
+   }
+  ],
+  "seraya": [
+   {
+    "name": "AYANA Komodo Waecicu Beach",
+    "rating": 4.7,
+    "reviews": 4106,
+    "score10": 9.4
+   },
+   {
+    "name": "Plataran Komodo Resort & Spa",
+    "rating": 4.7,
+    "reviews": 759,
+    "score10": 5.67
+   },
+   {
+    "name": "Le Pirate Island",
+    "rating": 4.5,
+    "reviews": 755,
+    "score10": 5.4
+   },
+   {
+    "name": "Komodo Resort & Diving Club",
+    "rating": 4.5,
+    "reviews": 498,
+    "score10": 3.56
+   },
+   {
+    "name": "Angel Island Eco Resort",
+    "rating": 4.5,
+    "reviews": 172,
+    "score10": 1.23
+   }
+  ]
+ },
  "reviews": [
   {
    "resort": "sanur",

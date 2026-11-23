@@ -42,7 +42,7 @@ const REVIEWS = DATA.reviews.map(r => ({ ...r, praise: r.praise.filter(t => !NOT
 
 const SITES = { all: "All sites", Google: "Google", "Booking.com": "Booking.com", Tripadvisor: "Tripadvisor" };
 const PERIOD_TEXT = { 7: "in the last 7 days", 30: "in the last 30 days", 90: "in the last 90 days", all: "across everything collected" };
-const state = { period: "90", resort: "all", site: "all", feed: "all", shown: 10 };
+const state = { period: "90", resort: "all", site: "all", source: "all", feed: "all", shown: 10 };
 
 const scopeResorts = () => (state.resort === "all" ? R : [byId[state.resort]]);
 const scopeText = () => (state.resort === "all" ? "all six resorts" : NAME[state.resort]);
@@ -292,11 +292,12 @@ function social() {
 /* ---------- feed ---------- */
 function renderFeed(base) {
   const chips = clear($("#feed-chips"));
-  const sets = { all: base, low: base.filter(r => r.score < 8), noreply: base.filter(r => r.replied === false) };
+  const mine = base.filter(r => state.source === "all" || r.site === state.source);
+  const sets = { all: mine, low: mine.filter(r => r.score < 8), noreply: mine.filter(r => r.replied === false) };
   for (const [k, label] of [["all", "All"], ["low", "Scores under 8"], ["noreply", "No reply yet"]])
     chips.append(h("button", { type: "button", class: "chip", "aria-pressed": String(state.feed === k), onclick: () => { state.feed = k; state.shown = 10; renderFeed(base); } }, `${label} (${sets[k].length})`));
   const list = sets[state.feed];
-  $("#feed-sub").textContent = `Short extracts from ${siteText()} reviews ${PERIOD_TEXT[state.period]}, ${scopeText()}, newest first. Reviewer names are left out.`;
+  $("#feed-sub").textContent = `Newest first: reviews ${PERIOD_TEXT[state.period]}, ${scopeText()}. Short extracts only; reviewer names are left out.`;
   const ol = clear($("#feed-list"));
   for (const r of list.slice(0, state.shown)) {
     const sc = r.score <= 4 ? "rate-low" : r.score < 8 ? "rate-mid" : "";
@@ -312,7 +313,7 @@ function renderFeed(base) {
         r.praise.map(t => h("span", { class: "tag tag-pos" }, h("span", { "aria-hidden": "true", text: "+" }), h("span", { class: "sr", text: "Praise: " }), t)),
         r.complaints.map(t => h("span", { class: "tag tag-neg" }, h("span", { "aria-hidden": "true", text: "−" }), h("span", { class: "sr", text: "Complaint: " }), t))) : null));
   }
-  if (!list.length) ol.append(h("li", { class: "empty", text: state.site === "Tripadvisor" ? "Tripadvisor review text could not be collected." : "No reviews match. Try a longer period." }));
+  if (!list.length) ol.append(h("li", { class: "empty", text: "No reviews match. Try another site, “All” or a longer period." }));
   const more = $("#more"); more.hidden = list.length <= state.shown; more.textContent = `Show more (${list.length - state.shown} left)`;
 }
 
@@ -321,14 +322,13 @@ function render() {
   const list = filtered().sort((a, b) => a.age - b.age);
   const st = stats(list);
   verdict(list, st); tiles(list, st); findings(); scoreTable(list); compare(); topics(list); guests(list); social(); renderFeed(list);
-  $(".masthead").dataset.filters = `${PERIOD_TEXT[state.period]}, ${scopeText()}, ${lc(SITES[state.site])}`;
+  $(".masthead").dataset.filters = `${PERIOD_TEXT[state.period]}, ${scopeText()}`;
   syncUrl();
 }
 function syncUrl() {
   const q = new URLSearchParams();
   if (state.period !== "90") q.set("period", state.period);
   if (state.resort !== "all") q.set("resort", state.resort);
-  if (state.site !== "all") q.set("site", state.site);
   const qs = q.toString();
   history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
 }
@@ -336,7 +336,6 @@ function readUrl() {
   const q = new URLSearchParams(location.search);
   if (["7", "30", "90", "all"].includes(q.get("period"))) state.period = q.get("period");
   if (byId[q.get("resort")]) state.resort = q.get("resort");
-  if (SITES[q.get("site")]) state.site = q.get("site");
 }
 function placeThumbs(animate = true) {
   for (const seg of document.querySelectorAll(".seg-options")) {
@@ -361,21 +360,21 @@ function softSwap() {
 }
 function init() {
   readUrl();
-  const sel = $("#resort"), site = $("#site");
+  const sel = $("#resort"), src = $("#source");
   for (const r of R) sel.append(h("option", { value: r.id, text: `${r.name} (${r.island})` }));
-  for (const [k, v] of Object.entries(SITES)) if (k !== "all") site.append(h("option", { value: k, text: k === "Tripadvisor" ? "Tripadvisor (scores only)" : v }));
+  for (const k of ["Google", "Booking.com"]) src.append(h("option", { value: k, text: k }));
   const form = $("#filters");
   form.querySelector(`input[name=period][value="${state.period}"]`).checked = true;
-  sel.value = state.resort; site.value = state.site;
+  sel.value = state.resort;
   form.addEventListener("submit", e => e.preventDefault());
   form.addEventListener("change", e => {
     const t = e.target;
     if (t.name === "period") { state.period = t.value; placeThumbs(); }
     else if (t.id === "resort") state.resort = t.value;
-    else if (t.id === "site") state.site = t.value;
     state.shown = 10;
     render(); softSwap();
   });
+  src.addEventListener("change", () => { state.source = src.value; state.shown = 10; renderFeed(filtered().sort((a, b) => a.age - b.age)); });
   $("#more").addEventListener("click", () => { state.shown += 10; renderFeed(filtered().sort((a, b) => a.age - b.age)); });
   render();
   for (const g of DATA.gaps) $("#gaps").append(h("li", { text: g }));

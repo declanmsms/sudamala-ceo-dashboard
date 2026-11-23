@@ -58,13 +58,5 @@
   .post .eng { grid-column: 2; text-align: left; }
 }
 
-/* Three-control filter bar: period, resort, site */
-@media (min-width: 640px) and (max-width: 1023px) {
-  .filters.filters-3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .filters.filters-3 .seg { grid-column: 1 / -1; }
-}
-@media (min-width: 1024px) {
-  .filters.filters-3 { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1fr); align-items: end; }
-}
 .mk tr.is-focus th, .mk tr.is-focus td { background: var(--tint); }
 [hidden] { display: none !important; }

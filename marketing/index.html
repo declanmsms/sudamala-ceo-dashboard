@@ -40,7 +40,7 @@
 </header>
 
 <div class="filterbar" id="filterbar">
-  <form class="wrap filters filters-3" id="filters" aria-label="Filters">
+  <form class="wrap filters filters-2" id="filters" aria-label="Filters">
     <fieldset class="seg">
       <legend>Reviews posted</legend>
       <div class="seg-options">
@@ -53,10 +53,6 @@
     <div class="field">
       <label for="resort">Resort</label>
       <select id="resort" name="resort"><option value="all">All six resorts</option></select>
-    </div>
-    <div class="field">
-      <label for="site">Site</label>
-      <select id="site" name="site"><option value="all">All sites</option></select>
     </div>
   </form>
 </div>
@@ -147,11 +143,14 @@
 
   <section class="section" id="feed" aria-labelledby="feed-h">
     <div class="section-head">
-      <h2 id="feed-h">Latest reviews</h2>
+      <h2 id="feed-h">All reviews</h2>
       <p class="answers" id="feed-sub"></p>
     </div>
-    <div class="feed-tools">
-      <div class="chips" id="feed-chips" role="group" aria-label="Show"></div>
+    <div class="feed-tools" role="group" aria-label="Show">
+      <div class="chips" id="feed-chips"></div>
+      <label class="src-pick"><span>Site</span>
+        <select id="source"><option value="all">All sites</option></select>
+      </label>
     </div>
     <ol class="rv-list" id="feed-list"></ol>
     <div class="issues-more"><button type="button" class="btn" id="more">Show more</button></div>

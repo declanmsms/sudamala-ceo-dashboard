@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reviews and social media: what the public sees · Sudamala Resorts</title>
+<meta name="description" content="Public guest reviews and social media numbers for Sudamala Resorts, collected 23 November 2026.">
+<meta name="theme-color" content="#0e4f54">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%230e4f54'/%3E%3Cpath d='M8 3.6l1.3 2.7 3 .4-2.2 2.1.5 3L8 10.4l-2.6 1.4.5-3-2.2-2.1 3-.4z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preload" href="../fonts/gilda-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/archivo-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../reviews/reviews.css">
+<link rel="stylesheet" href="marketing.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#fix">Skip to what to fix first</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="topline">
+      <img class="logo" src="../assets/sudamala-logo-white.png" width="240" height="240" alt="Sudamala Resorts">
+      <nav class="views" aria-label="Dashboards">
+        <a href="../">Business</a>
+        <a href="../reviews/">Reviews</a>
+        <a href="./" aria-current="page">Marketing</a>
+      </nav>
+      <p class="sample-label real-label" role="note"><strong>Real public data</strong>, collected 23 November 2026.</p>
+    </div>
+    <div class="intro">
+      <div>
+        <h1>Reviews and social media: what the public sees.</h1>
+        <p class="resorts-line">Google, Booking.com, Tripadvisor, Instagram, TikTok and Facebook, read from their public pages. Scores are out of 10.</p>
+      </div>
+      <p class="verdict" id="verdict"></p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <section class="section" id="kpis" aria-labelledby="kpis-h">
+    <div class="section-head">
+      <h2 id="kpis-h">The group at a glance</h2>
+      <p class="answers">All six resorts, every site combined.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="section" id="fix" aria-labelledby="fix-h" tabindex="-1">
+    <div class="section-head">
+      <h2 id="fix-h">Fix these first</h2>
+      <p class="answers">What the public data says needs attention, most urgent first.</p>
+    </div>
+    <ol class="findings" id="findings"></ol>
+  </section>
+
+  <section class="section" id="scores" aria-labelledby="scores-h">
+    <div class="section-head">
+      <h2 id="scores-h">Scores by resort and site</h2>
+      <p class="answers">Overall score on each site, converted to a score out of 10, and how often the resort replied to its newest reviews.</p>
+    </div>
+    <div class="table-scroll" id="score-table" tabindex="0" role="region" aria-label="Scores by resort, scrolls sideways"></div>
+    <h3 class="sub-h">What Booking.com guests score, by category</h3>
+    <p class="table-note">Red = below 8.5, the weakest areas.</p>
+    <div class="table-scroll" id="sub-table" tabindex="0" role="region" aria-label="Booking.com category scores, scrolls sideways"></div>
+    <div class="chart compare" id="compare">
+      <h3 id="compare-h"></h3>
+      <p class="sub">Google rating out of 5, with the number of Google reviews.</p>
+      <ol class="bars" id="compare-bars" aria-labelledby="compare-h"></ol>
+    </div>
+  </section>
+
+  <section class="section" id="topics" aria-labelledby="topics-h">
+    <div class="section-head">
+      <h2 id="topics-h">What guests praise, and what they complain about</h2>
+      <p class="answers" id="topics-sub"></p>
+    </div>
+    <div class="topic-grid">
+      <figure class="chart topic-card">
+        <h3 id="love-h"></h3>
+        <p class="sub">Mentions in what guests liked</p>
+        <ol class="bars" id="love-bars" aria-labelledby="love-h"></ol>
+      </figure>
+      <figure class="chart topic-card">
+        <h3 id="hate-h"></h3>
+        <p class="sub">Mentions in what guests disliked, and where</p>
+        <ol class="bars bars-neg" id="hate-bars" aria-labelledby="hate-h"></ol>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="guests" aria-labelledby="guests-h">
+    <div class="section-head">
+      <h2 id="guests-h">Who is reviewing us</h2>
+      <p class="answers" id="guests-sub"></p>
+    </div>
+    <div class="topic-grid">
+      <figure class="chart topic-card">
+        <h3 id="country-h"></h3>
+        <p class="sub">Guest home country</p>
+        <ol class="bars" id="country-bars" aria-labelledby="country-h"></ol>
+      </figure>
+      <figure class="chart topic-card">
+        <h3 id="trav-h"></h3>
+        <p class="sub">Type of trip</p>
+        <ol class="bars" id="trav-bars" aria-labelledby="trav-h"></ol>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="social" aria-labelledby="social-h">
+    <div class="section-head">
+      <h2 id="social-h">Social media</h2>
+      <p class="answers" id="social-sub"></p>
+    </div>
+    <div class="table-scroll" id="ig-table" tabindex="0" role="region" aria-label="Instagram accounts, scrolls sideways"></div>
+    <h3 class="sub-h" id="top-h">Best-performing Instagram posts</h3>
+    <ol class="post-list" id="top-posts"></ol>
+    <div class="social-cards" id="social-cards"></div>
+  </section>
+
+  <section class="section" id="feed" aria-labelledby="feed-h">
+    <div class="section-head">
+      <h2 id="feed-h">Latest reviews</h2>
+      <p class="answers">Short extracts from the newest Google and Booking.com reviews. Reviewer names are left out.</p>
+    </div>
+    <div class="feed-tools">
+      <div class="chips" id="feed-chips" role="group" aria-label="Show"></div>
+      <label class="src-pick"><span>Resort</span><select id="resort"><option value="all">All resorts</option></select></label>
+    </div>
+    <ol class="rv-list" id="feed-list"></ol>
+    <div class="issues-more"><button type="button" class="btn" id="more">Show more</button></div>
+  </section>
+</main>
+
+<footer class="wrap footer" id="footer">
+  <p class="sample-label real-label-foot" role="note"><strong>Real public data</strong>, collected 23 November 2026. Not live: it does not update by itself.</p>
+  <div>
+    <h2>Where the numbers come from</h2>
+    <ul>
+      <li>Google: rating and review count for every resort and the four Ubud competitors; the newest 20–25 reviews for Ubud, Sanur and Amed.</li>
+      <li>Booking.com: overall and category scores, and the newest 30 reviews for each resort (3 for Ubud, which has only 3).</li>
+      <li>Tripadvisor: overall ratings from its search page.</li>
+      <li>Instagram: followers, and likes and comments on the 9–12 newest posts of each account, as shown to logged-out visitors.</li>
+      <li>TikTok and Facebook: public followers, likes and video views.</li>
+      <li>Topics are found by keywords in what guests liked and disliked on Booking.com in the last 90 days.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Not included yet</h2>
+    <ul id="gaps"></ul>
+  </div>
+</footer>
+<noscript><p class="wrap">This page needs JavaScript to show the data.</p></noscript>
+</body>
+</html>

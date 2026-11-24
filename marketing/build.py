@@ -120,12 +120,28 @@ for rid, v in tk.items():
 # ---------- Traveloka (scores only) and forum threads ----------
 tv = load("traveloka.json")["resorts"]
 community = load("community.json")["threads"]
+ex = load("expedia.json")["resorts"]
 
-reviews = sorted(google_reviews + booking_reviews + agoda_reviews + tiket_reviews, key=lambda r: r["date"], reverse=True)
+# ---------- Tripadvisor reviews (newest 10 per resort; month precision) ----------
+TA_TRIP = {"Traveled as a couple": "Couple", "Traveled solo": "Solo traveller", "Traveled with family": "Family", "Traveled with friends": "Group", "Traveled on business": "Business"}
+tar = load("tripadvisor-reviews.json")["resorts"]
+ta_reviews = []
+for rid, v in tar.items():
+    for r in v["list"]:
+        d = dt.datetime.strptime(r["date"], "%b %Y").date().replace(day=15)
+        d = min(d, TODAY)
+        body = re.sub(r"\s*Read more\s*$", "", r["text"])
+        ta_reviews.append({"resort": rid, "site": "Tripadvisor", "date": d.isoformat(), "month": True, "score": r["bubbles"] * 2, "raw": f"{r['bubbles']}/5",
+                           "replied": bool(r["replied"]), "text": excerpt(body, 220), "title": excerpt(r["title"], 90),
+                           "praise": topics_in(body) if r["bubbles"] >= 4 else [], "complaints": topics_in(body) if r["bubbles"] <= 3 else [],
+                           "country": r.get("home") or "", "traveller": TA_TRIP.get(r.get("trip"), "")})
+
+reviews = sorted(google_reviews + booking_reviews + agoda_reviews + tiket_reviews + ta_reviews, key=lambda r: r["date"], reverse=True)
 
 # ---------- Tripadvisor / Agoda ----------
 ta = load("tripadvisor-agoda.json")
 trip = {p["id"]: p for p in ta["tripadvisor"]["properties"]}
+for rid, v in tar.items(): trip[rid] = {"id": rid, "rating5": v["rating5"], "reviews": v["reviews"], "subs": v.get("subs", {})}
 
 # ---------- Ratings table ----------
 ratings = []
@@ -139,6 +155,8 @@ for rid, short, island in RESORTS:
     if a: parts.append((a["score"], a["reviews"]))
     if k: parts.append((k["rating5"] * 2, k["reviews"]))
     if v: parts.append((v["rating10"], v["reviews"]))
+    e = ex.get(rid)
+    if e: parts.append((e["rating10"], e["reviews"]))
     tot = sum(n for s, n in parts if s and n)
     blended = round(sum(s * n for s, n in parts if s and n) / tot, 2) if tot else None
     ratings.append({"id": rid, "name": short, "island": island,
@@ -146,6 +164,8 @@ for rid, short, island in RESORTS:
                     "booking": {"score": b.get("score"), "reviews": b.get("reviews")},
                     "tripadvisor": {"rating": t["rating5"], "reviews": t["reviews"]} if t else None,
                     "agoda": a, "tiket": k, "traveloka": {"score": v["rating10"], "reviews": v["reviews"]} if v else None,
+                    "expedia": {"score": e["rating10"], "reviews": e["reviews"]} if e else None,
+                    "ta_reply": {"n": len(tr), "replied": sum(1 for r in tr if r["replied"])} if (tr := [r for r in ta_reviews if r["resort"] == rid]) else None,
                     "blended10": blended, "total_reviews": tot,
                     "subscores": b.get("subscores", {}),
                     "google_reply": google_sample.get(rid),
@@ -174,9 +194,9 @@ complaints = Counter(t for r in recent for t in r["complaints"])
 compl_by_resort = defaultdict(Counter)
 for r in recent:
     for t in r["complaints"]: compl_by_resort[t][r["resort"]] += 1
-countries = Counter(r["country"] for r in booking_reviews + agoda_reviews if r["country"] and r["country"] not in ("Vaaraki",))
+countries = Counter(r["country"] for r in booking_reviews + agoda_reviews + ta_reviews if r["country"] and r["country"] not in ("Vaaraki",))
 TRAV = {"Couple": "Couple", "Family with young children": "Family", "Family with teens": "Family", "Family": "Family", "Solo traveler": "Solo traveller", "Business traveler": "Business"}
-travellers = Counter(TRAV.get(r["traveller"], r["traveller"]) for r in booking_reviews + agoda_reviews if r["traveller"])
+travellers = Counter(TRAV.get(r["traveller"], r["traveller"]) for r in booking_reviews + agoda_reviews + ta_reviews if r["traveller"])
 
 # ---------- Instagram ----------
 ig = load("instagram.json")
@@ -220,18 +240,18 @@ data = {
     "topics": {"praise": praise.most_common(8), "complaints": complaints.most_common(8),
                "complaints_where": {k: v.most_common(3) for k, v in compl_by_resort.items()},
                "window_reviews": len(recent)},
-    "origin": {"countries": countries.most_common(10), "indonesia": countries.get("Indonesia", 0), "travellers": travellers.most_common(6), "n": len(booking_reviews) + len(agoda_reviews)},
+    "origin": {"countries": countries.most_common(10), "indonesia": countries.get("Indonesia", 0), "travellers": travellers.most_common(6), "n": len(booking_reviews) + len(agoda_reviews) + len(ta_reviews)},
     "community": community,
     "instagram": {"accounts": ig_accounts, "top_posts": top_posts, "posts_sampled": len(posts),
                   "biggest_gap": {"from": biggest_gap[0], "to": biggest_gap[1], "days": biggest_gap[2]}},
     "tiktok": {"account": tt["accounts"][0], "videos": tt_videos},
     "facebook": fb,
     "gaps": [
-        "Tripadvisor review text: its review pages refuse automated visits (HTTP 403); only overall ratings and forum thread titles are included.",
-        "Traveloka: scores for Sanur and Komodo only; the other four pages were not found before Firecrawl credits ran out.",
+        "Tripadvisor: only the newest 10 reviews per resort (2 for Ubud, which has only 2), dated to the month.",
+        "Traveloka: Sanur and Komodo scores could not be confirmed, and Ubud has no rating yet.",
+        "Expedia: overall scores only; review text not collected.",
         "tiket.com: the page does not show whether the hotel replied, so reply rates are not counted there.",
-        "Expedia and Hotels.com: not collected yet.",
-        "Reddit: not reachable with the current tools.",
+        "Reddit: only thread titles found through web search; comments not read.",
         "TikTok guest videos: TikTok search asked for a CAPTCHA, so only Sudamala's own account is included.",
         "Instagram and Facebook reach, saves and video views need access to Sudamala's own Meta Business Suite.",
     ],

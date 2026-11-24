@@ -177,9 +177,13 @@ function allFindings() {
   items.push({ where: ["komodo", "seraya"], sev: "critical", head: "Asian guests say they were treated worse, and Agoda reviews go unanswered",
     body: `Three low Agoda reviews from Chinese guests (Seraya, Sept 2025 and Sept 2026; Komodo, Oct 2026) say staff were colder to them, or checked them in last, than to other foreign guests. None got a reply. ${agNo.map(r => `${r.name} answered 0 of its ${r.agoda.reply.n} newest Agoda reviews`).join("; ")}. Future Asian guests read these first on Agoda.`,
     act: ["GMs Komodo + Seraya", "reply to these three reviews personally, review check-in order and service standards with front office, and answer every Agoda review."], num: "3", numSub: "reviews alleging unequal treatment" });
+  const taNo = R.filter(r => r.ta_reply && r.ta_reply.n >= 10 && r.ta_reply.replied === 0), taYes = R.filter(r => r.ta_reply && r.ta_reply.replied === r.ta_reply.n && r.ta_reply.n >= 10);
+  if (taNo.length) items.push({ where: taNo.map(r => r.id), sev: "critical", head: `${taNo.map(r => r.name).join(" and ")} have stopped answering Tripadvisor`,
+    body: `${taNo.map(r => `${r.name} answered 0 of its ${r.ta_reply.n} newest Tripadvisor reviews`).join("; ")}, including an October 1-star at Seraya from visitors who say they were turned away at the pier. ${taYes.map(r => r.name).join(" and ")} answered every one, so the habit exists in the group. Tripadvisor is where older Australian and British travellers read reviews.`,
+    act: ["Sanur + Seraya GMs", "answer the newest Tripadvisor reviews this week, starting with the Seraya 1-star, then keep to 24 hours."], num: "0 of " + taNo.reduce((a, r) => a + r.ta_reply.n, 0), numSub: "newest Tripadvisor reviews answered" });
   const tk = R.filter(r => r.tiket), tkN = tk.reduce((a, r) => a + r.tiket.reviews, 0), tkAvg = tk.reduce((a, r) => a + r.tiket.rating5 * r.tiket.reviews, 0) / tkN;
   items.push({ where: null, sev: "watch", head: "Indonesian guests rate us well, but on tiket.com and Traveloka, not Booking.com",
-    body: `Only ${DATA.origin.indonesia} of ${DATA.origin.n} Booking.com and Agoda reviews came from Indonesia. On tiket.com, used mostly by Indonesians, we have ${nf.format(tkN)} reviews averaging ${fix(tkAvg, 1)}/5; Traveloka shows 9.4/10 for Sanur and Komodo.`,
+    body: `Only ${DATA.origin.indonesia} of ${DATA.origin.n} Booking.com, Agoda and Tripadvisor reviews came from Indonesia. On tiket.com, used mostly by Indonesians, we have ${nf.format(tkN)} reviews averaging ${fix(tkAvg, 1)}/5; Traveloka shows ${R.filter(r => r.traveloka).map(r => `${r.name} ${fix(r.traveloka.score, 1)}`).join(", ")} out of 10.`,
     act: ["Revenue + CMO", "treat tiket.com and Traveloka as core channels for the Indonesian market: refresh photos, reply to reviews in Bahasa Indonesia, and track them monthly."], num: nf.format(tkN), numSub: "tiket.com reviews" });
   return items.sort((a, b) => (a.sev === "critical" ? 0 : 1) - (b.sev === "critical" ? 0 : 1));
 }
@@ -212,7 +216,8 @@ function scoreTable(list) {
   if (site === "all") {
     cols.push({ label: "Agoda", sub: "out of 10", v: r => r.agoda ? fix(r.agoda.score, 1) : "–", d: r => r.agoda ? nf.format(r.agoda.reviews) + " reviews" : "" });
     cols.push({ label: "tiket.com", sub: "out of 5", v: r => r.tiket ? fix(r.tiket.rating5, 1) : "–", d: r => r.tiket ? nf.format(r.tiket.reviews) + " reviews" : "" });
-    cols.push({ label: "Traveloka", sub: "out of 10", v: r => r.traveloka ? fix(r.traveloka.score, 1) : "Not read", d: r => r.traveloka ? nf.format(r.traveloka.reviews) + " reviews" : "", na: r => !r.traveloka });
+    cols.push({ label: "Expedia", sub: "out of 10", v: r => r.expedia ? fix(r.expedia.score, 1) : "–", d: r => r.expedia ? nf.format(r.expedia.reviews) + " reviews" : "" });
+    cols.push({ label: "Traveloka", sub: "out of 10", v: r => r.traveloka ? fix(r.traveloka.score, 1) : r.id === "ubud" ? "No rating yet" : "Not confirmed", d: r => r.traveloka ? nf.format(r.traveloka.reviews) + " reviews" : "", na: r => !r.traveloka });
   }
   if (site === "all" || site === "Tripadvisor") cols.push({ label: "Tripadvisor", sub: "out of 5", v: r => r.tripadvisor ? fix(r.tripadvisor.rating, 1) : "Not listed", d: r => r.tripadvisor ? nf.format(r.tripadvisor.reviews) + " reviews" : "", na: r => !r.tripadvisor });
   if (site === "all") cols.push({ label: "Average stars", sub: "all sites, out of 10", v: r => fix(r.blended10, 1), d: r => nf.format(r.total_reviews) + " reviews", bad: r => r.blended10 < 9 });
@@ -276,7 +281,7 @@ function guests(list) {
   const withOrigin = list.filter(r => r.country || r.traveller);
   const countries = tally(withOrigin, "country"), trav = tally(withOrigin, "traveller");
   $("#guests-sub").textContent = withOrigin.length
-    ? `From ${withOrigin.length} Booking.com, Agoda and tiket.com reviews ${PERIOD_TEXT[state.period]}, ${scopeText()}. Home country comes from Booking.com and Agoda only; Google shows neither.`
+    ? `From ${withOrigin.length} Booking.com, Agoda, Tripadvisor and tiket.com reviews ${PERIOD_TEXT[state.period]}, ${scopeText()}. Home country comes from Booking.com, Agoda and Tripadvisor; Google and tiket.com do not show it.`
     : `No reviews with guest details ${PERIOD_TEXT[state.period]} for ${scopeText()}.`;
   $("#country-h").textContent = countries.length ? `${countries[0][0]} sends the most reviewers` : "Home country";
   bars($("#country-bars"), countries.slice(0, 7).map(([k, n]) => ({ label: k, v: n, text: String(n) })), countries[0]?.[1] || 1, "No reviewer countries in this selection.");
@@ -318,10 +323,10 @@ function social() {
     fb.length ? [h("p", { class: "big", text: nf.format(fb.reduce((a, p) => a + p.followers, 0)) }), h("p", { class: "helper", text: one ? "followers" : `followers across ${fb.length} pages` }),
       h("ul", {}, fb.map(p => h("li", {}, h("b", { text: NAME[p.resort] + ": " }), `${nf.format(p.followers)} followers` + (p.recommend_pct ? `, ${p.recommend_pct}% recommend (${p.recommend_reviews} reviews)` : "") + (p.note ? `. ${p.note}` : "")))) ]
       : [h("p", { class: "big", text: "–" }), h("p", { class: "helper", text: `No Facebook page found for ${NAME[state.resort]}.` })]));
-  const th = [...DATA.community].sort((a, b) => b.date.localeCompare(a.date));
-  cards.append(h("div", { class: "s-card" }, h("h3", { text: "Traveller forums (Tripadvisor)" }), h("p", { class: "big", text: String(th.length) }),
-    h("p", { class: "helper", text: "threads mentioning Sudamala since 2024; few people ask about us" }),
-    h("ul", {}, th.map(t => h("li", {}, h("b", { text: `${t.title} ` }), `(${t.forum}, ${fmtDate(t.date)}): ${t.gist}.`)))));
+  const th = [...DATA.community].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  cards.append(h("div", { class: "s-card" }, h("h3", { text: "Traveller forums (Tripadvisor and Reddit)" }), h("p", { class: "big", text: String(th.length) }),
+    h("p", { class: "helper", text: "threads mentioning Sudamala; few, but all positive or neutral" }),
+    h("ul", {}, th.map(t => h("li", {}, h("b", { text: `${t.title} ` }), `(${t.forum}${t.date ? ", " + fmtDate(t.date) : ""}): ${t.gist}.`)))));
 }
 
 /* ---------- feed ---------- */
@@ -341,7 +346,7 @@ function renderFeed(base) {
       h("div", { class: "rv-top" },
         h("div", { class: "rate " + sc, role: "img", "aria-label": `Score ${num} out of 10 (${r.raw} on ${r.site})` }, h("span", {}, num, h("small", { text: "/10" }))),
         h("div", { class: "rv-meta" }, h("h3", { class: "rv-title", text: r.title || (r.score >= 8 ? "Happy guest" : "Mixed review") }),
-          h("p", { class: "rv-who" }, h("b", { text: NAME[r.resort] }), " · ", h("span", { class: "rv-src", text: r.site }), ` · ${fmtDate(r.date)}` + (r.country ? ` · ${r.country}` : "") + (r.traveller ? `, ${r.traveller.toLowerCase()}` : ""))),
+          h("p", { class: "rv-who" }, h("b", { text: NAME[r.resort] }), " · ", h("span", { class: "rv-src", text: r.site }), ` · ${r.month ? new Date(r.date + "T12:00:00").toLocaleDateString("en-GB", { month: "short", year: "numeric" }) : fmtDate(r.date)}` + (r.country ? ` · ${r.country}` : "") + (r.traveller ? `, ${r.traveller.toLowerCase()}` : ""))),
         h("div", { class: "rv-state" }, r.replied === true ? chip("ok", "Replied") : r.replied === false ? chip(r.score < 8 ? "critical" : "watch", "No reply") : null)),
       h("p", { class: "rv-body", text: r.text || "Score only, no text." }),
       (r.praise.length || r.complaints.length) ? h("div", { class: "tags" },
@@ -397,7 +402,7 @@ function init() {
   readUrl();
   const sel = $("#resort"), src = $("#source");
   for (const r of R) sel.append(h("option", { value: r.id, text: `${r.name} (${r.island})` }));
-  for (const k of ["Google", "Booking.com", "Agoda", "tiket.com"]) src.append(h("option", { value: k, text: k }));
+  for (const k of ["Google", "Booking.com", "Agoda", "Tripadvisor", "tiket.com"]) src.append(h("option", { value: k, text: k }));
   const form = $("#filters");
   form.querySelector(`input[name=period][value="${state.period}"]`).checked = true;
   sel.value = state.resort;

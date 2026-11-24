@@ -243,6 +243,7 @@ data = {
     "origin": {"countries": countries.most_common(10), "indonesia": countries.get("Indonesia", 0), "travellers": travellers.most_common(6), "n": len(booking_reviews) + len(agoda_reviews) + len(ta_reviews)},
     "community": community,
     "instagram": {"accounts": ig_accounts, "top_posts": top_posts, "posts_sampled": len(posts),
+                  "posts": [[p["handle"], p["date"], p["likes"] + p["comments"]] for p in posts],
                   "biggest_gap": {"from": biggest_gap[0], "to": biggest_gap[1], "days": biggest_gap[2]}},
     "tiktok": {"account": tt["accounts"][0], "videos": tt_videos},
     "facebook": fb,

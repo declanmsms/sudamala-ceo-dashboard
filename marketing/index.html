@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reviews and social media: what the public sees · Sudamala Resorts</title>
+<title>Reviews and social media: volume and engagement · Sudamala Resorts</title>
 <meta name="description" content="Public guest reviews and social media numbers for Sudamala Resorts, collected 23 November 2026.">
 <meta name="theme-color" content="#0e4f54">
 <meta name="robots" content="noindex, nofollow">
@@ -31,8 +31,8 @@
     </div>
     <div class="intro">
       <div>
-        <h1>Reviews and social media: what the public sees.</h1>
-        <p class="resorts-line">Google, Booking.com, Agoda, Tripadvisor, Expedia, tiket.com, Traveloka, Reddit, Instagram, TikTok and Facebook, read from their public pages. Scores are out of 10.</p>
+        <h1>Reviews and social media: volume and engagement.</h1>
+        <p class="resorts-line">Google, Booking.com, Agoda, Tripadvisor, Expedia, tiket.com, Traveloka, Reddit, Instagram, TikTok and Facebook, read from their public pages. Volume and engagement first; scores further down.</p>
       </div>
       <p class="verdict" id="verdict" aria-live="polite"></p>
     </div>
@@ -66,12 +66,44 @@
     <div class="tiles" id="tiles"></div>
   </section>
 
+  <section class="section" id="monthly" aria-labelledby="monthly-h">
+    <div class="section-head">
+      <h2 id="monthly-h">Month by month</h2>
+      <p class="answers" id="monthly-sub"></p>
+    </div>
+    <div class="topic-grid">
+      <figure class="chart topic-card">
+        <h3 id="mrev-h"></h3>
+        <p class="sub">Google, Booking.com, Agoda, Tripadvisor and tiket.com</p>
+        <ol class="bars" id="mrev-bars" aria-labelledby="mrev-h"></ol>
+      </figure>
+      <figure class="chart topic-card">
+        <h3 id="mig-h"></h3>
+        <p class="sub">Likes and comments on posts published that month</p>
+        <ol class="bars" id="mig-bars" aria-labelledby="mig-h"></ol>
+      </figure>
+    </div>
+    <h3 class="sub-h">By resort</h3>
+    <div class="table-scroll" id="volume-table" tabindex="0" role="region" aria-label="Review volume and Instagram activity by resort, scrolls sideways"></div>
+  </section>
+
   <section class="section" id="fix" aria-labelledby="fix-h" tabindex="-1">
     <div class="section-head">
       <h2 id="fix-h">Fix these first</h2>
       <p class="answers" id="fix-sub"></p>
     </div>
     <ol class="findings" id="findings"></ol>
+  </section>
+
+  <section class="section" id="social" aria-labelledby="social-h">
+    <div class="section-head">
+      <h2 id="social-h">Social media</h2>
+      <p class="answers" id="social-sub"></p>
+    </div>
+    <div class="table-scroll" id="ig-table" tabindex="0" role="region" aria-label="Instagram accounts, scrolls sideways"></div>
+    <h3 class="sub-h" id="top-h">Best-performing Instagram posts</h3>
+    <ol class="post-list" id="top-posts"></ol>
+    <div class="social-cards" id="social-cards"></div>
   </section>
 
   <section class="section" id="scores" aria-labelledby="scores-h">
@@ -128,17 +160,6 @@
         <ol class="bars" id="trav-bars" aria-labelledby="trav-h"></ol>
       </figure>
     </div>
-  </section>
-
-  <section class="section" id="social" aria-labelledby="social-h">
-    <div class="section-head">
-      <h2 id="social-h">Social media</h2>
-      <p class="answers" id="social-sub"></p>
-    </div>
-    <div class="table-scroll" id="ig-table" tabindex="0" role="region" aria-label="Instagram accounts, scrolls sideways"></div>
-    <h3 class="sub-h" id="top-h">Best-performing Instagram posts</h3>
-    <ol class="post-list" id="top-posts"></ol>
-    <div class="social-cards" id="social-cards"></div>
   </section>
 
   <section class="section" id="feed" aria-labelledby="feed-h">

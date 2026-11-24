@@ -74,6 +74,58 @@ function volScore(list) {
 }
 const volSev = x => (x < 5 ? "critical" : x < 8 ? "watch" : "ok");
 
+/* ---------- volume and interactions ----------
+   We read only the newest reviews/posts on each site, so a count is exact only for the time our sample reaches back to.
+   COVER[resort][site] = earliest time from which we have every review (0 = we have every review ever). */
+const LIST_N = { Google: r => r.google?.reviews, "Booking.com": r => r.booking?.reviews, Agoda: r => r.agoda?.reviews, Tripadvisor: r => r.tripadvisor?.reviews, "tiket.com": r => r.tiket?.reviews };
+const FEED_SITES = Object.keys(LIST_N);
+const tOf = r => new Date(r.date + "T12:00:00").getTime();
+const COVER = {};
+for (const r of R) {
+  COVER[r.id] = {};
+  for (const site of FEED_SITES) {
+    const mine = REVIEWS.filter(x => x.resort === r.id && x.site === site), total = LIST_N[site](r) || 0;
+    if (mine.length >= total) { COVER[r.id][site] = 0; continue; }
+    if (!mine.length) { COVER[r.id][site] = Infinity; continue; }
+    const old = mine.reduce((a, x) => (x.date < a.date ? x : a));
+    const d = new Date(old.date + "T00:00:00");
+    COVER[r.id][site] = old.month ? new Date(d.getFullYear(), d.getMonth() + 1, 1).getTime() : d.getTime() + DAY;
+  }
+}
+function volume(from, to, resorts = scopeResorts(), sites = FEED_SITES) {
+  const ids = new Set(resorts.map(r => r.id)), by = {};
+  let n = 0, complete = true;
+  for (const site of sites) {
+    const k = REVIEWS.filter(x => x.site === site && ids.has(x.resort) && tOf(x) >= from && tOf(x) <= to).length;
+    const ok = resorts.every(r => COVER[r.id][site] <= from);
+    by[site] = { n: k, complete: ok }; n += k; complete = complete && ok;
+  }
+  return { n, complete, by };
+}
+const plus = v => (v.complete ? nf.format(v.n) : nf.format(v.n) + "+");
+const POSTS = DATA.instagram.posts.map(([handle, date, x]) => ({ handle, t: new Date(date + "T12:00:00").getTime(), x }));
+const IG_COVER = Object.fromEntries(IG.map(a => [a.handle, Math.min(...POSTS.filter(p => p.handle === a.handle).map(p => p.t)) + DAY / 2]));
+const FOL = Object.fromEntries(IG.map(a => [a.handle, a.followers]));
+const scopeHandles = () => (state.resort === "all" ? IG.map(a => a.handle) : [IG_OF[state.resort]]);
+function igWindow(from, to, handles = scopeHandles()) {
+  const ps = POSTS.filter(p => handles.includes(p.handle) && p.t >= from && p.t <= to);
+  // rate = average of (likes + comments) / that account's followers, per post
+  const rate = ps.length ? ps.reduce((a, p) => a + p.x / FOL[p.handle], 0) / ps.length * 100 : 0;
+  return { posts: ps.length, n: ps.reduce((a, p) => a + p.x, 0), rate, complete: handles.every(h => IG_COVER[h] <= from) };
+}
+const D30 = NOW - 30 * DAY;
+function months(k = 3) {
+  const end = new Date(NOW), out = [];
+  for (let i = k - 1; i >= 0; i--) {
+    const a = new Date(end.getFullYear(), end.getMonth() - i, 1), b = new Date(end.getFullYear(), end.getMonth() - i + 1, 1);
+    const cur = i === 0;
+    out.push({ from: a.getTime(), to: cur ? NOW : b.getTime() - 1,
+      label: a.toLocaleDateString("en-GB", { month: "long" }) + (cur ? ` (to ${end.getDate()} ${a.toLocaleDateString("en-GB", { month: "short" })})` : "") });
+  }
+  return out;
+}
+const SHORT = { Google: "Google", "Booking.com": "Booking", Agoda: "Agoda", Tripadvisor: "Tripadvisor", "tiket.com": "tiket" };
+
 /* ---------- bars ---------- */
 function bars(listEl, rows, max, empty = "Nothing in this selection.") {
   clear(listEl);
@@ -95,34 +147,42 @@ function verdict(list, st) {
   }
   if (!st.n) { el.append(h("strong", { text: `No ${siteText()} reviews for ${scopeText()} ${PERIOD_TEXT[state.period]}.` }), " Try a longer period or another site."); return; }
   const sev = replySev(st) || "ok";
+  const days = state.period === "all" ? null : +state.period;
+  const vol = volume(days ? NOW - days * DAY : -Infinity, NOW, scopeResorts(), state.site === "all" ? FEED_SITES : [state.site]);
+  const ig = igWindow(D30, NOW);
   el.append(chip(sev, sev === "ok" ? "On track" : sev === "critical" ? "Fix now" : "Watch"), h("br"),
-    h("strong", { text: `${scopeName()}: ${fix(st.avg, 1)}/10 from ${st.n} review${st.n === 1 ? "" : "s"} ${PERIOD_TEXT[state.period]}` }),
-    st.known ? `, and we replied to ${pct(st.replied, st.known)}% of them.` : ".");
+    h("strong", { text: `${scopeName()}: ${plus(vol)} new ${siteText() === "public" ? "" : siteText() + " "}reviews ${PERIOD_TEXT[state.period]}` + (days ? `, about ${nf.format(Math.round(vol.n / days * 30))} a month.` : ".") }),
+    (st.known ? ` We replied to ${pct(st.replied, st.known)}% of them. ` : " ") + `Instagram: ${nf.format(ig.n)} likes and comments on ${ig.posts} post${ig.posts === 1 ? "" : "s"} in the last 30 days.`);
 }
 
 /* ---------- tiles ---------- */
 function tiles(list, st) {
   const scope = scopeResorts();
-  const w = weighted(scope.map(r => listing(r)));
-  const vs = volScore(scope);
-  const accts = state.resort === "all" ? IG : IG.filter(a => a.handle === IG_OF[state.resort]);
+  const sites = state.site === "all" ? FEED_SITES : [state.site];
+  const days = state.period === "all" ? null : +state.period;
+  const vol = volume(days ? NOW - days * DAY : -Infinity, NOW, scope, sites);
+  const online = scope.reduce((a, r) => a + r.total_reviews, 0);
+  const handles = scopeHandles(), accts = IG.filter(a => handles.includes(a.handle));
   const fol = accts.reduce((a, x) => a + x.followers, 0);
-  const posts = accts.reduce((a, x) => a + x.sample, 0);
-  const eng = posts ? accts.reduce((a, x) => a + x.avg_engagement * x.sample, 0) / posts : 0;
+  const ig = igWindow(D30, NOW), prev = months(2)[0];
+  const igPrev = igWindow(prev.from, prev.to);
+  const per = ig.posts ? ig.n / ig.posts : 0;
+  const target = handles.filter(x => x !== "sudamalaresorts").length * 12 || 12;
   const rs = replySev(st);
+  const bySite = sites.filter(x => vol.by[x].n).map(x => `${SHORT[x]} ${plus(vol.by[x])}`).join(" · ");
   const t = [
-    { hero: true, label: "Volume-adjusted score", helper: "Google stars × our number of reviews ÷ the average of competitors in the same area", value: fix(vs.score, 1), unit: "/10",
-      change: `${fix(vs.stars, 1)} stars from ${nf.format(vs.v)} Google reviews; nearby competitors average ${nf.format(Math.round(vs.m / scope.length))} reviews each (we have ${pct(vs.v, vs.m)}% of that). Stars alone: ${w ? fix(w.v, 1) : "–"}/10 across all sites.`, sev: volSev(vs.score) },
-    { label: "Reviews in this period", helper: "Newest public reviews we read", value: String(st.n),
-      change: st.n ? `Average ${fix(st.avg, 1)}/10` : "None in this period", sev: null },
-    { label: "Reply rate", helper: "Reviews with a reply from us", value: st.known ? pct(st.replied, st.known) + "%" : "–", bad: rs === "critical",
+    { hero: true, label: "New reviews " + (days ? `in the last ${days} days` : "we have read"), helper: (state.site === "all" ? "Google, Booking.com, Agoda, Tripadvisor and tiket.com" : state.site) + (vol.complete ? "" : ". + means at least: on busy sites we could only read the newest reviews"),
+      value: plus(vol), change: (days ? `About ${nf.format(Math.round(vol.n / days * 30))} a month. ` : "") + (bySite || "None in this period") + `. ${nf.format(online)} reviews online in total.`, sev: null },
+    { label: "Reviews online", helper: "Every review ever posted, all sites", value: nf.format(online),
+      change: `Google ${nf.format(scope.reduce((a, r) => a + r.google.reviews, 0))}; competitors nearby average ${nf.format(Math.round(scope.reduce((a, r) => a + r.volume.avg_reviews, 0) / scope.length))} Google reviews each`, sev: null },
+    { label: "Reply rate", helper: "Reviews in this period with a reply from us", value: st.known ? pct(st.replied, st.known) + "%" : "–", bad: rs === "critical",
       change: st.known ? `${st.replied} of ${st.known} answered` : "No reviews to answer", sev: rs },
-    { label: "Scores under 8", helper: "Unhappy or mixed guests", value: String(st.low), bad: st.low > 0 && st.low / Math.max(st.n, 1) > 0.15,
-      change: st.n ? `${pct(st.low, st.n)}% of reviews in this period` : "None in this period", sev: st.n ? (st.low / st.n > 0.15 ? "critical" : st.low ? "watch" : "ok") : null },
-    { label: "Instagram followers", helper: state.resort === "all" ? "Seven accounts; not affected by period or site" : `@${accts[0].handle}; not affected by period or site`, value: nf.format(fol),
-      change: `${fix(fol ? eng / fol * 100 : 0, 2)}% engagement per post`, sev: null },
-    { label: "Likes and comments per post", helper: `Average of the ${posts} newest posts`, value: fix(eng, 0),
-      change: state.resort === "all" ? "Under 1% of followers on most accounts" : "Across the newest posts", sev: fol && eng / fol < 0.005 ? "watch" : null },
+    { label: "Instagram interactions, last 30 days", helper: "Likes and comments on posts published in the last 30 days", value: nf.format(ig.n), bad: ig.n < igPrev.n / 2,
+      change: `${prev.label}: ${nf.format(igPrev.n)}`, sev: ig.n < igPrev.n / 2 ? "critical" : ig.n < igPrev.n ? "watch" : "ok" },
+    { label: "Instagram posts, last 30 days", helper: `Target ${target}: 3 a week per resort account`, value: String(ig.posts), bad: ig.posts < target / 2,
+      change: `${prev.label}: ${igPrev.posts} posts`, sev: ig.posts < target / 2 ? "critical" : ig.posts < target ? "watch" : "ok" },
+    { label: "Engagement per post", helper: "Likes and comments on a post ÷ that account's followers, last 30 days", value: fix(ig.rate, 2) + "%",
+      change: `${fix(per, 0)} likes and comments a post; ${nf.format(fol)} followers in all. October: ${fix(igPrev.rate, 2)}%`, sev: ig.posts ? (ig.rate < 0.5 ? "watch" : "ok") : null },
   ];
   const wrap = clear($("#tiles"));
   for (const x of t) {
@@ -130,15 +190,36 @@ function tiles(list, st) {
       h("div", { class: "tile-label", text: x.label }), h("div", { class: "helper", text: x.helper }),
       h("div", { class: "tile-num" + (x.bad ? " is-bad" : "") }, x.value, x.unit ? h("small", { text: x.unit }) : null),
       h("div", { class: "tile-change", text: x.change }), x.sev ? chip(x.sev) : null,
-      x.hero ? h("div", { class: "spark-box" }, ratingStrip()) : null));
+      x.hero ? h("div", { class: "spark-box" }, volumeStrip(days, sites)) : null));
   }
 }
-function ratingStrip() {
-  const rows = [...R].sort((a, b) => b.volume.score10 - a.volume.score10);
-  const list = h("ol", { class: "bars", "aria-label": "Volume-adjusted score by resort" });
-  bars(list, rows.map(r => ({ label: r.name, v: r.volume.score10, text: fix(r.volume.score10, 1),
-    cls: [state.resort === r.id ? "is-us" : "", r.volume.score10 < 5 ? "is-behind" : ""].filter(Boolean).join(" ") })), 10);
+function volumeStrip(days, sites) {
+  const from = days ? NOW - days * DAY : -Infinity;
+  const rows = R.map(r => ({ r, v: volume(from, NOW, [r], sites) })).sort((a, b) => b.v.n - a.v.n);
+  const list = h("ol", { class: "bars", "aria-label": "New reviews by resort" });
+  bars(list, rows.map(({ r, v }) => ({ label: r.name, v: v.n, text: plus(v), cls: state.resort === r.id ? "is-us" : "" })), Math.max(1, ...rows.map(x => x.v.n)));
   return list;
+}
+
+/* ---------- month by month ---------- */
+function monthly() {
+  const ms = months(3), scope = scopeResorts();
+  $("#monthly-sub").textContent = `${scopeName()}, by calendar month. Changes with the resort filter only. + means at least: on busy sites we could only read the newest reviews, so earlier months may be missing some.`;
+  const rv = ms.map(m => ({ m, v: volume(m.from, m.to, scope) }));
+  $("#mrev-h").textContent = "New reviews per month";
+  bars($("#mrev-bars"), rv.map(({ m, v }) => ({ label: m.label, sub: FEED_SITES.filter(x => v.by[x].n).map(x => `${SHORT[x]} ${plus(v.by[x])}`).join(" · "), v: v.n, text: plus(v) })), Math.max(1, ...rv.map(x => x.v.n)));
+  const ig = ms.map(m => ({ m, v: igWindow(m.from, m.to) }));
+  $("#mig-h").textContent = "Instagram interactions per month";
+  bars($("#mig-bars"), ig.map(({ m, v }) => ({ label: m.label, sub: `${v.posts} post${v.posts === 1 ? "" : "s"}`, v: v.n, text: v.complete ? nf.format(v.n) : nf.format(v.n) + "+", cls: v.posts ? "" : "is-behind" })), Math.max(1, ...ig.map(x => x.v.n)));
+  const v30 = r => volume(D30, NOW, [r]), i30 = r => igWindow(D30, NOW, [IG_OF[r.id]]);
+  const cols = [
+    { label: "New reviews", sub: "last 30 days", v: r => plus(v30(r)), d: r => `≈ ${fix(v30(r).n / 30 * 7, 0)} a week` },
+    ...FEED_SITES.map(site => ({ label: site, sub: "last 30 days", v: r => (LIST_N[site](r) ? plus(v30(r).by[site]) : "–"), na: r => !LIST_N[site](r) })),
+    { label: "Reviews online", sub: "all time, all sites", v: r => nf.format(r.total_reviews) },
+    { label: "Instagram posts", sub: "last 30 days", v: r => String(i30(r).posts), bad: r => i30(r).posts < 6 },
+    { label: "Instagram interactions", sub: "last 30 days", v: r => nf.format(i30(r).n), d: r => { const x = i30(r); return x.posts ? `${fix(x.n / x.posts, 0)} a post` : "no posts"; } },
+  ];
+  table($("#volume-table"), "Review volume and Instagram activity by resort", scope, cols, r => h("span", {}, h("span", { class: "rn", text: r.name }), h("span", { class: "helper", text: r.island })));
 }
 
 /* ---------- findings (from everything collected) ---------- */
@@ -300,6 +381,8 @@ function social() {
     { label: "Followers", sub: "", v: a => (a.followers_approx ? "≈ " : "") + nf.format(a.followers) },
     { label: "Likes + comments", sub: "per post", v: a => fix(a.avg_engagement, 0) },
     { label: "Engagement", sub: "of followers", v: a => a.engagement_rate + "%", bad: a => a.engagement_rate < 0.5 },
+    { label: "Posts", sub: "last 30 days", v: a => String(igWindow(D30, NOW, [a.handle]).posts), bad: a => igWindow(D30, NOW, [a.handle]).posts < 6 },
+    { label: "Interactions", sub: "last 30 days", v: a => nf.format(igWindow(D30, NOW, [a.handle]).n) },
     { label: "Last post", sub: "", v: a => fmtDate(a.last_post), d: a => a.days_since_last === 1 ? "yesterday" : a.days_since_last + " days ago", bad: a => a.days_since_last > 14 },
     { label: "Longest gap", sub: "between posts", v: a => a.gap_days + " days", bad: a => a.gap_days >= 21, d: a => `${fmtDate(a.gap_from)} – ${fmtDate(a.gap_to)}` },
   ];
@@ -361,7 +444,7 @@ function renderFeed(base) {
 function render() {
   const list = filtered().sort((a, b) => a.age - b.age);
   const st = stats(list);
-  verdict(list, st); tiles(list, st); findings(); scoreTable(list); compare(); topics(list); guests(list); social(); renderFeed(list);
+  verdict(list, st); tiles(list, st); monthly(); findings(); scoreTable(list); compare(); topics(list); guests(list); social(); renderFeed(list);
   $(".masthead").dataset.filters = `${PERIOD_TEXT[state.period]}, ${scopeText()}`;
   syncUrl();
 }
@@ -393,7 +476,7 @@ function placeThumbs(animate = true) {
 }
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 function softSwap() {
-  for (const el of document.querySelectorAll("#verdict, #tiles, #findings, #score-table, #topics .topic-grid, #guests .topic-grid, #social, #feed-list")) {
+  for (const el of document.querySelectorAll("#verdict, #tiles, #monthly .topic-grid, #volume-table, #findings, #score-table, #topics .topic-grid, #guests .topic-grid, #social, #feed-list")) {
     el.animate(reduceMotion.matches ? [{ opacity: 0.6 }, { opacity: 1 }] : [{ opacity: 0.35, filter: "blur(3px)" }, { opacity: 1, filter: "blur(0)" }],
       { duration: 220, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
   }
